@@ -11,6 +11,12 @@ namespace LHAL.WebAPI.Controllers
         public string Get()
         {
             return "OK";
-        } 
+        }
+
+        [AcceptVerbs("GET", "POST")]
+        public string Echo(string message)
+        {
+            return "Hello " + message;
+        }
     }
 }
