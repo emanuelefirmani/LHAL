@@ -13,10 +13,16 @@ namespace LHAL.WebAPI.Controllers
             return "OK";
         }
 
-        [AcceptVerbs("GET", "POST")]
+        [HttpGet]
         public string Echo(string message)
         {
             return "Hello " + message;
+        }
+
+        [HttpPost]
+        public string EchoFromPOST([FromBody] LHAL.WebAPI.Models.TestEchoModel model)
+        {
+            return "Hello " + model.Message;
         }
     }
 }
