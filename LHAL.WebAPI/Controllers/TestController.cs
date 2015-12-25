@@ -8,19 +8,12 @@ namespace LHAL.WebAPI.Controllers
 {
     public class TestController : ApiController
     {
-        public string Get()
-        {
-            return "OK";
-        }
-
-        [HttpGet]
-        public string Echo(string message)
+        public string Get(string message)
         {
             return "Hello " + message;
         }
 
-        [HttpPost]
-        public string EchoFromPOST([FromBody] LHAL.WebAPI.Models.TestEchoModel model)
+        public string Post(LHAL.WebAPI.Models.TestEchoModel model)
         {
             return "Hello " + model.Message;
         }
