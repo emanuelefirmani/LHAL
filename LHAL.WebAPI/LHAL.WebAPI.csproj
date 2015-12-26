@@ -165,6 +165,7 @@
     <Compile Include="DAL\PartitePerSquadra.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
+    <Compile Include="DAL\Player.cs" />
     <Compile Include="DAL\Rosa.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
