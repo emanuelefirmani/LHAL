@@ -8,9 +8,15 @@ namespace LHAL.WebAPI.Controllers
 {
     public class PlayersController : ApiController
     {
+        List<Models.Player> players = new List<Models.Player> { 
+            new Models.Player { Name = "John" },
+            new Models.Player { Name = "Steve" },
+            new Models.Player { Name = "Tim" }, 
+        };
+
         public List<Models.Player> Get()
         {
-            return new List<Models.Player> { new Models.Player { Name = "Tim" } };
+            return players;
         }
     }
 }

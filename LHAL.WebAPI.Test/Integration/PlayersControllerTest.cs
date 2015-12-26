@@ -12,7 +12,7 @@ namespace LHAL.WebAPI.Test.Integration
     public class PlayersControllerTest
     {
         [NUnit.Framework.Test]
-        public void GETShouldReturnTim()
+        public void GETShouldReturnArray()
         {
             var request = new RestRequest("api/players", Method.GET);
 
@@ -20,8 +20,8 @@ namespace LHAL.WebAPI.Test.Integration
 
             response.ResponseStatus.Should().Be(ResponseStatus.Completed);
             response.StatusCode.Should().Be(HttpStatusCode.OK);
-            response.Data.Count.Should().Be(1);
-            response.Data.First().Name.Should().Be("Tim");
+            response.Data.Count.Should().Be(3);
+            response.Data.FirstOrDefault(x => x.Name == "Tim").Should().NotBeNull();
         }
     }
 }
