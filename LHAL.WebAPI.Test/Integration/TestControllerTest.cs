@@ -17,9 +17,8 @@ namespace LHAL.WebAPI.Test.Integration
             var request = new RestRequest("api/test", Method.GET);
             request.AddParameter("message", "Tim");
             var der = new RestSharp.Deserializers.JsonDeserializer();
-            var client = new RestClient(Fixtures.ADDRESS);
 
-            var response = client.Execute(request);
+            var response = Fixtures.Client.Execute(request);
 
             response.ResponseStatus.Should().Be(ResponseStatus.Completed);
             response.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -33,9 +32,8 @@ namespace LHAL.WebAPI.Test.Integration
             request.RequestFormat = DataFormat.Json;
             request.AddBody(new LHAL.WebAPI.Models.TestEchoModel { Message = "Tim" });
             var der = new RestSharp.Deserializers.JsonDeserializer();
-            var client = new RestClient(Fixtures.ADDRESS);
 
-            var response = client.Execute(request);
+            var response = Fixtures.Client.Execute(request);
 
             response.ResponseStatus.Should().Be(ResponseStatus.Completed);
             response.StatusCode.Should().Be(HttpStatusCode.OK);

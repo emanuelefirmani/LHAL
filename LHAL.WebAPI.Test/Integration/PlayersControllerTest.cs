@@ -15,9 +15,8 @@ namespace LHAL.WebAPI.Test.Integration
         public void GETShouldReturnTim()
         {
             var request = new RestRequest("api/players", Method.GET);
-            var client = new RestClient(Fixtures.ADDRESS);
 
-            var response = client.Execute<List<Models.Player>>(request);
+            var response = Fixtures.Client.Execute<List<Models.Player>>(request);
 
             response.ResponseStatus.Should().Be(ResponseStatus.Completed);
             response.StatusCode.Should().Be(HttpStatusCode.OK);
