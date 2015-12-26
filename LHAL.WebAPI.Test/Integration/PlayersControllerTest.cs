@@ -130,5 +130,32 @@ namespace LHAL.WebAPI.Test.Integration
             response.Data.Single().Name.Should().Be("Tim");
             response.Data.Single().Lastname.Should().Be("White");
         }
+
+        [Test]
+        public void GETShouldReturnAnOrderedArray()
+        {
+            var request = new RestRequest("api/players", Method.GET);
+
+            var response = Fixtures.Client.Execute<List<Models.Player>>(request);
+
+            Models.Player previousPlayer = null;
+            foreach (var curr in response.Data)
+            {
+                if (previousPlayer != null)
+                {
+                    var comparison = string.Compare(previousPlayer.Lastname, curr.Lastname, true);
+                    if (comparison == 0)
+                    {
+                        string.Compare(previousPlayer.Name, curr.Name, true).Should().BeLessOrEqualTo(0);
+                    }
+                    else if (comparison > 0)
+                    {
+                        Assert.Fail();
+                    }
+                }
+
+                previousPlayer = curr;
+            }
+        }
     }
 }

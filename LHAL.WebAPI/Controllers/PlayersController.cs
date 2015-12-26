@@ -44,7 +44,7 @@ namespace LHAL.WebAPI.Controllers
                 }
             }
 
-            return query.ToList().Select(x => new Models.Player(x)).ToList();
+            return query.OrderBy(x => x.Cognome).ThenBy(x => x.Nome).ToList().Select(x => new Models.Player(x)).ToList();
         }
     }
 }
