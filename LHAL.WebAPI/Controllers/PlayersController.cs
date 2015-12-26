@@ -34,6 +34,9 @@ namespace LHAL.WebAPI.Controllers
                     case "name":
                         q = q.Where(x => string.Compare(x.Name, qs[key], true) == 0);
                         break;
+                    case "lastname":
+                        q = q.Where(x => string.Compare(x.Lastname, qs[key], true) == 0);
+                        break;
                 }
             }
 

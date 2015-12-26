@@ -44,5 +44,18 @@ namespace LHAL.WebAPI.Test.Integration
 
             response.Data.Count.Should().Be(count);
         }
+
+        [NUnit.Framework.TestCase("Black", 2)]
+        [NUnit.Framework.TestCase("White", 1)]
+        [NUnit.Framework.TestCase("Brown", 0)]
+        public void GETShouldReturnAnArrayFilteredByLastname(string lastname, int count)
+        {
+            var request = new RestRequest("api/players", Method.GET);
+            request.AddQueryParameter("lastname", lastname);
+
+            var response = Fixtures.Client.Execute<List<Models.Player>>(request);
+
+            response.Data.Count.Should().Be(count);
+        }
     }
 }
