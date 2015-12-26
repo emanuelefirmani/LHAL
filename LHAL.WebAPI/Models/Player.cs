@@ -8,5 +8,6 @@ namespace LHAL.WebAPI.Models
     public class Player
     {
         public string Name { get; set; }
+        public string Lastname { get; set; }
     }
 }

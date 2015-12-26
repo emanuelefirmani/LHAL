@@ -19,18 +19,30 @@ namespace LHAL.WebAPI.Test.Integration
             var response = Fixtures.Client.Execute<List<Models.Player>>(request);
 
             response.Data.Count.Should().Be(3);
-            response.Data.Single(x => x.Name == "Tim").Should().NotBeNull();
+            response.Data.FirstOrDefault(x => x.Name == "Tim").Should().NotBeNull();
         }
 
-        [NUnit.Framework.Test]
-        public void GETShouldReturnAnArrayFilteredByName()
+        public void GETShouldReturnArrayWhenQueryStringIsMalformed()
         {
             var request = new RestRequest("api/players", Method.GET);
-            request.AddQueryParameter("name", "tim");
+            request.AddQueryParameter("", "tim");
 
             var response = Fixtures.Client.Execute<List<Models.Player>>(request);
 
-            response.Data.Single().Should().NotBeNull();
+            response.Data.Count().Should().Be(3);
+        }
+
+        [NUnit.Framework.TestCase("Tim", 2)]
+        [NUnit.Framework.TestCase("John", 1)]
+        [NUnit.Framework.TestCase("Tom", 0)]
+        public void GETShouldReturnAnArrayFilteredByName(string name, int count)
+        {
+            var request = new RestRequest("api/players", Method.GET);
+            request.AddQueryParameter("name", name);
+
+            var response = Fixtures.Client.Execute<List<Models.Player>>(request);
+
+            response.Data.Count.Should().Be(count);
         }
     }
 }

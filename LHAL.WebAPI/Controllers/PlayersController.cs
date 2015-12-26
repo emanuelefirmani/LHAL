@@ -9,9 +9,9 @@ namespace LHAL.WebAPI.Controllers
     public class PlayersController : ApiController
     {
         List<Models.Player> players = new List<Models.Player> { 
-            new Models.Player { Name = "John" },
-            new Models.Player { Name = "Steve" },
-            new Models.Player { Name = "Tim" }, 
+            new Models.Player { Lastname = "Black", Name = "John" },
+            new Models.Player { Lastname = "Black", Name = "Tim" },
+            new Models.Player { Lastname = "White", Name = "Tim" }, 
         };
 
         public List<Models.Player> Get()
@@ -27,12 +27,12 @@ namespace LHAL.WebAPI.Controllers
             var qs = HttpUtility.ParseQueryString(Request.RequestUri.Query);
             var q = array.AsQueryable<Models.Player>();
 
-            foreach(var p in qs.AllKeys)
+            foreach(var key in qs.AllKeys)
             {
-                switch (p.ToLower())
+                switch (key.ToLower())
                 {
                     case "name":
-                        q = q.Where(x => string.Compare(x.Name, qs[p], true) == 0);
+                        q = q.Where(x => string.Compare(x.Name, qs[key], true) == 0);
                         break;
                 }
             }
