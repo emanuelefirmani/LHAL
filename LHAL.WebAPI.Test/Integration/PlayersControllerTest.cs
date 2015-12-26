@@ -18,10 +18,19 @@ namespace LHAL.WebAPI.Test.Integration
 
             var response = Fixtures.Client.Execute<List<Models.Player>>(request);
 
-            response.ResponseStatus.Should().Be(ResponseStatus.Completed);
-            response.StatusCode.Should().Be(HttpStatusCode.OK);
             response.Data.Count.Should().Be(3);
-            response.Data.FirstOrDefault(x => x.Name == "Tim").Should().NotBeNull();
+            response.Data.Single(x => x.Name == "Tim").Should().NotBeNull();
+        }
+
+        [NUnit.Framework.Test]
+        public void GETShouldReturnAnArrayFilteredByName()
+        {
+            var request = new RestRequest("api/players", Method.GET);
+            request.AddQueryParameter("name", "tim");
+
+            var response = Fixtures.Client.Execute<List<Models.Player>>(request);
+
+            response.Data.Single().Should().NotBeNull();
         }
     }
 }
