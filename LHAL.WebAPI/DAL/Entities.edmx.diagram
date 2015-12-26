@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="14cbc746c68e4fe4b2f7f0223e7958a2" Name="Diagram1" ZoomLevel="85">
+        <EntityTypeShape EntityType="LHAL_AppModel.ClassificaManuale" Width="1.5" PointX="3.625" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LHAL_AppModel.Giocatore" Width="1.5" PointX="7.625" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LHAL_AppModel.Girone" Width="1.5" PointX="9.25" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LHAL_AppModel.GironeStagione" Width="1.5" PointX="7" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LHAL_AppModel.Partita" Width="1.5" PointX="0.875" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LHAL_AppModel.Rosa" Width="1.5" PointX="5.625" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="LHAL_AppModel.Squadra" Width="1.5" PointX="3.5" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LHAL_AppModel.Stagione" Width="1.5" PointX="5.375" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LHAL_AppModel.Tabellino" Width="1.5" PointX="0.875" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LHAL_AppModel.Calendario" Width="1.5" PointX="12.875" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="LHAL_AppModel.ClassificaGiocatori" Width="1.5" PointX="16.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LHAL_AppModel.ClassificaPortieri" Width="1.5" PointX="15.125" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LHAL_AppModel.DatePartite" Width="1.5" PointX="16.875" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LHAL_AppModel.GiocatoreOverview" Width="1.5" PointX="14.875" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LHAL_AppModel.PartitaSquadre" Width="1.5" PointX="16.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LHAL_AppModel.PartitePerSquadra" Width="1.5" PointX="15" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LHAL_AppModel.Tabellini" Width="1.5" PointX="12.75" PointY="1.75" IsExpanded="true" />
+        <AssociationConnector Association="LHAL_AppModel.FK_ClassificaManuale_Squadra" ManuallyRouted="false" />
+        <AssociationConnector Association="LHAL_AppModel.FK_ClassificaManuale_Stagione" ManuallyRouted="false" >
+        </AssociationConnector>
+        <AssociationConnector Association="LHAL_AppModel.GiocatoreRosa" ManuallyRouted="false" />
+        <AssociationConnector Association="LHAL_AppModel.GironeGironeStagione" ManuallyRouted="false" />
+        <AssociationConnector Association="LHAL_AppModel.FK_Squadra_GironeStagione" ManuallyRouted="false" />
+        <AssociationConnector Association="LHAL_AppModel.FK_Stagione_GironeStagione" ManuallyRouted="false" />
+        <AssociationConnector Association="LHAL_AppModel.FK_PartitaSquadraC" ManuallyRouted="false" />
+        <AssociationConnector Association="LHAL_AppModel.FK_PartitaSquadraF" ManuallyRouted="false" />
+        <AssociationConnector Association="LHAL_AppModel.FK_PartitaStagione" ManuallyRouted="false" />
+        <AssociationConnector Association="LHAL_AppModel.FK_TabellinoPartita" ManuallyRouted="false" />
+        <AssociationConnector Association="LHAL_AppModel.SquadraRosa" ManuallyRouted="false" />
+        <AssociationConnector Association="LHAL_AppModel.StagioneRosa" ManuallyRouted="false" />
+        <AssociationConnector Association="LHAL_AppModel.TabellinoRosa" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
