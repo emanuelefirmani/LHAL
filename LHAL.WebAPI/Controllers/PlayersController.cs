@@ -11,6 +11,7 @@ namespace LHAL.WebAPI.Controllers
         List<Models.Player> players = new List<Models.Player> { 
             new Models.Player { Lastname = "Black", Name = "John" },
             new Models.Player { Lastname = "Black", Name = "Tim" },
+            new Models.Player { Lastname = "Bear", Name = "Steve" },
             new Models.Player { Lastname = "White", Name = "Tim" }, 
         };
 
@@ -36,6 +37,9 @@ namespace LHAL.WebAPI.Controllers
                         break;
                     case "lastname":
                         q = q.Where(x => string.Compare(x.Lastname, qs[key], true) == 0);
+                        break;
+                    case "initialletter":
+                        q = q.Where(x => string.Compare(x.Lastname.Substring(0, 1), qs[key], true) == 0);
                         break;
                 }
             }

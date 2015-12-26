@@ -18,7 +18,7 @@ namespace LHAL.WebAPI.Test.Integration
 
             var response = Fixtures.Client.Execute<List<Models.Player>>(request);
 
-            response.Data.Count.Should().Be(3);
+            response.Data.Count.Should().Be(4);
             response.Data.FirstOrDefault(x => x.Name == "Tim").Should().NotBeNull();
         }
 
@@ -29,7 +29,7 @@ namespace LHAL.WebAPI.Test.Integration
 
             var response = Fixtures.Client.Execute<List<Models.Player>>(request);
 
-            response.Data.Count().Should().Be(3);
+            response.Data.Count().Should().Be(4);
         }
 
         [NUnit.Framework.TestCase("Tim", 2)]
@@ -52,6 +52,19 @@ namespace LHAL.WebAPI.Test.Integration
         {
             var request = new RestRequest("api/players", Method.GET);
             request.AddQueryParameter("lastname", lastname);
+
+            var response = Fixtures.Client.Execute<List<Models.Player>>(request);
+
+            response.Data.Count.Should().Be(count);
+        }
+
+        [NUnit.Framework.TestCase("B", 3)]
+        [NUnit.Framework.TestCase("W", 1)]
+        [NUnit.Framework.TestCase("X", 0)]
+        public void GETShouldReturnAnArrayFilteredByInitialLetterOfLastname(string initialLetter, int count)
+        {
+            var request = new RestRequest("api/players", Method.GET);
+            request.AddQueryParameter("initialletter", initialLetter);
 
             var response = Fixtures.Client.Execute<List<Models.Player>>(request);
 
