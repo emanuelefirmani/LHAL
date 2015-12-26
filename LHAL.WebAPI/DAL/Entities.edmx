@@ -1,0 +1,1689 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="LHAL_AppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ClassificaManuale">
+          <Key>
+            <PropertyRef Name="IDStagione" />
+            <PropertyRef Name="IDSquadra" />
+            <PropertyRef Name="Posizione" />
+          </Key>
+          <Property Name="IDStagione" Type="int" Nullable="false" />
+          <Property Name="IDSquadra" Type="int" Nullable="false" />
+          <Property Name="Posizione" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Giocatore">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Cognome" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DataNascita" Type="date" />
+          <Property Name="ExTesserato" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Girone">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GironeStagione">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDGirone" Type="int" Nullable="false" />
+          <Property Name="IDStagione" Type="int" Nullable="false" />
+          <Property Name="IDSquadra" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Partita">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SquadraC" Type="int" Nullable="false" />
+          <Property Name="SquadraF" Type="int" Nullable="false" />
+          <Property Name="RetiC" Type="int" />
+          <Property Name="RetiF" Type="int" />
+          <Property Name="Rigori" Type="int" Nullable="false" />
+          <Property Name="Data" Type="datetime" Nullable="false" />
+          <Property Name="Stagione" Type="int" Nullable="false" />
+          <Property Name="SottoStagione" Type="int" Nullable="false" />
+          <Property Name="UpdTMS" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="PrgStagione" Type="int" />
+          <Property Name="ImgReferto" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Rosa">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDSquadra" Type="int" Nullable="false" />
+          <Property Name="IDStagione" Type="int" Nullable="false" />
+          <Property Name="IDGiocatore" Type="int" Nullable="false" />
+          <Property Name="NrMaglia1" Type="int" />
+          <Property Name="NrMaglia2" Type="int" />
+          <Property Name="Attivo" Type="bit" Nullable="false" />
+          <Property Name="Ruolo" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="IsCapitano" Type="bit" Nullable="false" />
+          <Property Name="IsAssistente" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Squadra">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Responsabili" Type="varchar" MaxLength="250" />
+          <Property Name="AnnoFondazione" Type="int" />
+          <Property Name="Email" Type="varchar" MaxLength="150" />
+          <Property Name="ImagePath" Type="varchar" MaxLength="150" />
+          <Property Name="GUID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Stagione">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Testo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Ordine" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tabellino">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDPartita" Type="int" Nullable="false" />
+          <Property Name="Reti" Type="int" Nullable="false" />
+          <Property Name="Assist" Type="int" Nullable="false" />
+          <Property Name="Penalita" Type="int" Nullable="false" />
+          <Property Name="UpdTMS" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="RetiSubite" Type="int" Nullable="false" />
+          <Property Name="IDRosa" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'LHAL_App.dbo.Calendario' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Calendario">
+          <Key>
+            <PropertyRef Name="Level" />
+            <PropertyRef Name="Stagione" />
+            <PropertyRef Name="SottoStagione" />
+          </Key>
+          <Property Name="Data" Type="datetime" />
+          <Property Name="ID" Type="bigint" />
+          <Property Name="ParentID" Type="bigint" />
+          <Property Name="NrPartite" Type="int" />
+          <Property Name="Level" Type="int" Nullable="false" />
+          <Property Name="NomeSquadraC" Type="varchar" MaxLength="50" />
+          <Property Name="NomeSquadraF" Type="varchar" MaxLength="50" />
+          <Property Name="RetiC" Type="int" />
+          <Property Name="RetiF" Type="int" />
+          <Property Name="Stagione" Type="int" Nullable="false" />
+          <Property Name="SottoStagione" Type="int" Nullable="false" />
+          <Property Name="Rigori" Type="int" />
+          <Property Name="TestoRigori" Type="varchar" MaxLength="10" />
+          <Property Name="PrgStagione" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'LHAL_App.dbo.ClassificaGiocatori' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ClassificaGiocatori">
+          <Key>
+            <PropertyRef Name="IDGiocatore" />
+            <PropertyRef Name="Nome" />
+            <PropertyRef Name="Cognome" />
+            <PropertyRef Name="Stagione" />
+          </Key>
+          <Property Name="IDGiocatore" Type="int" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Cognome" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Stagione" Type="int" Nullable="false" />
+          <Property Name="Presenze" Type="int" />
+          <Property Name="Reti" Type="int" />
+          <Property Name="Assist" Type="int" />
+          <Property Name="Punti" Type="int" />
+          <Property Name="Penalita" Type="int" />
+          <Property Name="IDSquadra" Type="int" />
+          <Property Name="NomeSquadra" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'LHAL_App.dbo.ClassificaPortieri' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ClassificaPortieri">
+          <Key>
+            <PropertyRef Name="Nome" />
+            <PropertyRef Name="Cognome" />
+            <PropertyRef Name="Stagione" />
+            <PropertyRef Name="IDGiocatore" />
+          </Key>
+          <Property Name="Nome" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Cognome" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Stagione" Type="int" Nullable="false" />
+          <Property Name="IDGiocatore" Type="int" Nullable="false" />
+          <Property Name="Giocate" Type="int" />
+          <Property Name="RetiSubite" Type="int" />
+          <Property Name="Ratio" Type="float" />
+          <Property Name="IDSquadra" Type="int" />
+          <Property Name="NomeSquadra" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'LHAL_App.dbo.DatePartite' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="DatePartite">
+          <Key>
+            <PropertyRef Name="Stagione" />
+            <PropertyRef Name="SottoStagione" />
+          </Key>
+          <Property Name="Data" Type="date" />
+          <Property Name="Stagione" Type="int" Nullable="false" />
+          <Property Name="SottoStagione" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'LHAL_App.dbo.GiocatoreOverview' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="GiocatoreOverview">
+          <Key>
+            <PropertyRef Name="SquadraID" />
+            <PropertyRef Name="StagioneID" />
+            <PropertyRef Name="IDGiocatore" />
+            <PropertyRef Name="SquadraNome" />
+            <PropertyRef Name="Stagione" />
+            <PropertyRef Name="IDStagione" />
+            <PropertyRef Name="GiocatoreNome" />
+            <PropertyRef Name="GiocatoreCognome" />
+            <PropertyRef Name="Attivo" />
+            <PropertyRef Name="IDRosa" />
+            <PropertyRef Name="IsCapitano" />
+            <PropertyRef Name="IsAssistente" />
+            <PropertyRef Name="Ruolo" />
+            <PropertyRef Name="ExTesserato" />
+          </Key>
+          <Property Name="SquadraID" Type="int" Nullable="false" />
+          <Property Name="StagioneID" Type="int" Nullable="false" />
+          <Property Name="IDGiocatore" Type="int" Nullable="false" />
+          <Property Name="SquadraNome" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Stagione" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IDStagione" Type="int" Nullable="false" />
+          <Property Name="GiocatoreNome" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="GiocatoreCognome" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Attivo" Type="bit" Nullable="false" />
+          <Property Name="IDRosa" Type="int" Nullable="false" />
+          <Property Name="IsCapitano" Type="bit" Nullable="false" />
+          <Property Name="IsAssistente" Type="bit" Nullable="false" />
+          <Property Name="NrMaglia1" Type="int" />
+          <Property Name="NrMaglia2" Type="int" />
+          <Property Name="Ruolo" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="ExTesserato" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'LHAL_App.dbo.PartitaSquadre' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="PartitaSquadre">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="SquadraC" />
+            <PropertyRef Name="SquadraF" />
+            <PropertyRef Name="NomeSquadraC" />
+            <PropertyRef Name="NomeSquadraF" />
+            <PropertyRef Name="Data" />
+            <PropertyRef Name="Stagione" />
+            <PropertyRef Name="SottoStagione" />
+            <PropertyRef Name="Rigori" />
+            <PropertyRef Name="TestoStagione" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="SquadraC" Type="int" Nullable="false" />
+          <Property Name="SquadraF" Type="int" Nullable="false" />
+          <Property Name="NomeSquadraC" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="NomeSquadraF" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="RetiC" Type="int" />
+          <Property Name="RetiF" Type="int" />
+          <Property Name="Data" Type="datetime" Nullable="false" />
+          <Property Name="Stagione" Type="int" Nullable="false" />
+          <Property Name="SottoStagione" Type="int" Nullable="false" />
+          <Property Name="DataInt" Type="bigint" />
+          <Property Name="Rigori" Type="int" Nullable="false" />
+          <Property Name="TestoRigori" Type="varchar" MaxLength="10" />
+          <Property Name="TestoStagione" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PrgStagione" Type="int" />
+          <Property Name="ImgReferto" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'LHAL_App.dbo.PartitePerSquadra' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="PartitePerSquadra">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Squadra" />
+            <PropertyRef Name="Data" />
+            <PropertyRef Name="Rigori" />
+            <PropertyRef Name="Stagione" />
+            <PropertyRef Name="SottoStagione" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Squadra" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Data" Type="datetime" Nullable="false" />
+          <Property Name="RetiFatte" Type="int" />
+          <Property Name="RetiSubite" Type="int" />
+          <Property Name="Rigori" Type="int" Nullable="false" />
+          <Property Name="Risultato" Type="varchar" MaxLength="2" />
+          <Property Name="Punti" Type="int" />
+          <Property Name="Stagione" Type="int" Nullable="false" />
+          <Property Name="SottoStagione" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'LHAL_App.dbo.Tabellini' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Tabellini">
+          <Key>
+            <PropertyRef Name="IDTabellino" />
+            <PropertyRef Name="IDGiocatore" />
+            <PropertyRef Name="IDRosa" />
+            <PropertyRef Name="IDSquadra" />
+            <PropertyRef Name="NomeSquadra" />
+            <PropertyRef Name="IDPartita" />
+            <PropertyRef Name="Nome" />
+            <PropertyRef Name="Cognome" />
+            <PropertyRef Name="Assist" />
+            <PropertyRef Name="Reti" />
+            <PropertyRef Name="Penalita" />
+            <PropertyRef Name="RetiSubite" />
+            <PropertyRef Name="Stagione" />
+            <PropertyRef Name="SottoStagione" />
+            <PropertyRef Name="Ruolo" />
+          </Key>
+          <Property Name="IDTabellino" Type="int" Nullable="false" />
+          <Property Name="IDGiocatore" Type="int" Nullable="false" />
+          <Property Name="IDRosa" Type="int" Nullable="false" />
+          <Property Name="IDSquadra" Type="int" Nullable="false" />
+          <Property Name="NomeSquadra" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IDPartita" Type="int" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Cognome" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Assist" Type="int" Nullable="false" />
+          <Property Name="Reti" Type="int" Nullable="false" />
+          <Property Name="Penalita" Type="int" Nullable="false" />
+          <Property Name="RetiSubite" Type="int" Nullable="false" />
+          <Property Name="Stagione" Type="int" Nullable="false" />
+          <Property Name="SottoStagione" Type="int" Nullable="false" />
+          <Property Name="Ruolo" Type="char" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ClassificaManuale_Squadra">
+          <End Role="Squadra" Type="Self.Squadra" Multiplicity="1" />
+          <End Role="ClassificaManuale" Type="Self.ClassificaManuale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Squadra">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ClassificaManuale">
+              <PropertyRef Name="IDSquadra" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClassificaManuale_Stagione">
+          <End Role="Stagione" Type="Self.Stagione" Multiplicity="1" />
+          <End Role="ClassificaManuale" Type="Self.ClassificaManuale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stagione">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ClassificaManuale">
+              <PropertyRef Name="IDStagione" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PartitaSquadraC">
+          <End Role="Squadra" Type="Self.Squadra" Multiplicity="1" />
+          <End Role="Partita" Type="Self.Partita" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Squadra">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Partita">
+              <PropertyRef Name="SquadraC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PartitaSquadraF">
+          <End Role="Squadra" Type="Self.Squadra" Multiplicity="1" />
+          <End Role="Partita" Type="Self.Partita" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Squadra">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Partita">
+              <PropertyRef Name="SquadraF" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PartitaStagione">
+          <End Role="Stagione" Type="Self.Stagione" Multiplicity="1" />
+          <End Role="Partita" Type="Self.Partita" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stagione">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Partita">
+              <PropertyRef Name="Stagione" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Squadra_GironeStagione">
+          <End Role="Squadra" Type="Self.Squadra" Multiplicity="1" />
+          <End Role="GironeStagione" Type="Self.GironeStagione" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Squadra">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GironeStagione">
+              <PropertyRef Name="IDSquadra" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stagione_GironeStagione">
+          <End Role="Stagione" Type="Self.Stagione" Multiplicity="1" />
+          <End Role="GironeStagione" Type="Self.GironeStagione" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stagione">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GironeStagione">
+              <PropertyRef Name="IDStagione" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TabellinoPartita">
+          <End Role="Partita" Type="Self.Partita" Multiplicity="1" />
+          <End Role="Tabellino" Type="Self.Tabellino" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Partita">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tabellino">
+              <PropertyRef Name="IDPartita" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="GiocatoreRosa">
+          <End Role="Giocatore" Type="Self.Giocatore" Multiplicity="1" />
+          <End Role="Rosa" Type="Self.Rosa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Giocatore">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Rosa">
+              <PropertyRef Name="IDGiocatore" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="GironeGironeStagione">
+          <End Role="Girone" Type="Self.Girone" Multiplicity="1" />
+          <End Role="GironeStagione" Type="Self.GironeStagione" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Girone">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GironeStagione">
+              <PropertyRef Name="IDGirone" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SquadraRosa">
+          <End Role="Squadra" Type="Self.Squadra" Multiplicity="1" />
+          <End Role="Rosa" Type="Self.Rosa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Squadra">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Rosa">
+              <PropertyRef Name="IDSquadra" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="StagioneRosa">
+          <End Role="Stagione" Type="Self.Stagione" Multiplicity="1" />
+          <End Role="Rosa" Type="Self.Rosa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stagione">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Rosa">
+              <PropertyRef Name="IDStagione" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TabellinoRosa">
+          <End Role="Rosa" Type="Self.Rosa" Multiplicity="1" />
+          <End Role="Tabellino" Type="Self.Tabellino" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rosa">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tabellino">
+              <PropertyRef Name="IDRosa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="ConvertDateToInt" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="bigint">
+          <Parameter Name="Date" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="GetClassifica" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IDStagione" Type="int" Mode="In" />
+          <Parameter Name="IDGirone" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetClassificaCompleta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IDStagione" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetDettaglioGiocatore" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IDGiocatore" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetDettaglioPartita" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IDPartita" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetIDSquadraRiferimento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="IDStagione" Type="int" Mode="In" />
+          <Parameter Name="IDGiocatore" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetNomeSquadraRiferimento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar">
+          <Parameter Name="IDStagione" Type="int" Mode="In" />
+          <Parameter Name="IDGiocatore" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="LHAL_AppModelStoreContainer">
+          <EntitySet Name="ClassificaManuale" EntityType="Self.ClassificaManuale" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Giocatore" EntityType="Self.Giocatore" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Girone" EntityType="Self.Girone" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GironeStagione" EntityType="Self.GironeStagione" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Partita" EntityType="Self.Partita" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rosa" EntityType="Self.Rosa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Squadra" EntityType="Self.Squadra" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Stagione" EntityType="Self.Stagione" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tabellino" EntityType="Self.Tabellino" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Calendario" EntityType="Self.Calendario" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Calendario].[Data] AS [Data], 
+    [Calendario].[ID] AS [ID], 
+    [Calendario].[ParentID] AS [ParentID], 
+    [Calendario].[NrPartite] AS [NrPartite], 
+    [Calendario].[Level] AS [Level], 
+    [Calendario].[NomeSquadraC] AS [NomeSquadraC], 
+    [Calendario].[NomeSquadraF] AS [NomeSquadraF], 
+    [Calendario].[RetiC] AS [RetiC], 
+    [Calendario].[RetiF] AS [RetiF], 
+    [Calendario].[Stagione] AS [Stagione], 
+    [Calendario].[SottoStagione] AS [SottoStagione], 
+    [Calendario].[Rigori] AS [Rigori], 
+    [Calendario].[TestoRigori] AS [TestoRigori], 
+    [Calendario].[PrgStagione] AS [PrgStagione]
+    FROM [dbo].[Calendario] AS [Calendario]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ClassificaGiocatori" EntityType="Self.ClassificaGiocatori" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ClassificaGiocatori].[IDGiocatore] AS [IDGiocatore], 
+    [ClassificaGiocatori].[Nome] AS [Nome], 
+    [ClassificaGiocatori].[Cognome] AS [Cognome], 
+    [ClassificaGiocatori].[Stagione] AS [Stagione], 
+    [ClassificaGiocatori].[Presenze] AS [Presenze], 
+    [ClassificaGiocatori].[Reti] AS [Reti], 
+    [ClassificaGiocatori].[Assist] AS [Assist], 
+    [ClassificaGiocatori].[Punti] AS [Punti], 
+    [ClassificaGiocatori].[Penalita] AS [Penalita], 
+    [ClassificaGiocatori].[IDSquadra] AS [IDSquadra], 
+    [ClassificaGiocatori].[NomeSquadra] AS [NomeSquadra]
+    FROM [dbo].[ClassificaGiocatori] AS [ClassificaGiocatori]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ClassificaPortieri" EntityType="Self.ClassificaPortieri" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ClassificaPortieri].[Nome] AS [Nome], 
+    [ClassificaPortieri].[Cognome] AS [Cognome], 
+    [ClassificaPortieri].[Stagione] AS [Stagione], 
+    [ClassificaPortieri].[IDGiocatore] AS [IDGiocatore], 
+    [ClassificaPortieri].[Giocate] AS [Giocate], 
+    [ClassificaPortieri].[RetiSubite] AS [RetiSubite], 
+    [ClassificaPortieri].[Ratio] AS [Ratio], 
+    [ClassificaPortieri].[IDSquadra] AS [IDSquadra], 
+    [ClassificaPortieri].[NomeSquadra] AS [NomeSquadra]
+    FROM [dbo].[ClassificaPortieri] AS [ClassificaPortieri]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="DatePartite" EntityType="Self.DatePartite" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [DatePartite].[Data] AS [Data], 
+    [DatePartite].[Stagione] AS [Stagione], 
+    [DatePartite].[SottoStagione] AS [SottoStagione]
+    FROM [dbo].[DatePartite] AS [DatePartite]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="GiocatoreOverview" EntityType="Self.GiocatoreOverview" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [GiocatoreOverview].[SquadraID] AS [SquadraID], 
+    [GiocatoreOverview].[StagioneID] AS [StagioneID], 
+    [GiocatoreOverview].[IDGiocatore] AS [IDGiocatore], 
+    [GiocatoreOverview].[SquadraNome] AS [SquadraNome], 
+    [GiocatoreOverview].[Stagione] AS [Stagione], 
+    [GiocatoreOverview].[IDStagione] AS [IDStagione], 
+    [GiocatoreOverview].[GiocatoreNome] AS [GiocatoreNome], 
+    [GiocatoreOverview].[GiocatoreCognome] AS [GiocatoreCognome], 
+    [GiocatoreOverview].[Attivo] AS [Attivo], 
+    [GiocatoreOverview].[IDRosa] AS [IDRosa], 
+    [GiocatoreOverview].[IsCapitano] AS [IsCapitano], 
+    [GiocatoreOverview].[IsAssistente] AS [IsAssistente], 
+    [GiocatoreOverview].[NrMaglia1] AS [NrMaglia1], 
+    [GiocatoreOverview].[NrMaglia2] AS [NrMaglia2], 
+    [GiocatoreOverview].[Ruolo] AS [Ruolo], 
+    [GiocatoreOverview].[ExTesserato] AS [ExTesserato]
+    FROM [dbo].[GiocatoreOverview] AS [GiocatoreOverview]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="PartitaSquadre" EntityType="Self.PartitaSquadre" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [PartitaSquadre].[ID] AS [ID], 
+    [PartitaSquadre].[SquadraC] AS [SquadraC], 
+    [PartitaSquadre].[SquadraF] AS [SquadraF], 
+    [PartitaSquadre].[NomeSquadraC] AS [NomeSquadraC], 
+    [PartitaSquadre].[NomeSquadraF] AS [NomeSquadraF], 
+    [PartitaSquadre].[RetiC] AS [RetiC], 
+    [PartitaSquadre].[RetiF] AS [RetiF], 
+    [PartitaSquadre].[Data] AS [Data], 
+    [PartitaSquadre].[Stagione] AS [Stagione], 
+    [PartitaSquadre].[SottoStagione] AS [SottoStagione], 
+    [PartitaSquadre].[DataInt] AS [DataInt], 
+    [PartitaSquadre].[Rigori] AS [Rigori], 
+    [PartitaSquadre].[TestoRigori] AS [TestoRigori], 
+    [PartitaSquadre].[TestoStagione] AS [TestoStagione], 
+    [PartitaSquadre].[PrgStagione] AS [PrgStagione], 
+    [PartitaSquadre].[ImgReferto] AS [ImgReferto]
+    FROM [dbo].[PartitaSquadre] AS [PartitaSquadre]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="PartitePerSquadra" EntityType="Self.PartitePerSquadra" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [PartitePerSquadra].[ID] AS [ID], 
+    [PartitePerSquadra].[Squadra] AS [Squadra], 
+    [PartitePerSquadra].[Data] AS [Data], 
+    [PartitePerSquadra].[RetiFatte] AS [RetiFatte], 
+    [PartitePerSquadra].[RetiSubite] AS [RetiSubite], 
+    [PartitePerSquadra].[Rigori] AS [Rigori], 
+    [PartitePerSquadra].[Risultato] AS [Risultato], 
+    [PartitePerSquadra].[Punti] AS [Punti], 
+    [PartitePerSquadra].[Stagione] AS [Stagione], 
+    [PartitePerSquadra].[SottoStagione] AS [SottoStagione]
+    FROM [dbo].[PartitePerSquadra] AS [PartitePerSquadra]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Tabellini" EntityType="Self.Tabellini" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Tabellini].[IDTabellino] AS [IDTabellino], 
+    [Tabellini].[IDGiocatore] AS [IDGiocatore], 
+    [Tabellini].[IDRosa] AS [IDRosa], 
+    [Tabellini].[IDSquadra] AS [IDSquadra], 
+    [Tabellini].[NomeSquadra] AS [NomeSquadra], 
+    [Tabellini].[IDPartita] AS [IDPartita], 
+    [Tabellini].[Nome] AS [Nome], 
+    [Tabellini].[Cognome] AS [Cognome], 
+    [Tabellini].[Assist] AS [Assist], 
+    [Tabellini].[Reti] AS [Reti], 
+    [Tabellini].[Penalita] AS [Penalita], 
+    [Tabellini].[RetiSubite] AS [RetiSubite], 
+    [Tabellini].[Stagione] AS [Stagione], 
+    [Tabellini].[SottoStagione] AS [SottoStagione], 
+    [Tabellini].[Ruolo] AS [Ruolo]
+    FROM [dbo].[Tabellini] AS [Tabellini]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_ClassificaManuale_Squadra" Association="Self.FK_ClassificaManuale_Squadra">
+            <End Role="Squadra" EntitySet="Squadra" />
+            <End Role="ClassificaManuale" EntitySet="ClassificaManuale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClassificaManuale_Stagione" Association="Self.FK_ClassificaManuale_Stagione">
+            <End Role="Stagione" EntitySet="Stagione" />
+            <End Role="ClassificaManuale" EntitySet="ClassificaManuale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PartitaSquadraC" Association="Self.FK_PartitaSquadraC">
+            <End Role="Squadra" EntitySet="Squadra" />
+            <End Role="Partita" EntitySet="Partita" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PartitaSquadraF" Association="Self.FK_PartitaSquadraF">
+            <End Role="Squadra" EntitySet="Squadra" />
+            <End Role="Partita" EntitySet="Partita" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PartitaStagione" Association="Self.FK_PartitaStagione">
+            <End Role="Stagione" EntitySet="Stagione" />
+            <End Role="Partita" EntitySet="Partita" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Squadra_GironeStagione" Association="Self.FK_Squadra_GironeStagione">
+            <End Role="Squadra" EntitySet="Squadra" />
+            <End Role="GironeStagione" EntitySet="GironeStagione" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stagione_GironeStagione" Association="Self.FK_Stagione_GironeStagione">
+            <End Role="Stagione" EntitySet="Stagione" />
+            <End Role="GironeStagione" EntitySet="GironeStagione" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TabellinoPartita" Association="Self.FK_TabellinoPartita">
+            <End Role="Partita" EntitySet="Partita" />
+            <End Role="Tabellino" EntitySet="Tabellino" />
+          </AssociationSet>
+          <AssociationSet Name="GiocatoreRosa" Association="Self.GiocatoreRosa">
+            <End Role="Giocatore" EntitySet="Giocatore" />
+            <End Role="Rosa" EntitySet="Rosa" />
+          </AssociationSet>
+          <AssociationSet Name="GironeGironeStagione" Association="Self.GironeGironeStagione">
+            <End Role="Girone" EntitySet="Girone" />
+            <End Role="GironeStagione" EntitySet="GironeStagione" />
+          </AssociationSet>
+          <AssociationSet Name="SquadraRosa" Association="Self.SquadraRosa">
+            <End Role="Squadra" EntitySet="Squadra" />
+            <End Role="Rosa" EntitySet="Rosa" />
+          </AssociationSet>
+          <AssociationSet Name="StagioneRosa" Association="Self.StagioneRosa">
+            <End Role="Stagione" EntitySet="Stagione" />
+            <End Role="Rosa" EntitySet="Rosa" />
+          </AssociationSet>
+          <AssociationSet Name="TabellinoRosa" Association="Self.TabellinoRosa">
+            <End Role="Rosa" EntitySet="Rosa" />
+            <End Role="Tabellino" EntitySet="Tabellino" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LHAL_AppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ClassificaManuale">
+          <Key>
+            <PropertyRef Name="IDStagione" />
+            <PropertyRef Name="IDSquadra" />
+            <PropertyRef Name="Posizione" />
+          </Key>
+          <Property Name="IDStagione" Type="Int32" Nullable="false" />
+          <Property Name="IDSquadra" Type="Int32" Nullable="false" />
+          <Property Name="Posizione" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Squadra" Relationship="Self.FK_ClassificaManuale_Squadra" FromRole="ClassificaManuale" ToRole="Squadra" />
+          <NavigationProperty Name="Stagione" Relationship="Self.FK_ClassificaManuale_Stagione" FromRole="ClassificaManuale" ToRole="Stagione" />
+        </EntityType>
+        <EntityType Name="Giocatore">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Cognome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DataNascita" Type="DateTime" Precision="0" />
+          <Property Name="ExTesserato" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Rosa" Relationship="Self.GiocatoreRosa" FromRole="Giocatore" ToRole="Rosa" />
+        </EntityType>
+        <EntityType Name="Girone">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="GironeStagione" Relationship="Self.GironeGironeStagione" FromRole="Girone" ToRole="GironeStagione" />
+        </EntityType>
+        <EntityType Name="GironeStagione">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDGirone" Type="Int32" Nullable="false" />
+          <Property Name="IDStagione" Type="Int32" Nullable="false" />
+          <Property Name="IDSquadra" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Girone" Relationship="Self.GironeGironeStagione" FromRole="GironeStagione" ToRole="Girone" />
+          <NavigationProperty Name="Squadra" Relationship="Self.FK_Squadra_GironeStagione" FromRole="GironeStagione" ToRole="Squadra" />
+          <NavigationProperty Name="Stagione" Relationship="Self.FK_Stagione_GironeStagione" FromRole="GironeStagione" ToRole="Stagione" />
+        </EntityType>
+        <EntityType Name="Partita">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SquadraC" Type="Int32" Nullable="false" />
+          <Property Name="SquadraF" Type="Int32" Nullable="false" />
+          <Property Name="RetiC" Type="Int32" />
+          <Property Name="RetiF" Type="Int32" />
+          <Property Name="Rigori" Type="Int32" Nullable="false" />
+          <Property Name="Data" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Stagione" Type="Int32" Nullable="false" />
+          <Property Name="SottoStagione" Type="Int32" Nullable="false" />
+          <Property Name="UpdTMS" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="PrgStagione" Type="Int32" />
+          <Property Name="ImgReferto" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Squadra" Relationship="Self.FK_PartitaSquadraC" FromRole="Partita" ToRole="Squadra" />
+          <NavigationProperty Name="Squadra1" Relationship="Self.FK_PartitaSquadraF" FromRole="Partita" ToRole="Squadra" />
+          <NavigationProperty Name="Stagione1" Relationship="Self.FK_PartitaStagione" FromRole="Partita" ToRole="Stagione" />
+          <NavigationProperty Name="Tabellino" Relationship="Self.FK_TabellinoPartita" FromRole="Partita" ToRole="Tabellino" />
+        </EntityType>
+        <EntityType Name="Rosa">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDSquadra" Type="Int32" Nullable="false" />
+          <Property Name="IDStagione" Type="Int32" Nullable="false" />
+          <Property Name="IDGiocatore" Type="Int32" Nullable="false" />
+          <Property Name="NrMaglia1" Type="Int32" />
+          <Property Name="NrMaglia2" Type="Int32" />
+          <Property Name="Attivo" Type="Boolean" Nullable="false" />
+          <Property Name="Ruolo" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="IsCapitano" Type="Boolean" Nullable="false" />
+          <Property Name="IsAssistente" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Giocatore" Relationship="Self.GiocatoreRosa" FromRole="Rosa" ToRole="Giocatore" />
+          <NavigationProperty Name="Squadra" Relationship="Self.SquadraRosa" FromRole="Rosa" ToRole="Squadra" />
+          <NavigationProperty Name="Stagione" Relationship="Self.StagioneRosa" FromRole="Rosa" ToRole="Stagione" />
+          <NavigationProperty Name="Tabellino" Relationship="Self.TabellinoRosa" FromRole="Rosa" ToRole="Tabellino" />
+        </EntityType>
+        <EntityType Name="Squadra">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Responsabili" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="AnnoFondazione" Type="Int32" />
+          <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="ImagePath" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="GUID" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="ClassificaManuale" Relationship="Self.FK_ClassificaManuale_Squadra" FromRole="Squadra" ToRole="ClassificaManuale" />
+          <NavigationProperty Name="GironeStagione" Relationship="Self.FK_Squadra_GironeStagione" FromRole="Squadra" ToRole="GironeStagione" />
+          <NavigationProperty Name="Partita" Relationship="Self.FK_PartitaSquadraC" FromRole="Squadra" ToRole="Partita" />
+          <NavigationProperty Name="Partita1" Relationship="Self.FK_PartitaSquadraF" FromRole="Squadra" ToRole="Partita" />
+          <NavigationProperty Name="Rosa" Relationship="Self.SquadraRosa" FromRole="Squadra" ToRole="Rosa" />
+        </EntityType>
+        <EntityType Name="Stagione">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Testo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Ordine" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ClassificaManuale" Relationship="Self.FK_ClassificaManuale_Stagione" FromRole="Stagione" ToRole="ClassificaManuale" />
+          <NavigationProperty Name="GironeStagione" Relationship="Self.FK_Stagione_GironeStagione" FromRole="Stagione" ToRole="GironeStagione" />
+          <NavigationProperty Name="Partita" Relationship="Self.FK_PartitaStagione" FromRole="Stagione" ToRole="Partita" />
+          <NavigationProperty Name="Rosa" Relationship="Self.StagioneRosa" FromRole="Stagione" ToRole="Rosa" />
+        </EntityType>
+        <EntityType Name="Tabellino">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDPartita" Type="Int32" Nullable="false" />
+          <Property Name="Reti" Type="Int32" Nullable="false" />
+          <Property Name="Assist" Type="Int32" Nullable="false" />
+          <Property Name="Penalita" Type="Int32" Nullable="false" />
+          <Property Name="UpdTMS" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="RetiSubite" Type="Int32" Nullable="false" />
+          <Property Name="IDRosa" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Partita" Relationship="Self.FK_TabellinoPartita" FromRole="Tabellino" ToRole="Partita" />
+          <NavigationProperty Name="Rosa" Relationship="Self.TabellinoRosa" FromRole="Tabellino" ToRole="Rosa" />
+        </EntityType>
+        <EntityType Name="Calendario">
+          <Key>
+            <PropertyRef Name="Level" />
+            <PropertyRef Name="Stagione" />
+            <PropertyRef Name="SottoStagione" />
+          </Key>
+          <Property Name="Data" Type="DateTime" Precision="3" />
+          <Property Name="ID" Type="Int64" />
+          <Property Name="ParentID" Type="Int64" />
+          <Property Name="NrPartite" Type="Int32" />
+          <Property Name="Level" Type="Int32" Nullable="false" />
+          <Property Name="NomeSquadraC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NomeSquadraF" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RetiC" Type="Int32" />
+          <Property Name="RetiF" Type="Int32" />
+          <Property Name="Stagione" Type="Int32" Nullable="false" />
+          <Property Name="SottoStagione" Type="Int32" Nullable="false" />
+          <Property Name="Rigori" Type="Int32" />
+          <Property Name="TestoRigori" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="PrgStagione" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ClassificaGiocatori">
+          <Key>
+            <PropertyRef Name="IDGiocatore" />
+            <PropertyRef Name="Nome" />
+            <PropertyRef Name="Cognome" />
+            <PropertyRef Name="Stagione" />
+          </Key>
+          <Property Name="IDGiocatore" Type="Int32" Nullable="false" />
+          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Cognome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Stagione" Type="Int32" Nullable="false" />
+          <Property Name="Presenze" Type="Int32" />
+          <Property Name="Reti" Type="Int32" />
+          <Property Name="Assist" Type="Int32" />
+          <Property Name="Punti" Type="Int32" />
+          <Property Name="Penalita" Type="Int32" />
+          <Property Name="IDSquadra" Type="Int32" />
+          <Property Name="NomeSquadra" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ClassificaPortieri">
+          <Key>
+            <PropertyRef Name="Nome" />
+            <PropertyRef Name="Cognome" />
+            <PropertyRef Name="Stagione" />
+            <PropertyRef Name="IDGiocatore" />
+          </Key>
+          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Cognome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Stagione" Type="Int32" Nullable="false" />
+          <Property Name="IDGiocatore" Type="Int32" Nullable="false" />
+          <Property Name="Giocate" Type="Int32" />
+          <Property Name="RetiSubite" Type="Int32" />
+          <Property Name="Ratio" Type="Double" />
+          <Property Name="IDSquadra" Type="Int32" />
+          <Property Name="NomeSquadra" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="DatePartite">
+          <Key>
+            <PropertyRef Name="Stagione" />
+            <PropertyRef Name="SottoStagione" />
+          </Key>
+          <Property Name="Data" Type="DateTime" Precision="0" />
+          <Property Name="Stagione" Type="Int32" Nullable="false" />
+          <Property Name="SottoStagione" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GiocatoreOverview">
+          <Key>
+            <PropertyRef Name="SquadraID" />
+            <PropertyRef Name="StagioneID" />
+            <PropertyRef Name="IDGiocatore" />
+            <PropertyRef Name="SquadraNome" />
+            <PropertyRef Name="Stagione" />
+            <PropertyRef Name="IDStagione" />
+            <PropertyRef Name="GiocatoreNome" />
+            <PropertyRef Name="GiocatoreCognome" />
+            <PropertyRef Name="Attivo" />
+            <PropertyRef Name="IDRosa" />
+            <PropertyRef Name="IsCapitano" />
+            <PropertyRef Name="IsAssistente" />
+            <PropertyRef Name="Ruolo" />
+            <PropertyRef Name="ExTesserato" />
+          </Key>
+          <Property Name="SquadraID" Type="Int32" Nullable="false" />
+          <Property Name="StagioneID" Type="Int32" Nullable="false" />
+          <Property Name="IDGiocatore" Type="Int32" Nullable="false" />
+          <Property Name="SquadraNome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Stagione" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IDStagione" Type="Int32" Nullable="false" />
+          <Property Name="GiocatoreNome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="GiocatoreCognome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Attivo" Type="Boolean" Nullable="false" />
+          <Property Name="IDRosa" Type="Int32" Nullable="false" />
+          <Property Name="IsCapitano" Type="Boolean" Nullable="false" />
+          <Property Name="IsAssistente" Type="Boolean" Nullable="false" />
+          <Property Name="NrMaglia1" Type="Int32" />
+          <Property Name="NrMaglia2" Type="Int32" />
+          <Property Name="Ruolo" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="ExTesserato" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PartitaSquadre">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="SquadraC" />
+            <PropertyRef Name="SquadraF" />
+            <PropertyRef Name="NomeSquadraC" />
+            <PropertyRef Name="NomeSquadraF" />
+            <PropertyRef Name="Data" />
+            <PropertyRef Name="Stagione" />
+            <PropertyRef Name="SottoStagione" />
+            <PropertyRef Name="Rigori" />
+            <PropertyRef Name="TestoStagione" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="SquadraC" Type="Int32" Nullable="false" />
+          <Property Name="SquadraF" Type="Int32" Nullable="false" />
+          <Property Name="NomeSquadraC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NomeSquadraF" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RetiC" Type="Int32" />
+          <Property Name="RetiF" Type="Int32" />
+          <Property Name="Data" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Stagione" Type="Int32" Nullable="false" />
+          <Property Name="SottoStagione" Type="Int32" Nullable="false" />
+          <Property Name="DataInt" Type="Int64" />
+          <Property Name="Rigori" Type="Int32" Nullable="false" />
+          <Property Name="TestoRigori" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="TestoStagione" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PrgStagione" Type="Int32" />
+          <Property Name="ImgReferto" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="PartitePerSquadra">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Squadra" />
+            <PropertyRef Name="Data" />
+            <PropertyRef Name="Rigori" />
+            <PropertyRef Name="Stagione" />
+            <PropertyRef Name="SottoStagione" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Squadra" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Data" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RetiFatte" Type="Int32" />
+          <Property Name="RetiSubite" Type="Int32" />
+          <Property Name="Rigori" Type="Int32" Nullable="false" />
+          <Property Name="Risultato" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="Punti" Type="Int32" />
+          <Property Name="Stagione" Type="Int32" Nullable="false" />
+          <Property Name="SottoStagione" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tabellini">
+          <Key>
+            <PropertyRef Name="IDTabellino" />
+            <PropertyRef Name="IDGiocatore" />
+            <PropertyRef Name="IDRosa" />
+            <PropertyRef Name="IDSquadra" />
+            <PropertyRef Name="NomeSquadra" />
+            <PropertyRef Name="IDPartita" />
+            <PropertyRef Name="Nome" />
+            <PropertyRef Name="Cognome" />
+            <PropertyRef Name="Assist" />
+            <PropertyRef Name="Reti" />
+            <PropertyRef Name="Penalita" />
+            <PropertyRef Name="RetiSubite" />
+            <PropertyRef Name="Stagione" />
+            <PropertyRef Name="SottoStagione" />
+            <PropertyRef Name="Ruolo" />
+          </Key>
+          <Property Name="IDTabellino" Type="Int32" Nullable="false" />
+          <Property Name="IDGiocatore" Type="Int32" Nullable="false" />
+          <Property Name="IDRosa" Type="Int32" Nullable="false" />
+          <Property Name="IDSquadra" Type="Int32" Nullable="false" />
+          <Property Name="NomeSquadra" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IDPartita" Type="Int32" Nullable="false" />
+          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Cognome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Assist" Type="Int32" Nullable="false" />
+          <Property Name="Reti" Type="Int32" Nullable="false" />
+          <Property Name="Penalita" Type="Int32" Nullable="false" />
+          <Property Name="RetiSubite" Type="Int32" Nullable="false" />
+          <Property Name="Stagione" Type="Int32" Nullable="false" />
+          <Property Name="SottoStagione" Type="Int32" Nullable="false" />
+          <Property Name="Ruolo" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ClassificaManuale_Squadra">
+          <End Role="Squadra" Type="Self.Squadra" Multiplicity="1" />
+          <End Role="ClassificaManuale" Type="Self.ClassificaManuale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Squadra">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ClassificaManuale">
+              <PropertyRef Name="IDSquadra" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClassificaManuale_Stagione">
+          <End Role="Stagione" Type="Self.Stagione" Multiplicity="1" />
+          <End Role="ClassificaManuale" Type="Self.ClassificaManuale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stagione">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ClassificaManuale">
+              <PropertyRef Name="IDStagione" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="GiocatoreRosa">
+          <End Role="Giocatore" Type="Self.Giocatore" Multiplicity="1" />
+          <End Role="Rosa" Type="Self.Rosa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Giocatore">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Rosa">
+              <PropertyRef Name="IDGiocatore" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="GironeGironeStagione">
+          <End Role="Girone" Type="Self.Girone" Multiplicity="1" />
+          <End Role="GironeStagione" Type="Self.GironeStagione" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Girone">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GironeStagione">
+              <PropertyRef Name="IDGirone" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Squadra_GironeStagione">
+          <End Role="Squadra" Type="Self.Squadra" Multiplicity="1" />
+          <End Role="GironeStagione" Type="Self.GironeStagione" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Squadra">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GironeStagione">
+              <PropertyRef Name="IDSquadra" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stagione_GironeStagione">
+          <End Role="Stagione" Type="Self.Stagione" Multiplicity="1" />
+          <End Role="GironeStagione" Type="Self.GironeStagione" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stagione">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GironeStagione">
+              <PropertyRef Name="IDStagione" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PartitaSquadraC">
+          <End Role="Squadra" Type="Self.Squadra" Multiplicity="1" />
+          <End Role="Partita" Type="Self.Partita" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Squadra">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Partita">
+              <PropertyRef Name="SquadraC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PartitaSquadraF">
+          <End Role="Squadra" Type="Self.Squadra" Multiplicity="1" />
+          <End Role="Partita" Type="Self.Partita" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Squadra">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Partita">
+              <PropertyRef Name="SquadraF" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PartitaStagione">
+          <End Role="Stagione" Type="Self.Stagione" Multiplicity="1" />
+          <End Role="Partita" Type="Self.Partita" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stagione">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Partita">
+              <PropertyRef Name="Stagione" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TabellinoPartita">
+          <End Role="Partita" Type="Self.Partita" Multiplicity="1" />
+          <End Role="Tabellino" Type="Self.Tabellino" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Partita">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tabellino">
+              <PropertyRef Name="IDPartita" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SquadraRosa">
+          <End Role="Squadra" Type="Self.Squadra" Multiplicity="1" />
+          <End Role="Rosa" Type="Self.Rosa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Squadra">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Rosa">
+              <PropertyRef Name="IDSquadra" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="StagioneRosa">
+          <End Role="Stagione" Type="Self.Stagione" Multiplicity="1" />
+          <End Role="Rosa" Type="Self.Rosa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stagione">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Rosa">
+              <PropertyRef Name="IDStagione" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TabellinoRosa">
+          <End Role="Rosa" Type="Self.Rosa" Multiplicity="1" />
+          <End Role="Tabellino" Type="Self.Tabellino" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rosa">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tabellino">
+              <PropertyRef Name="IDRosa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LHAL_AppEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ClassificaManuale" EntityType="Self.ClassificaManuale" />
+          <EntitySet Name="Giocatore" EntityType="Self.Giocatore" />
+          <EntitySet Name="Girone" EntityType="Self.Girone" />
+          <EntitySet Name="GironeStagione" EntityType="Self.GironeStagione" />
+          <EntitySet Name="Partita" EntityType="Self.Partita" />
+          <EntitySet Name="Rosa" EntityType="Self.Rosa" />
+          <EntitySet Name="Squadra" EntityType="Self.Squadra" />
+          <EntitySet Name="Stagione" EntityType="Self.Stagione" />
+          <EntitySet Name="Tabellino" EntityType="Self.Tabellino" />
+          <EntitySet Name="Calendario" EntityType="Self.Calendario" />
+          <EntitySet Name="ClassificaGiocatori" EntityType="Self.ClassificaGiocatori" />
+          <EntitySet Name="ClassificaPortieri" EntityType="Self.ClassificaPortieri" />
+          <EntitySet Name="DatePartite" EntityType="Self.DatePartite" />
+          <EntitySet Name="GiocatoreOverview" EntityType="Self.GiocatoreOverview" />
+          <EntitySet Name="PartitaSquadre" EntityType="Self.PartitaSquadre" />
+          <EntitySet Name="PartitePerSquadra" EntityType="Self.PartitePerSquadra" />
+          <EntitySet Name="Tabellini" EntityType="Self.Tabellini" />
+          <AssociationSet Name="FK_ClassificaManuale_Squadra" Association="Self.FK_ClassificaManuale_Squadra">
+            <End Role="Squadra" EntitySet="Squadra" />
+            <End Role="ClassificaManuale" EntitySet="ClassificaManuale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClassificaManuale_Stagione" Association="Self.FK_ClassificaManuale_Stagione">
+            <End Role="Stagione" EntitySet="Stagione" />
+            <End Role="ClassificaManuale" EntitySet="ClassificaManuale" />
+          </AssociationSet>
+          <AssociationSet Name="GiocatoreRosa" Association="Self.GiocatoreRosa">
+            <End Role="Giocatore" EntitySet="Giocatore" />
+            <End Role="Rosa" EntitySet="Rosa" />
+          </AssociationSet>
+          <AssociationSet Name="GironeGironeStagione" Association="Self.GironeGironeStagione">
+            <End Role="Girone" EntitySet="Girone" />
+            <End Role="GironeStagione" EntitySet="GironeStagione" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Squadra_GironeStagione" Association="Self.FK_Squadra_GironeStagione">
+            <End Role="Squadra" EntitySet="Squadra" />
+            <End Role="GironeStagione" EntitySet="GironeStagione" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stagione_GironeStagione" Association="Self.FK_Stagione_GironeStagione">
+            <End Role="Stagione" EntitySet="Stagione" />
+            <End Role="GironeStagione" EntitySet="GironeStagione" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PartitaSquadraC" Association="Self.FK_PartitaSquadraC">
+            <End Role="Squadra" EntitySet="Squadra" />
+            <End Role="Partita" EntitySet="Partita" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PartitaSquadraF" Association="Self.FK_PartitaSquadraF">
+            <End Role="Squadra" EntitySet="Squadra" />
+            <End Role="Partita" EntitySet="Partita" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PartitaStagione" Association="Self.FK_PartitaStagione">
+            <End Role="Stagione" EntitySet="Stagione" />
+            <End Role="Partita" EntitySet="Partita" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TabellinoPartita" Association="Self.FK_TabellinoPartita">
+            <End Role="Partita" EntitySet="Partita" />
+            <End Role="Tabellino" EntitySet="Tabellino" />
+          </AssociationSet>
+          <AssociationSet Name="SquadraRosa" Association="Self.SquadraRosa">
+            <End Role="Squadra" EntitySet="Squadra" />
+            <End Role="Rosa" EntitySet="Rosa" />
+          </AssociationSet>
+          <AssociationSet Name="StagioneRosa" Association="Self.StagioneRosa">
+            <End Role="Stagione" EntitySet="Stagione" />
+            <End Role="Rosa" EntitySet="Rosa" />
+          </AssociationSet>
+          <AssociationSet Name="TabellinoRosa" Association="Self.TabellinoRosa">
+            <End Role="Rosa" EntitySet="Rosa" />
+            <End Role="Tabellino" EntitySet="Tabellino" />
+          </AssociationSet>
+          <FunctionImport Name="GetClassifica" ReturnType="Collection(LHAL_AppModel.GetClassifica_Result)">
+            <Parameter Name="IDStagione" Mode="In" Type="Int32" />
+            <Parameter Name="IDGirone" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetClassificaCompleta" ReturnType="Collection(LHAL_AppModel.GetClassificaCompleta_Result)">
+            <Parameter Name="IDStagione" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetDettaglioGiocatore" ReturnType="Collection(LHAL_AppModel.GetDettaglioGiocatore_Result)">
+            <Parameter Name="IDGiocatore" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetDettaglioPartita" ReturnType="Collection(LHAL_AppModel.GetDettaglioPartita_Result)">
+            <Parameter Name="IDPartita" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="GetClassifica_Result">
+          <Property Type="String" Name="Nome" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="PV" Nullable="true" />
+          <Property Type="Int32" Name="PVP" Nullable="true" />
+          <Property Type="Int32" Name="PPP" Nullable="true" />
+          <Property Type="Int32" Name="PP" Nullable="true" />
+          <Property Type="Int32" Name="RetiFatte" Nullable="true" />
+          <Property Type="Int32" Name="RetiSubite" Nullable="true" />
+          <Property Type="Int32" Name="DifferenzaReti" Nullable="true" />
+          <Property Type="Int32" Name="Punti" Nullable="true" />
+          <Property Type="Int32" Name="Giocate" Nullable="true" />
+          <Property Type="Int32" Name="CM_Posizione" Nullable="false" />
+          <Property Type="Int32" Name="IDGirone" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetClassificaCompleta_Result">
+          <Property Type="String" Name="Nome" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Giocate" Nullable="true" />
+          <Property Type="Int32" Name="PV" Nullable="true" />
+          <Property Type="Int32" Name="PVP" Nullable="true" />
+          <Property Type="Int32" Name="PPP" Nullable="true" />
+          <Property Type="Int32" Name="PP" Nullable="true" />
+          <Property Type="Int32" Name="RetiFatte" Nullable="true" />
+          <Property Type="Int32" Name="RetiSubite" Nullable="true" />
+          <Property Type="Int32" Name="DifferenzaReti" Nullable="true" />
+          <Property Type="Int32" Name="Punti" Nullable="true" />
+          <Property Type="Int32" Name="CM_Posizione" Nullable="false" />
+          <Property Type="Int32" Name="IDGirone" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetDettaglioGiocatore_Result">
+          <Property Type="String" Name="ID" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="ParentID" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="ItemID" Nullable="true" MaxLength="15" />
+          <Property Type="Int32" Name="Livello" Nullable="true" />
+          <Property Type="String" Name="Nome" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Cognome" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="ExTesserato" Nullable="true" />
+          <Property Type="String" Name="Stagione" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Squadra" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Ruolo" Nullable="true" MaxLength="1" />
+          <Property Type="DateTime" Name="Data" Nullable="true" Precision="23" />
+          <Property Type="String" Name="NomeSquadraC" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="NomeSquadraF" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="RetiC" Nullable="true" />
+          <Property Type="Int32" Name="RetiF" Nullable="true" />
+          <Property Type="Int32" Name="Rigori" Nullable="true" />
+          <Property Type="String" Name="TestoRigori" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="Reti" Nullable="true" />
+          <Property Type="Int32" Name="Assist" Nullable="true" />
+          <Property Type="Int32" Name="Penalita" Nullable="true" />
+          <Property Type="Int32" Name="RetiSubite" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetDettaglioPartita_Result">
+          <Property Type="String" Name="ID" Nullable="true" MaxLength="7" />
+          <Property Type="String" Name="ParentID" Nullable="true" MaxLength="7" />
+          <Property Type="Int32" Name="ItemID" Nullable="false" />
+          <Property Type="Int32" Name="SquadraC" Nullable="true" />
+          <Property Type="Int32" Name="SquadraF" Nullable="true" />
+          <Property Type="String" Name="NomeSquadraC" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="NomeSquadraF" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="RetiC" Nullable="true" />
+          <Property Type="Int32" Name="RetiF" Nullable="true" />
+          <Property Type="DateTime" Name="Data" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="Stagione" Nullable="true" />
+          <Property Type="Int32" Name="SottoStagione" Nullable="true" />
+          <Property Type="Int32" Name="Rigori" Nullable="true" />
+          <Property Type="String" Name="TestoRigori" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="TestoStagione" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="PrgStagione" Nullable="true" />
+          <Property Type="String" Name="ImgReferto" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Squadra" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="IDGiocatore" Nullable="true" />
+          <Property Type="String" Name="NomeGiocatore" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="CognomeGiocatore" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Reti" Nullable="true" />
+          <Property Type="Int32" Name="Assist" Nullable="true" />
+          <Property Type="Int32" Name="Punti" Nullable="true" />
+          <Property Type="Int32" Name="Penalita" Nullable="true" />
+          <Property Type="Int32" Name="RetiSubite" Nullable="true" />
+          <Property Type="Int32" Name="Level" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="LHAL_AppModelStoreContainer" CdmEntityContainer="LHAL_AppEntities">
+          <EntitySetMapping Name="ClassificaManuale">
+            <EntityTypeMapping TypeName="LHAL_AppModel.ClassificaManuale">
+              <MappingFragment StoreEntitySet="ClassificaManuale">
+                <ScalarProperty Name="IDStagione" ColumnName="IDStagione" />
+                <ScalarProperty Name="IDSquadra" ColumnName="IDSquadra" />
+                <ScalarProperty Name="Posizione" ColumnName="Posizione" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Giocatore">
+            <EntityTypeMapping TypeName="LHAL_AppModel.Giocatore">
+              <MappingFragment StoreEntitySet="Giocatore">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Cognome" ColumnName="Cognome" />
+                <ScalarProperty Name="DataNascita" ColumnName="DataNascita" />
+                <ScalarProperty Name="ExTesserato" ColumnName="ExTesserato" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Girone">
+            <EntityTypeMapping TypeName="LHAL_AppModel.Girone">
+              <MappingFragment StoreEntitySet="Girone">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GironeStagione">
+            <EntityTypeMapping TypeName="LHAL_AppModel.GironeStagione">
+              <MappingFragment StoreEntitySet="GironeStagione">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="IDGirone" ColumnName="IDGirone" />
+                <ScalarProperty Name="IDStagione" ColumnName="IDStagione" />
+                <ScalarProperty Name="IDSquadra" ColumnName="IDSquadra" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Partita">
+            <EntityTypeMapping TypeName="LHAL_AppModel.Partita">
+              <MappingFragment StoreEntitySet="Partita">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SquadraC" ColumnName="SquadraC" />
+                <ScalarProperty Name="SquadraF" ColumnName="SquadraF" />
+                <ScalarProperty Name="RetiC" ColumnName="RetiC" />
+                <ScalarProperty Name="RetiF" ColumnName="RetiF" />
+                <ScalarProperty Name="Rigori" ColumnName="Rigori" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="Stagione" ColumnName="Stagione" />
+                <ScalarProperty Name="SottoStagione" ColumnName="SottoStagione" />
+                <ScalarProperty Name="UpdTMS" ColumnName="UpdTMS" />
+                <ScalarProperty Name="PrgStagione" ColumnName="PrgStagione" />
+                <ScalarProperty Name="ImgReferto" ColumnName="ImgReferto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rosa">
+            <EntityTypeMapping TypeName="LHAL_AppModel.Rosa">
+              <MappingFragment StoreEntitySet="Rosa">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="IDSquadra" ColumnName="IDSquadra" />
+                <ScalarProperty Name="IDStagione" ColumnName="IDStagione" />
+                <ScalarProperty Name="IDGiocatore" ColumnName="IDGiocatore" />
+                <ScalarProperty Name="NrMaglia1" ColumnName="NrMaglia1" />
+                <ScalarProperty Name="NrMaglia2" ColumnName="NrMaglia2" />
+                <ScalarProperty Name="Attivo" ColumnName="Attivo" />
+                <ScalarProperty Name="Ruolo" ColumnName="Ruolo" />
+                <ScalarProperty Name="IsCapitano" ColumnName="IsCapitano" />
+                <ScalarProperty Name="IsAssistente" ColumnName="IsAssistente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Squadra">
+            <EntityTypeMapping TypeName="LHAL_AppModel.Squadra">
+              <MappingFragment StoreEntitySet="Squadra">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Responsabili" ColumnName="Responsabili" />
+                <ScalarProperty Name="AnnoFondazione" ColumnName="AnnoFondazione" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stagione">
+            <EntityTypeMapping TypeName="LHAL_AppModel.Stagione">
+              <MappingFragment StoreEntitySet="Stagione">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Testo" ColumnName="Testo" />
+                <ScalarProperty Name="Ordine" ColumnName="Ordine" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tabellino">
+            <EntityTypeMapping TypeName="LHAL_AppModel.Tabellino">
+              <MappingFragment StoreEntitySet="Tabellino">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="IDPartita" ColumnName="IDPartita" />
+                <ScalarProperty Name="Reti" ColumnName="Reti" />
+                <ScalarProperty Name="Assist" ColumnName="Assist" />
+                <ScalarProperty Name="Penalita" ColumnName="Penalita" />
+                <ScalarProperty Name="UpdTMS" ColumnName="UpdTMS" />
+                <ScalarProperty Name="RetiSubite" ColumnName="RetiSubite" />
+                <ScalarProperty Name="IDRosa" ColumnName="IDRosa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Calendario">
+            <EntityTypeMapping TypeName="LHAL_AppModel.Calendario">
+              <MappingFragment StoreEntitySet="Calendario">
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+                <ScalarProperty Name="NrPartite" ColumnName="NrPartite" />
+                <ScalarProperty Name="Level" ColumnName="Level" />
+                <ScalarProperty Name="NomeSquadraC" ColumnName="NomeSquadraC" />
+                <ScalarProperty Name="NomeSquadraF" ColumnName="NomeSquadraF" />
+                <ScalarProperty Name="RetiC" ColumnName="RetiC" />
+                <ScalarProperty Name="RetiF" ColumnName="RetiF" />
+                <ScalarProperty Name="Stagione" ColumnName="Stagione" />
+                <ScalarProperty Name="SottoStagione" ColumnName="SottoStagione" />
+                <ScalarProperty Name="Rigori" ColumnName="Rigori" />
+                <ScalarProperty Name="TestoRigori" ColumnName="TestoRigori" />
+                <ScalarProperty Name="PrgStagione" ColumnName="PrgStagione" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClassificaGiocatori">
+            <EntityTypeMapping TypeName="LHAL_AppModel.ClassificaGiocatori">
+              <MappingFragment StoreEntitySet="ClassificaGiocatori">
+                <ScalarProperty Name="IDGiocatore" ColumnName="IDGiocatore" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Cognome" ColumnName="Cognome" />
+                <ScalarProperty Name="Stagione" ColumnName="Stagione" />
+                <ScalarProperty Name="Presenze" ColumnName="Presenze" />
+                <ScalarProperty Name="Reti" ColumnName="Reti" />
+                <ScalarProperty Name="Assist" ColumnName="Assist" />
+                <ScalarProperty Name="Punti" ColumnName="Punti" />
+                <ScalarProperty Name="Penalita" ColumnName="Penalita" />
+                <ScalarProperty Name="IDSquadra" ColumnName="IDSquadra" />
+                <ScalarProperty Name="NomeSquadra" ColumnName="NomeSquadra" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClassificaPortieri">
+            <EntityTypeMapping TypeName="LHAL_AppModel.ClassificaPortieri">
+              <MappingFragment StoreEntitySet="ClassificaPortieri">
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Cognome" ColumnName="Cognome" />
+                <ScalarProperty Name="Stagione" ColumnName="Stagione" />
+                <ScalarProperty Name="IDGiocatore" ColumnName="IDGiocatore" />
+                <ScalarProperty Name="Giocate" ColumnName="Giocate" />
+                <ScalarProperty Name="RetiSubite" ColumnName="RetiSubite" />
+                <ScalarProperty Name="Ratio" ColumnName="Ratio" />
+                <ScalarProperty Name="IDSquadra" ColumnName="IDSquadra" />
+                <ScalarProperty Name="NomeSquadra" ColumnName="NomeSquadra" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DatePartite">
+            <EntityTypeMapping TypeName="LHAL_AppModel.DatePartite">
+              <MappingFragment StoreEntitySet="DatePartite">
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="Stagione" ColumnName="Stagione" />
+                <ScalarProperty Name="SottoStagione" ColumnName="SottoStagione" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GiocatoreOverview">
+            <EntityTypeMapping TypeName="LHAL_AppModel.GiocatoreOverview">
+              <MappingFragment StoreEntitySet="GiocatoreOverview">
+                <ScalarProperty Name="SquadraID" ColumnName="SquadraID" />
+                <ScalarProperty Name="StagioneID" ColumnName="StagioneID" />
+                <ScalarProperty Name="IDGiocatore" ColumnName="IDGiocatore" />
+                <ScalarProperty Name="SquadraNome" ColumnName="SquadraNome" />
+                <ScalarProperty Name="Stagione" ColumnName="Stagione" />
+                <ScalarProperty Name="IDStagione" ColumnName="IDStagione" />
+                <ScalarProperty Name="GiocatoreNome" ColumnName="GiocatoreNome" />
+                <ScalarProperty Name="GiocatoreCognome" ColumnName="GiocatoreCognome" />
+                <ScalarProperty Name="Attivo" ColumnName="Attivo" />
+                <ScalarProperty Name="IDRosa" ColumnName="IDRosa" />
+                <ScalarProperty Name="IsCapitano" ColumnName="IsCapitano" />
+                <ScalarProperty Name="IsAssistente" ColumnName="IsAssistente" />
+                <ScalarProperty Name="NrMaglia1" ColumnName="NrMaglia1" />
+                <ScalarProperty Name="NrMaglia2" ColumnName="NrMaglia2" />
+                <ScalarProperty Name="Ruolo" ColumnName="Ruolo" />
+                <ScalarProperty Name="ExTesserato" ColumnName="ExTesserato" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PartitaSquadre">
+            <EntityTypeMapping TypeName="LHAL_AppModel.PartitaSquadre">
+              <MappingFragment StoreEntitySet="PartitaSquadre">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SquadraC" ColumnName="SquadraC" />
+                <ScalarProperty Name="SquadraF" ColumnName="SquadraF" />
+                <ScalarProperty Name="NomeSquadraC" ColumnName="NomeSquadraC" />
+                <ScalarProperty Name="NomeSquadraF" ColumnName="NomeSquadraF" />
+                <ScalarProperty Name="RetiC" ColumnName="RetiC" />
+                <ScalarProperty Name="RetiF" ColumnName="RetiF" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="Stagione" ColumnName="Stagione" />
+                <ScalarProperty Name="SottoStagione" ColumnName="SottoStagione" />
+                <ScalarProperty Name="DataInt" ColumnName="DataInt" />
+                <ScalarProperty Name="Rigori" ColumnName="Rigori" />
+                <ScalarProperty Name="TestoRigori" ColumnName="TestoRigori" />
+                <ScalarProperty Name="TestoStagione" ColumnName="TestoStagione" />
+                <ScalarProperty Name="PrgStagione" ColumnName="PrgStagione" />
+                <ScalarProperty Name="ImgReferto" ColumnName="ImgReferto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PartitePerSquadra">
+            <EntityTypeMapping TypeName="LHAL_AppModel.PartitePerSquadra">
+              <MappingFragment StoreEntitySet="PartitePerSquadra">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Squadra" ColumnName="Squadra" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="RetiFatte" ColumnName="RetiFatte" />
+                <ScalarProperty Name="RetiSubite" ColumnName="RetiSubite" />
+                <ScalarProperty Name="Rigori" ColumnName="Rigori" />
+                <ScalarProperty Name="Risultato" ColumnName="Risultato" />
+                <ScalarProperty Name="Punti" ColumnName="Punti" />
+                <ScalarProperty Name="Stagione" ColumnName="Stagione" />
+                <ScalarProperty Name="SottoStagione" ColumnName="SottoStagione" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tabellini">
+            <EntityTypeMapping TypeName="LHAL_AppModel.Tabellini">
+              <MappingFragment StoreEntitySet="Tabellini">
+                <ScalarProperty Name="IDTabellino" ColumnName="IDTabellino" />
+                <ScalarProperty Name="IDGiocatore" ColumnName="IDGiocatore" />
+                <ScalarProperty Name="IDRosa" ColumnName="IDRosa" />
+                <ScalarProperty Name="IDSquadra" ColumnName="IDSquadra" />
+                <ScalarProperty Name="NomeSquadra" ColumnName="NomeSquadra" />
+                <ScalarProperty Name="IDPartita" ColumnName="IDPartita" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Cognome" ColumnName="Cognome" />
+                <ScalarProperty Name="Assist" ColumnName="Assist" />
+                <ScalarProperty Name="Reti" ColumnName="Reti" />
+                <ScalarProperty Name="Penalita" ColumnName="Penalita" />
+                <ScalarProperty Name="RetiSubite" ColumnName="RetiSubite" />
+                <ScalarProperty Name="Stagione" ColumnName="Stagione" />
+                <ScalarProperty Name="SottoStagione" ColumnName="SottoStagione" />
+                <ScalarProperty Name="Ruolo" ColumnName="Ruolo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetClassifica" FunctionName="LHAL_AppModel.Store.GetClassifica">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LHAL_AppModel.GetClassifica_Result">
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="PV" ColumnName="PV" />
+                <ScalarProperty Name="PVP" ColumnName="PVP" />
+                <ScalarProperty Name="PPP" ColumnName="PPP" />
+                <ScalarProperty Name="PP" ColumnName="PP" />
+                <ScalarProperty Name="RetiFatte" ColumnName="RetiFatte" />
+                <ScalarProperty Name="RetiSubite" ColumnName="RetiSubite" />
+                <ScalarProperty Name="DifferenzaReti" ColumnName="DifferenzaReti" />
+                <ScalarProperty Name="Punti" ColumnName="Punti" />
+                <ScalarProperty Name="Giocate" ColumnName="Giocate" />
+                <ScalarProperty Name="CM_Posizione" ColumnName="CM_Posizione" />
+                <ScalarProperty Name="IDGirone" ColumnName="IDGirone" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetClassificaCompleta" FunctionName="LHAL_AppModel.Store.GetClassificaCompleta">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LHAL_AppModel.GetClassificaCompleta_Result">
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Giocate" ColumnName="Giocate" />
+                <ScalarProperty Name="PV" ColumnName="PV" />
+                <ScalarProperty Name="PVP" ColumnName="PVP" />
+                <ScalarProperty Name="PPP" ColumnName="PPP" />
+                <ScalarProperty Name="PP" ColumnName="PP" />
+                <ScalarProperty Name="RetiFatte" ColumnName="RetiFatte" />
+                <ScalarProperty Name="RetiSubite" ColumnName="RetiSubite" />
+                <ScalarProperty Name="DifferenzaReti" ColumnName="DifferenzaReti" />
+                <ScalarProperty Name="Punti" ColumnName="Punti" />
+                <ScalarProperty Name="CM_Posizione" ColumnName="CM_Posizione" />
+                <ScalarProperty Name="IDGirone" ColumnName="IDGirone" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetDettaglioGiocatore" FunctionName="LHAL_AppModel.Store.GetDettaglioGiocatore">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LHAL_AppModel.GetDettaglioGiocatore_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+                <ScalarProperty Name="Livello" ColumnName="Livello" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Cognome" ColumnName="Cognome" />
+                <ScalarProperty Name="ExTesserato" ColumnName="ExTesserato" />
+                <ScalarProperty Name="Stagione" ColumnName="Stagione" />
+                <ScalarProperty Name="Squadra" ColumnName="Squadra" />
+                <ScalarProperty Name="Ruolo" ColumnName="Ruolo" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="NomeSquadraC" ColumnName="NomeSquadraC" />
+                <ScalarProperty Name="NomeSquadraF" ColumnName="NomeSquadraF" />
+                <ScalarProperty Name="RetiC" ColumnName="RetiC" />
+                <ScalarProperty Name="RetiF" ColumnName="RetiF" />
+                <ScalarProperty Name="Rigori" ColumnName="Rigori" />
+                <ScalarProperty Name="TestoRigori" ColumnName="TestoRigori" />
+                <ScalarProperty Name="Reti" ColumnName="Reti" />
+                <ScalarProperty Name="Assist" ColumnName="Assist" />
+                <ScalarProperty Name="Penalita" ColumnName="Penalita" />
+                <ScalarProperty Name="RetiSubite" ColumnName="RetiSubite" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetDettaglioPartita" FunctionName="LHAL_AppModel.Store.GetDettaglioPartita">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LHAL_AppModel.GetDettaglioPartita_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+                <ScalarProperty Name="SquadraC" ColumnName="SquadraC" />
+                <ScalarProperty Name="SquadraF" ColumnName="SquadraF" />
+                <ScalarProperty Name="NomeSquadraC" ColumnName="NomeSquadraC" />
+                <ScalarProperty Name="NomeSquadraF" ColumnName="NomeSquadraF" />
+                <ScalarProperty Name="RetiC" ColumnName="RetiC" />
+                <ScalarProperty Name="RetiF" ColumnName="RetiF" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="Stagione" ColumnName="Stagione" />
+                <ScalarProperty Name="SottoStagione" ColumnName="SottoStagione" />
+                <ScalarProperty Name="Rigori" ColumnName="Rigori" />
+                <ScalarProperty Name="TestoRigori" ColumnName="TestoRigori" />
+                <ScalarProperty Name="TestoStagione" ColumnName="TestoStagione" />
+                <ScalarProperty Name="PrgStagione" ColumnName="PrgStagione" />
+                <ScalarProperty Name="ImgReferto" ColumnName="ImgReferto" />
+                <ScalarProperty Name="Squadra" ColumnName="Squadra" />
+                <ScalarProperty Name="IDGiocatore" ColumnName="IDGiocatore" />
+                <ScalarProperty Name="NomeGiocatore" ColumnName="NomeGiocatore" />
+                <ScalarProperty Name="CognomeGiocatore" ColumnName="CognomeGiocatore" />
+                <ScalarProperty Name="Reti" ColumnName="Reti" />
+                <ScalarProperty Name="Assist" ColumnName="Assist" />
+                <ScalarProperty Name="Punti" ColumnName="Punti" />
+                <ScalarProperty Name="Penalita" ColumnName="Penalita" />
+                <ScalarProperty Name="RetiSubite" ColumnName="RetiSubite" />
+                <ScalarProperty Name="Level" ColumnName="Level" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

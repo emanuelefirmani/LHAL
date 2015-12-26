@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace LHAL.WebAPI.Test.Integration
 {
@@ -19,6 +20,24 @@ namespace LHAL.WebAPI.Test.Integration
         {
             Microsoft.Owin.Hosting.WebApp.Start<Startup>(url: ADDRESS);
             Client = new RestClient(ADDRESS);
+        }
+    }
+
+    [TestFixture]
+    public class TestFixtures
+    {
+        private TransactionScope transaction;
+
+        [SetUpAttribute]
+        public void TestSetUp()
+        {
+            transaction = new TransactionScope();
+        }
+
+        [TearDownAttribute]
+        public void TestTearDown()
+        {
+            transaction.Dispose();
         }
     }
 }
