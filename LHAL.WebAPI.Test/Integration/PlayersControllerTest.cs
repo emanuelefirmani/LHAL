@@ -47,6 +47,34 @@ namespace LHAL.WebAPI.Test.Integration
             response.Data.Count.Should().Be(count);
         }
 
+        [TestCase(1, "John")]
+        [TestCase(2, "Tim")]
+        [TestCase(3, "Steve")]
+        public void GETShouldReturnAnArrayFilteredByID(int id, string name)
+        {
+            var request = new RestRequest("api/players", Method.GET);
+            request.AddQueryParameter("id", id.ToString());
+
+            var response = Fixtures.Client.Execute<List<Models.Player>>(request);
+
+            response.Data.Single().Name.Should().Be(name);
+        }
+
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("abc")]
+        [TestCase("1.0")]
+        [TestCase("1,0")]
+        public void GETShouldReturnNullForNonNumericIDs(string id)
+        {
+            var request = new RestRequest("api/players", Method.GET);
+            request.AddQueryParameter("id", id);
+
+            var response = Fixtures.Client.Execute<List<Models.Player>>(request);
+
+            response.Data.Should().BeNull();
+        }
+
         [TestCase("Black", 2)]
         [TestCase("black", 2)]
         [TestCase("White", 1)]
