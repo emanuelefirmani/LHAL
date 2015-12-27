@@ -8,9 +8,17 @@ namespace LHAL.WebAPI.Controllers
 {
     public class PlayersController : ApiController
     {
+        private readonly DAL.IDataAccess dataAccess;
+
+        public PlayersController() : this(new DAL.DataAccess()) { }
+        public PlayersController(DAL.IDataAccess access)
+        {
+            dataAccess = access;
+        }
+
         public List<Models.Player> Get()
         {
-            return FilterArray(DAL.Player.GetPlayers());
+            return FilterArray(dataAccess.GetPlayers());
         }
 
         private List<Models.Player> FilterArray(IQueryable<DAL.Giocatore> query)

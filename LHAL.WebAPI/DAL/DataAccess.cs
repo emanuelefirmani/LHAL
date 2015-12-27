@@ -5,9 +5,9 @@ using System.Web;
 
 namespace LHAL.WebAPI.DAL
 {
-    public class Player
+    public class DataAccess : DAL.IDataAccess
     {
-        public static IQueryable<Giocatore> GetPlayers()
+        public IQueryable<Giocatore> GetPlayers()
         {
             var context = new LHAL_AppEntities();
             return context.Giocatore;
