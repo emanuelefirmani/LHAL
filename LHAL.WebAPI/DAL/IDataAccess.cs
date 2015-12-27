@@ -1,7 +1,10 @@
-﻿namespace LHAL.WebAPI.DAL
+﻿using System.Linq;
+
+namespace LHAL.WebAPI.DAL
 {
     public interface IDataAccess
     {
-        System.Linq.IQueryable<Giocatore> GetPlayers();
+        IQueryable<Giocatore> GetPlayers();
+        IQueryable<Stagione> GetSeasons();
     }
 }

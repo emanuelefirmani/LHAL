@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web;
 using System.Web.Http;
+using LHAL.WebAPI.DAL;
 
 namespace LHAL.WebAPI.Controllers
 {
@@ -51,7 +52,7 @@ namespace LHAL.WebAPI.Controllers
                 }
             }
 
-            return query.OrderBy(x => x.Cognome).ThenBy(x => x.Nome).ToList().Select(x => new Models.Player(x)).ToList();
+            return query.OrderBy(x => x.Cognome).ThenBy(x => x.Nome).ToList().Select(x => x.Map()).ToList();
         }
     }
 }

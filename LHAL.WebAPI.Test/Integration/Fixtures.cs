@@ -34,16 +34,24 @@ namespace LHAL.WebAPI.Test.Integration
             using (var context = new DAL.LHAL_AppEntities())
             {
                 context.Database.Initialize(true);
-            }  
+            }
 
             using (var conn = new SqlConnection((new DAL.LHAL_AppEntities()).Database.Connection.ConnectionString))
             {
                 conn.Execute("INSERT INTO [dbo].[Giocatore]([Nome], [Cognome], [ExTesserato]) VALUES(@name, @lastname, 0)",
-                    new [] {
+                    new[] {
                         new { lastname = "Black", name = "John" },
                         new { lastname = "Black", name = "Tim" },
                         new { lastname = "Bear", name = "Steve" },
                         new { lastname = "White", name = "Tim" }
+                    }
+                );
+
+                conn.Execute("INSERT INTO [dbo].[Stagione]([Testo], [Ordine]) VALUES(@description, @order)",
+                    new[] {
+                        new { description = "2013/14", order = 0 },
+                        new { description = "2014/15", order = 1 },
+                        new { description = "2015/16", order = 2 }
                     }
                 );
             }

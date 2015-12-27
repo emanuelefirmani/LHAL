@@ -96,6 +96,7 @@
   <ItemGroup>
     <Compile Include="Integration\Fixtures.cs" />
     <Compile Include="Integration\PlayersControllerTest.cs" />
+    <Compile Include="Integration\SeasonsControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Integration\TestControllerTest.cs" />
   </ItemGroup>
