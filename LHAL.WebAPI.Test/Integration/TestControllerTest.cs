@@ -1,10 +1,5 @@
 ﻿using RestSharp;
 using FluentAssertions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Net;
 
 namespace LHAL.WebAPI.Test.Integration
@@ -28,9 +23,8 @@ namespace LHAL.WebAPI.Test.Integration
         [NUnit.Framework.Test]
         public void EchoReturnsEchoedStringWithPOST()
         {
-            var request = new RestRequest("api/test", Method.POST);
-            request.RequestFormat = DataFormat.Json;
-            request.AddBody(new LHAL.WebAPI.Models.TestEchoModel { Message = "Tim" });
+            var request = new RestRequest("api/test", Method.POST) { RequestFormat = DataFormat.Json };
+            request.AddBody(new Models.TestEchoModel { Message = "Tim" });
             var der = new RestSharp.Deserializers.JsonDeserializer();
 
             var response = Fixtures.Client.Execute(request);

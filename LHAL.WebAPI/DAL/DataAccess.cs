@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 
 namespace LHAL.WebAPI.DAL
 {
-    public class DataAccess : DAL.IDataAccess
+    public class DataAccess : IDataAccess
     {
         public IQueryable<Giocatore> GetPlayers()
         {

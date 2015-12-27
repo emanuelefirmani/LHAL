@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
@@ -8,17 +7,17 @@ namespace LHAL.WebAPI.Controllers
 {
     public class PlayersController : ApiController
     {
-        private readonly DAL.IDataAccess dataAccess;
+        private readonly DAL.IDataAccess _dataAccess;
 
         public PlayersController() : this(new DAL.DataAccess()) { }
         public PlayersController(DAL.IDataAccess access)
         {
-            dataAccess = access;
+            _dataAccess = access;
         }
 
         public List<Models.Player> Get()
         {
-            return FilterArray(dataAccess.GetPlayers());
+            return FilterArray(_dataAccess.GetPlayers());
         }
 
         private List<Models.Player> FilterArray(IQueryable<DAL.Giocatore> query)

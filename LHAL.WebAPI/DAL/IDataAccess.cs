@@ -1,5 +1,4 @@
-﻿using System;
-namespace LHAL.WebAPI.DAL
+﻿namespace LHAL.WebAPI.DAL
 {
     public interface IDataAccess
     {

@@ -1,11 +1,8 @@
-﻿using RestSharp;
-using System;
+﻿using System;
+using RestSharp;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FluentAssertions;
-using System.Net;
 using NUnit.Framework;
 
 namespace LHAL.WebAPI.Test.Integration
@@ -30,7 +27,7 @@ namespace LHAL.WebAPI.Test.Integration
 
             var response = Fixtures.Client.Execute<List<Models.Player>>(request);
 
-            response.Data.Count().Should().Be(4);
+            response.Data.Count.Should().Be(4);
         }
 
         [TestCase("Tim", 2)]
@@ -143,10 +140,10 @@ namespace LHAL.WebAPI.Test.Integration
             {
                 if (previousPlayer != null)
                 {
-                    var comparison = string.Compare(previousPlayer.Lastname, curr.Lastname, true);
+                    var comparison = string.Compare(previousPlayer.Lastname, curr.Lastname, StringComparison.OrdinalIgnoreCase);
                     if (comparison == 0)
                     {
-                        string.Compare(previousPlayer.Name, curr.Name, true).Should().BeLessOrEqualTo(0);
+                        string.Compare(previousPlayer.Name, curr.Name, StringComparison.OrdinalIgnoreCase).Should().BeLessOrEqualTo(0);
                     }
                     else if (comparison > 0)
                     {

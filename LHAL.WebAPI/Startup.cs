@@ -1,10 +1,7 @@
 ﻿using Microsoft.Owin;
 using Owin;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Http;
+#pragma warning disable 657
 
 namespace LHAL.WebAPI
 {
@@ -15,14 +12,8 @@ namespace LHAL.WebAPI
         {
             var config = new HttpConfiguration();
 
-            config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}"
-            );
-            config.Routes.MapHttpRoute(
-                name: "ActionApi",
-                routeTemplate: "api/{controller}/{action}"
-            );
+            config.Routes.MapHttpRoute("DefaultApi", "api/{controller}");
+            config.Routes.MapHttpRoute("ActionApi", "api/{controller}/{action}");
 
             app.UseWebApi(config);
         }
