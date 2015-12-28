@@ -20,5 +20,15 @@
                 Description = season.Testo
             };
         }
+
+        public static Models.Team Map(this Squadra team)
+        {
+            return new Models.Team
+            {
+                ID = team.ID,
+                Name = team.Nome,
+                Guid = team.GUID
+            };
+        }
     }
 }

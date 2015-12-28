@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 using RestSharp;
 using System.Data.Entity;
 using System.Data.SqlClient;
@@ -52,6 +53,13 @@ namespace LHAL.WebAPI.Test.Integration
                         new { description = "2013/14", order = 0 },
                         new { description = "2014/15", order = 1 },
                         new { description = "2015/16", order = 2 }
+                    }
+                );
+
+                conn.Execute("INSERT INTO [dbo].[Squadra]([Nome],[GUID]) VALUES(@name, @guid)",
+                    new[] {
+                        new { name = "Team A", guid = Guid.Parse("AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA") },
+                        new { name = "Team B", guid = Guid.Parse("BBBBBBBB-BBBB-BBBB-BBBB-BBBBBBBBBBBB") }
                     }
                 );
             }

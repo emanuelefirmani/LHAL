@@ -15,5 +15,10 @@ namespace LHAL.WebAPI.DAL
         {
             return _context.Stagione;
         }
+
+        public IQueryable<Squadra> GetTeams()
+        {
+            return _context.Squadra;
+        }
     }
 }
