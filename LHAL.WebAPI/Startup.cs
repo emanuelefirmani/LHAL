@@ -11,7 +11,7 @@ namespace LHAL.WebAPI
         public void Configuration(IAppBuilder app)
         {
             var config = new HttpConfiguration();
-
+            config.MapHttpAttributeRoutes();
             config.Routes.MapHttpRoute("DefaultApi", "api/{controller}");
             config.Routes.MapHttpRoute("ActionApi", "api/{controller}/{action}");
 
