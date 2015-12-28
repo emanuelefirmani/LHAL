@@ -56,11 +56,11 @@ namespace LHAL.WebAPI.Test.Integration
                     }
                 );
 
-                conn.Execute("INSERT INTO [dbo].[Squadra]([Nome],[GUID]) VALUES(@name, @guid)",
+                conn.Execute("INSERT INTO [dbo].[Squadra]([Nome],[GUID],[Responsabili],[AnnoFondazione],[Email],[ImagePath]) VALUES(@name, @guid, @resp, @year, @email, @path)",
                     new[] {
-                        new { name = "Team C", guid = Guid.Parse("CCCCCCCC-CCCC-CCCC-CCCC-CCCCCCCCCCCC") },
-                        new { name = "Team A", guid = Guid.Parse("AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA") },
-                        new { name = "Team B", guid = Guid.Parse("BBBBBBBB-BBBB-BBBB-BBBB-BBBBBBBBBBBB") }
+                        new { name = "Team C", guid = Guid.Parse("CCCCCCCC-CCCC-CCCC-CCCC-CCCCCCCCCCCC"), resp = "resp C", year = 2010, email = "emailC@nowhere.com", path = "path C" },
+                        new { name = "Team A", guid = Guid.Parse("AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA"), resp = "resp A", year = 2011, email = "emailA@nowhere.com", path = "path A" },
+                        new { name = "Team B", guid = Guid.Parse("BBBBBBBB-BBBB-BBBB-BBBB-BBBBBBBBBBBB"), resp = "resp B", year = 2012, email = "emailB@nowhere.com", path = "path B" }
                     }
                 );
 
