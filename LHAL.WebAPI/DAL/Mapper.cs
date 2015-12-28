@@ -25,9 +25,13 @@
         {
             return new Models.Team
             {
-                ID = team.ID,
                 Name = team.Nome,
-                Guid = team.GUID
+                Guid = team.GUID,
+                FoundationYear = team.AnnoFondazione,
+                Email = team.Email,
+                ID = team.ID,
+                ImagePath = team.ImagePath,
+                Responsible = team.Responsabili
             };
         }
     }

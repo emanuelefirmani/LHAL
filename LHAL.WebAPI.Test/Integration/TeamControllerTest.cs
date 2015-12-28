@@ -13,7 +13,7 @@ namespace LHAL.WebAPI.Test.Integration
         {
             var request = new RestRequest("api/team/1000", Method.GET);
 
-            var response = Fixtures.Client.Execute<Models.TeamDetails>(request);
+            var response = Fixtures.Client.Execute<Models.Team>(request);
 
             response.Data.Should().BeNull();
         }
@@ -23,7 +23,7 @@ namespace LHAL.WebAPI.Test.Integration
         {
             var request = new RestRequest("api/team/1", Method.GET);
 
-            var response = Fixtures.Client.Execute<Models.TeamDetails>(request);
+            var response = Fixtures.Client.Execute<Models.Team>(request);
 
             response.Data.Should().NotBeNull();
         }

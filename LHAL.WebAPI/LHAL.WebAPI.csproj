@@ -189,7 +189,6 @@
     <Compile Include="Models\Player.cs" />
     <Compile Include="Models\Season.cs" />
     <Compile Include="Models\Team.cs" />
-    <Compile Include="Models\TeamDetails.cs" />
     <Compile Include="Models\TestEchoModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
