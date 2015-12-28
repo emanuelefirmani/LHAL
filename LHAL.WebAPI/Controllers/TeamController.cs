@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using LHAL.WebAPI.DAL;
 
@@ -16,7 +17,7 @@ namespace LHAL.WebAPI.Controllers
 
         [Route("api/team/{teamID:int}")]
         [HttpGet]
-        public Models.Team Get(int teamID)
+        public Models.Team GetDetails(int teamID)
         {
             var teamInfo = _dataAccess.GetTeams().SingleOrDefault(x => x.ID == teamID);
 
@@ -24,6 +25,13 @@ namespace LHAL.WebAPI.Controllers
                 return null;
 
             return teamInfo.Map();
+        }
+
+        [Route("api/team/{teamID:int}/{sessionID:int}/players")]
+        [HttpGet]
+        public List<Models.TeamPlayer> GetPlayers(int teamID, int sessionID)
+        {
+            return _dataAccess.GetTeamPlayers(teamID, sessionID);
         }
     }
 }

@@ -41,5 +41,37 @@ namespace LHAL.WebAPI.Test.Integration
             response.Data.Should().NotBeNull();
         }
 
+        [Test]
+        public void GETShouldReturnNullIfSeasonIDDoesntExist()
+        {
+            var request = new RestRequest("api/team/1/1000/players", Method.GET);
+
+            var response = Fixtures.Client.Execute<Models.Team>(request);
+
+            response.Data.Should().BeNull();
+        }
+
+        [TestCase("abc")]
+        [TestCase("")]
+        public void GETShouldReturnErrorIfSeasonIDIsntValid(string seasonID)
+        {
+            var request = new RestRequest("api/team/1/{seasonID}/players", Method.GET);
+            request.AddUrlSegment("seasonID", seasonID);
+
+            var response = Fixtures.Client.Execute<Models.Team>(request);
+
+            response.StatusCode.Should().Be(HttpStatusCode.NotFound);
+        }
+
+        [Test]
+        public void GETShouldReturnTeamPlayersForSeason()
+        {
+            var request = new RestRequest("api/team/1/1/players", Method.GET);
+
+            var response = Fixtures.Client.Execute<List<Models.TeamPlayer>>(request);
+
+            response.Data.Should().NotBeNull();
+        }
+
     }
 }

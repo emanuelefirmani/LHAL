@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
+using LHAL.WebAPI.Models;
 
 namespace LHAL.WebAPI.DAL
 {
@@ -8,5 +10,6 @@ namespace LHAL.WebAPI.DAL
         IQueryable<Stagione> GetSeasons();
         IQueryable<Squadra> GetTeams();
         IQueryable<Squadra> GetTeams(int seasonID);
+        List<TeamPlayer> GetTeamPlayers(int teamID, int seasonID);
     }
 }
