@@ -22,11 +22,13 @@ namespace LHAL.WebAPI.Test.Integration
             response.Data.FirstOrDefault(x => x.Guid == Guid.Parse("AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA")).Should().NotBeNull();
         }
 
-        [Test]
-        public void GETShouldReturnAFilteredArrayBySeason()
+        [TestCase("season")]
+        [TestCase("Season")]
+        [TestCase("SEASON")]
+        public void GETShouldReturnAFilteredArrayBySeason(string parameterName)
         {
             var request = new RestRequest("api/teams", Method.GET);
-            request.AddQueryParameter("season", "1");
+            request.AddQueryParameter(parameterName, "1");
 
             var response = Fixtures.Client.Execute<List<Models.Team>>(request);
 

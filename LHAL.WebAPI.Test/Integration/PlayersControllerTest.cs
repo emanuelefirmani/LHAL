@@ -20,6 +20,7 @@ namespace LHAL.WebAPI.Test.Integration
             response.Data.FirstOrDefault(x => x.Name == "Tim").Should().NotBeNull();
         }
 
+        [Test]
         public void GETShouldReturnArrayWhenQueryStringIsMalformed()
         {
             var request = new RestRequest("api/players", Method.GET);
@@ -32,6 +33,7 @@ namespace LHAL.WebAPI.Test.Integration
 
         [TestCase("Tim", 2)]
         [TestCase("tim", 2)]
+        [TestCase("TIM", 2)]
         [TestCase("John", 1)]
         [TestCase("Tom", 0)]
         public void GETShouldReturnAnArrayFilteredByName(string name, int count)
@@ -42,6 +44,20 @@ namespace LHAL.WebAPI.Test.Integration
             var response = Fixtures.Client.Execute<List<Models.Player>>(request);
 
             response.Data.Count.Should().Be(count);
+        }
+
+        [TestCase("name")]
+        [TestCase("Name")]
+        [TestCase("NAME")]
+        [TestCase("nAmE")]
+        public void GETShouldReturnAFilteredArrayIndependentlyOfParameterCase(string parameterName)
+        {
+            var request = new RestRequest("api/players", Method.GET);
+            request.AddQueryParameter(parameterName, "tim");
+
+            var response = Fixtures.Client.Execute<List<Models.Player>>(request);
+
+            response.Data.Count.Should().Be(2);
         }
 
         [TestCase(1, "John")]
