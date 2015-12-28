@@ -32,5 +32,29 @@ namespace LHAL.WebAPI.Test.Integration
 
             response.Data.Count.Should().Be(2);
         }
+
+        [Test]
+        public void GETShouldReturnAnOrderedArray()
+        {
+            var request = new RestRequest("api/teams", Method.GET);
+
+            var response = Fixtures.Client.Execute<List<Models.Team>>(request);
+
+            Models.Team previousTeam = null;
+            foreach (var curr in response.Data)
+            {
+                if (previousTeam != null)
+                {
+                    var comparison = string.Compare(previousTeam.Name, curr.Name, StringComparison.OrdinalIgnoreCase);
+                    if (comparison >= 0)
+                    {
+                        Assert.Fail();
+                    }
+                }
+
+                previousTeam = curr;
+            }
+
+        }
     }
 }
