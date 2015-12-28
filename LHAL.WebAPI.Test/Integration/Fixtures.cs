@@ -58,8 +58,17 @@ namespace LHAL.WebAPI.Test.Integration
 
                 conn.Execute("INSERT INTO [dbo].[Squadra]([Nome],[GUID]) VALUES(@name, @guid)",
                     new[] {
+                        new { name = "Team C", guid = Guid.Parse("CCCCCCCC-CCCC-CCCC-CCCC-CCCCCCCCCCCC") },
                         new { name = "Team A", guid = Guid.Parse("AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA") },
                         new { name = "Team B", guid = Guid.Parse("BBBBBBBB-BBBB-BBBB-BBBB-BBBBBBBBBBBB") }
+                    }
+                );
+
+                conn.Execute("INSERT INTO [dbo].[Rosa]([IDSquadra],[IDStagione],[IDGiocatore],[Attivo],[Ruolo],[IsCapitano],[IsAssistente]) VALUES(@teamID, @seasonID, @playerID, 1, 'P', 0, 0)",
+                    new[] {
+                        new { teamID = 1, seasonID = 1, playerID = 1 },
+                        new { teamID = 2, seasonID = 1, playerID = 2 },
+                        new { teamID = 3, seasonID = 2, playerID = 1 }
                     }
                 );
             }

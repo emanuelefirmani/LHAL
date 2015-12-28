@@ -20,5 +20,10 @@ namespace LHAL.WebAPI.DAL
         {
             return _context.Squadra;
         }
+
+        public IQueryable<Squadra> GetTeams(int seasonID)
+        {
+            return _context.Squadra.Where(x => x.Rosa.Any(r => r.IDStagione == seasonID));
+        }
     }
 }

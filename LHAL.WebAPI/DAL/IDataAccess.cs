@@ -7,5 +7,6 @@ namespace LHAL.WebAPI.DAL
         IQueryable<Giocatore> GetPlayers();
         IQueryable<Stagione> GetSeasons();
         IQueryable<Squadra> GetTeams();
+        IQueryable<Squadra> GetTeams(int seasonID);
     }
 }
