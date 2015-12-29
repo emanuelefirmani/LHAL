@@ -5,25 +5,34 @@ namespace LHAL.WebAPI.DAL
 {
     public static class Mapper
     {
+        private static int _currentSeason = 0;
+
+        private static int CurrentSeason
+        {
+            get
+            {
+                if (_currentSeason == 0)
+                {
+                    var context = new LHAL_AppEntities();
+                    _currentSeason = context.Stagione.OrderByDescending(x => x.Ordine).First().ID;
+                }
+                return _currentSeason;
+            }
+        }
+
         public static IEnumerable<Models.Player> SelectPlayer(this IQueryable<Giocatore> query)
         {
-            var context = new LHAL_AppEntities();
-            var seasonID = context.Stagione.OrderByDescending(x => x.Ordine).First().ID;
-
-
             var list = query
                 .Select(x => new
                 {
                     x.Nome,
                     x.ID,
                     x.Cognome,
-                    CurrentTeamID = (x.Rosa.FirstOrDefault(r => r.IDStagione == seasonID && r.Attivo) == null) ? 0 : x.Rosa.FirstOrDefault(r => r.IDStagione == seasonID && r.Attivo).Squadra.ID,
-                    CurrentTeamName = (x.Rosa.FirstOrDefault(r => r.IDStagione == seasonID && r.Attivo) == null) ? null : x.Rosa.FirstOrDefault(r => r.IDStagione == seasonID && r.Attivo).Squadra.Nome
+                    CurrentTeamID = (x.Rosa.FirstOrDefault(r => r.IDStagione == CurrentSeason && r.Attivo) == null) ? 0 : x.Rosa.FirstOrDefault(r => r.IDStagione == CurrentSeason && r.Attivo).Squadra.ID,
+                    CurrentTeamName = (x.Rosa.FirstOrDefault(r => r.IDStagione == CurrentSeason && r.Attivo) == null) ? null : x.Rosa.FirstOrDefault(r => r.IDStagione == CurrentSeason && r.Attivo).Squadra.Nome
                 })
-                
                 .ToList();
 
-            // query must be materialized, otherwise a SQL exception could be raised
             return list.Select(player => new Models.Player
                     {
                         ID = player.ID,
