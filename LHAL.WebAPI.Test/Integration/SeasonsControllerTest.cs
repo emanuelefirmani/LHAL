@@ -9,7 +9,7 @@ namespace LHAL.WebAPI.Test.Integration
     class SeasonsControllerTest
     {
         [Test]
-        public void GETShouldReturnArray()
+        public void APISeasons_ShouldReturnArray()
         {
             var request = new RestRequest("api/seasons", Method.GET);
 

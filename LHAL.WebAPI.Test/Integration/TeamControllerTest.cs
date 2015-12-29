@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net;
 using FluentAssertions;
 using NUnit.Framework;
@@ -10,7 +9,7 @@ namespace LHAL.WebAPI.Test.Integration
     class TeamControllerTest
     {
         [Test]
-        public void GETShouldReturnNullIfTeamIDDoesntExist()
+        public void APITeam_ShouldReturnNullIfTeamIDDoesntExist()
         {
             var request = new RestRequest("api/team/1000", Method.GET);
 
@@ -21,7 +20,7 @@ namespace LHAL.WebAPI.Test.Integration
 
         [TestCase("abc")]
         [TestCase("")]
-        public void GETShouldReturnErrorIfTeamIDIsntValid(string teamID)
+        public void APITeam_ShouldReturnErrorIfTeamIDIsntValid(string teamID)
         {
             var request = new RestRequest("api/team/{teamID}", Method.GET);
             request.AddUrlSegment("teamID", teamID);
@@ -32,7 +31,7 @@ namespace LHAL.WebAPI.Test.Integration
         }
 
         [Test]
-        public void GETShouldReturnTheTeamDetails()
+        public void APITeam_ShouldReturnTheTeamDetails()
         {
             var request = new RestRequest("api/team/1", Method.GET);
 
@@ -42,7 +41,7 @@ namespace LHAL.WebAPI.Test.Integration
         }
 
         [Test]
-        public void GETShouldReturnNullIfSeasonIDDoesntExist()
+        public void APITeamPlayers_ShouldReturnNullIfSeasonIDDoesntExist()
         {
             var request = new RestRequest("api/team/1/1000/players", Method.GET);
 
@@ -53,7 +52,7 @@ namespace LHAL.WebAPI.Test.Integration
 
         [TestCase("abc")]
         [TestCase("")]
-        public void GETShouldReturnErrorIfSeasonIDIsntValid(string seasonID)
+        public void APITeamPlayers_ShouldReturnErrorIfSeasonIDIsntValid(string seasonID)
         {
             var request = new RestRequest("api/team/1/{seasonID}/players", Method.GET);
             request.AddUrlSegment("seasonID", seasonID);
@@ -64,7 +63,7 @@ namespace LHAL.WebAPI.Test.Integration
         }
 
         [Test]
-        public void GETShouldReturnTeamPlayersForSeason()
+        public void APITeamPlayers_ShouldReturnTeamPlayersForSeason()
         {
             var request = new RestRequest("api/team/1/1/players", Method.GET);
 

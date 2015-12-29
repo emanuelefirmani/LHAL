@@ -10,7 +10,7 @@ namespace LHAL.WebAPI.Test.Integration
     public class PlayersControllerTest
     {
         [Test]
-        public void GETShouldReturnArray()
+        public void APIPlayers_ShouldReturnArray()
         {
             var request = new RestRequest("api/players", Method.GET);
 
@@ -21,7 +21,7 @@ namespace LHAL.WebAPI.Test.Integration
         }
 
         [Test]
-        public void GETShouldReturnArrayWhenQueryStringIsMalformed()
+        public void APIPlayers_ShouldReturnArrayWhenQueryStringIsMalformed()
         {
             var request = new RestRequest("api/players", Method.GET);
             request.AddQueryParameter("", "tim");
@@ -36,7 +36,7 @@ namespace LHAL.WebAPI.Test.Integration
         [TestCase("TIM", 2)]
         [TestCase("John", 1)]
         [TestCase("Tom", 0)]
-        public void GETShouldReturnAnArrayFilteredByName(string name, int count)
+        public void APIPlayers_ShouldReturnAnArrayFilteredByName(string name, int count)
         {
             var request = new RestRequest("api/players", Method.GET);
             request.AddQueryParameter("name", name);
@@ -50,7 +50,7 @@ namespace LHAL.WebAPI.Test.Integration
         [TestCase("Name")]
         [TestCase("NAME")]
         [TestCase("nAmE")]
-        public void GETShouldReturnAFilteredArrayIndependentlyOfParameterCase(string parameterName)
+        public void APIPlayers_ShouldReturnAFilteredArrayIndependentlyOfParameterCase(string parameterName)
         {
             var request = new RestRequest("api/players", Method.GET);
             request.AddQueryParameter(parameterName, "tim");
@@ -63,7 +63,7 @@ namespace LHAL.WebAPI.Test.Integration
         [TestCase(1, "John")]
         [TestCase(2, "Tim")]
         [TestCase(3, "Steve")]
-        public void GETShouldReturnAnArrayFilteredByID(int id, string name)
+        public void APIPlayers_ShouldReturnAnArrayFilteredByID(int id, string name)
         {
             var request = new RestRequest("api/players", Method.GET);
             request.AddQueryParameter("id", id.ToString());
@@ -78,7 +78,7 @@ namespace LHAL.WebAPI.Test.Integration
         [TestCase("abc")]
         [TestCase("1.0")]
         [TestCase("1,0")]
-        public void GETShouldReturnNullForNonNumericIDs(string id)
+        public void APIPlayers_ShouldReturnNullForNonNumericIDs(string id)
         {
             var request = new RestRequest("api/players", Method.GET);
             request.AddQueryParameter("id", id);
@@ -92,7 +92,7 @@ namespace LHAL.WebAPI.Test.Integration
         [TestCase("black", 2)]
         [TestCase("White", 1)]
         [TestCase("Brown", 0)]
-        public void GETShouldReturnAnArrayFilteredByLastname(string lastname, int count)
+        public void APIPlayers_ShouldReturnAnArrayFilteredByLastname(string lastname, int count)
         {
             var request = new RestRequest("api/players", Method.GET);
             request.AddQueryParameter("lastname", lastname);
@@ -108,7 +108,7 @@ namespace LHAL.WebAPI.Test.Integration
         [TestCase("w", 1)]
         [TestCase("X", 0)]
         [TestCase("x", 0)]
-        public void GETShouldReturnAnArrayFilteredByInitialLetterOfLastname(string initialLetter, int count)
+        public void APIPlayers_ShouldReturnAnArrayFilteredByInitialLetterOfLastname(string initialLetter, int count)
         {
             var request = new RestRequest("api/players", Method.GET);
             request.AddQueryParameter("initialletter", initialLetter);
@@ -119,7 +119,7 @@ namespace LHAL.WebAPI.Test.Integration
         }
 
         [Test]
-        public void GETShouldReturnAnArrayFilteredByLastnameAndName()
+        public void APIPlayers_ShouldReturnAnArrayFilteredByLastnameAndName()
         {
             var request = new RestRequest("api/players", Method.GET);
             request.AddQueryParameter("name", "tim");
@@ -132,7 +132,7 @@ namespace LHAL.WebAPI.Test.Integration
         }
 
         [Test]
-        public void GETShouldReturnAnArrayFilteredByInitialLetterAndName()
+        public void APIPlayers_ShouldReturnAnArrayFilteredByInitialLetterAndName()
         {
             var request = new RestRequest("api/players", Method.GET);
             request.AddQueryParameter("name", "tim");
@@ -145,7 +145,7 @@ namespace LHAL.WebAPI.Test.Integration
         }
 
         [Test]
-        public void GETShouldReturnAnOrderedArray()
+        public void APIPlayers_ShouldReturnAnOrderedArray()
         {
             var request = new RestRequest("api/players", Method.GET);
 

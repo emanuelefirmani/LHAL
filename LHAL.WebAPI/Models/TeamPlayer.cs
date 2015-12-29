@@ -1,4 +1,5 @@
-﻿namespace LHAL.WebAPI.Models
+﻿// ReSharper disable UnusedAutoPropertyAccessor.Global
+namespace LHAL.WebAPI.Models
 {
     public class TeamPlayer
     {

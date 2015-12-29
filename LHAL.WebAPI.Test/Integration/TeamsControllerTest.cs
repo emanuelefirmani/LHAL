@@ -10,7 +10,7 @@ namespace LHAL.WebAPI.Test.Integration
     class TeamsControllerTest
     {
         [Test]
-        public void GETShouldReturnArray()
+        public void APITeams_ShouldReturnArray()
         {
             var request = new RestRequest("api/teams", Method.GET);
 
@@ -25,7 +25,7 @@ namespace LHAL.WebAPI.Test.Integration
         [TestCase("season")]
         [TestCase("Season")]
         [TestCase("SEASON")]
-        public void GETShouldReturnAFilteredArrayBySeason(string parameterName)
+        public void APITeams_ShouldReturnAFilteredArrayBySeason(string parameterName)
         {
             var request = new RestRequest("api/teams", Method.GET);
             request.AddQueryParameter(parameterName, "1");
@@ -36,7 +36,7 @@ namespace LHAL.WebAPI.Test.Integration
         }
 
         [Test]
-        public void GETShouldReturnAnOrderedArray()
+        public void APITeams_ShouldReturnAnOrderedArray()
         {
             var request = new RestRequest("api/teams", Method.GET);
 

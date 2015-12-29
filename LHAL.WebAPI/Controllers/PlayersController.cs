@@ -8,10 +8,10 @@ namespace LHAL.WebAPI.Controllers
 {
     public class PlayersController : ApiController
     {
-        private readonly DAL.IDataAccess _dataAccess;
+        private readonly IDataAccess _dataAccess;
 
-        public PlayersController() : this(new DAL.DataAccess()) { }
-        public PlayersController(DAL.IDataAccess access)
+        public PlayersController() : this(new DataAccess()) { }
+        public PlayersController(IDataAccess access)
         {
             _dataAccess = access;
         }
@@ -21,7 +21,7 @@ namespace LHAL.WebAPI.Controllers
             return FilterArray(_dataAccess.GetPlayers());
         }
 
-        private List<Models.Player> FilterArray(IQueryable<DAL.Giocatore> query)
+        private List<Models.Player> FilterArray(IQueryable<Giocatore> query)
         {
             if (!string.IsNullOrEmpty(Request.RequestUri.Query))
             {
