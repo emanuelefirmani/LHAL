@@ -44,7 +44,8 @@ namespace LHAL.WebAPI.Test.Integration
                         new { lastname = "Black", name = "John" },
                         new { lastname = "Black", name = "Tim" },
                         new { lastname = "Bear", name = "Steve" },
-                        new { lastname = "White", name = "Tim" }
+                        new { lastname = "White", name = "Tim" },
+                        new { lastname = "NoMorePlaying", name = "Player" }
                     }
                 );
 
@@ -64,11 +65,16 @@ namespace LHAL.WebAPI.Test.Integration
                     }
                 );
 
-                conn.Execute("INSERT INTO [dbo].[Rosa]([IDSquadra],[IDStagione],[IDGiocatore],[Attivo],[Ruolo],[IsCapitano],[IsAssistente]) VALUES(@teamID, @seasonID, @playerID, 1, 'P', 0, 0)",
+                conn.Execute("INSERT INTO [dbo].[Rosa]([IDSquadra],[IDStagione],[IDGiocatore],[Attivo],[Ruolo],[IsCapitano],[IsAssistente]) VALUES(@teamID, @seasonID, @playerID, @active, 'P', 0, 0)",
                     new[] {
-                        new { teamID = 1, seasonID = 1, playerID = 1 },
-                        new { teamID = 2, seasonID = 1, playerID = 2 },
-                        new { teamID = 3, seasonID = 2, playerID = 1 }
+                        new { teamID = 1, seasonID = 1, playerID = 1, active = 1 },
+                        new { teamID = 2, seasonID = 1, playerID = 2, active = 1 },
+                        new { teamID = 3, seasonID = 2, playerID = 1, active = 1 },
+                        new { teamID = 3, seasonID = 2, playerID = 4, active = 1 },
+                        new { teamID = 1, seasonID = 3, playerID = 1, active = 1 },
+                        new { teamID = 2, seasonID = 3, playerID = 2, active = 1 },
+                        new { teamID = 3, seasonID = 3, playerID = 3, active = 1 },
+                        new { teamID = 3, seasonID = 3, playerID = 4, active = 0 },
                     }
                 );
             }

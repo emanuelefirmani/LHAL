@@ -16,7 +16,7 @@ namespace LHAL.WebAPI.Test.Integration
 
             var response = Fixtures.Client.Execute<List<Models.Player>>(request);
 
-            response.Data.Count.Should().Be(4);
+            response.Data.Count.Should().BeGreaterThan(1);
             response.Data.FirstOrDefault(x => x.Name == "Tim").Should().NotBeNull();
         }
 
@@ -28,7 +28,7 @@ namespace LHAL.WebAPI.Test.Integration
 
             var response = Fixtures.Client.Execute<List<Models.Player>>(request);
 
-            response.Data.Count.Should().Be(4);
+            response.Data.Count.Should().BeGreaterThan(1);
         }
 
         [TestCase("Tim", 2)]
@@ -170,5 +170,34 @@ namespace LHAL.WebAPI.Test.Integration
                 previousPlayer = curr;
             }
         }
+
+        [Test]
+        public void APIPlayers_ShouldReturnTheCurrentTeam()
+        {
+            var request = new RestRequest("api/players", Method.GET);
+            request.AddQueryParameter("name", "tim");
+            request.AddQueryParameter("initialletter", "b");// select Tim Black id: 2
+
+            var response = Fixtures.Client.Execute<List<Models.Player>>(request);
+
+            response.Data.Single().Name.Should().Be("Tim");
+            response.Data.Single().Lastname.Should().Be("Black");
+            response.Data.Single().TeamID.Should().Be(2);
+            response.Data.Single().TeamName.Should().Be("Team A");
+        }
+
+        [Test]
+        public void APIPlayers_ShouldReturnNoTeamForNonPlayingPlayers()
+        {
+            var request = new RestRequest("api/players", Method.GET);
+            request.AddQueryParameter("lastname", "NoMorePlaying");
+
+            var response = Fixtures.Client.Execute<List<Models.Player>>(request);
+
+            response.Data.Single().ID.Should().Be(5);
+            response.Data.Single().TeamID.Should().Be(0);
+            response.Data.Single().TeamName.Should().BeNullOrEmpty();
+        }
+
     }
 }
