@@ -12,7 +12,7 @@ namespace LHAL.WebAPI.Test.Integration
         [Test]
         public void APISeasons_ShouldNotAcceptPOSTs()
         {
-            var request = new RestRequest("api/seasons", Method.POST);
+            var request = new RestRequest("v1/seasons", Method.POST);
 
             var response = Fixtures.Client.Execute<List<Models.Team>>(request);
 
@@ -22,7 +22,7 @@ namespace LHAL.WebAPI.Test.Integration
         [Test]
         public void APISeasons_ShouldReturnArray()
         {
-            var request = new RestRequest("api/seasons", Method.GET);
+            var request = new RestRequest("v1/seasons", Method.GET);
 
             var response = Fixtures.Client.Execute<List<Models.Season>>(request);
 

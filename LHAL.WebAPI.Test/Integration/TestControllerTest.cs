@@ -9,7 +9,7 @@ namespace LHAL.WebAPI.Test.Integration
         [NUnit.Framework.Test]
         public void EchoReturnsEchoedStringWithGET()
         {
-            var request = new RestRequest("api/test", Method.GET);
+            var request = new RestRequest("v1/test", Method.GET);
             request.AddParameter("message", "Tim");
             var der = new RestSharp.Deserializers.JsonDeserializer();
 
@@ -23,7 +23,7 @@ namespace LHAL.WebAPI.Test.Integration
         [NUnit.Framework.Test]
         public void EchoReturnsEchoedStringWithPOST()
         {
-            var request = new RestRequest("api/test", Method.POST) { RequestFormat = DataFormat.Json };
+            var request = new RestRequest("v1/test", Method.POST) { RequestFormat = DataFormat.Json };
             request.AddBody(new Models.TestEchoModel { Message = "Tim" });
             var der = new RestSharp.Deserializers.JsonDeserializer();
 

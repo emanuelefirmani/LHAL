@@ -55,7 +55,7 @@ namespace LHAL.WebAPI.Controllers
             return query.OrderBy(x => x.Cognome).ThenBy(x => x.Nome).SelectPlayers().ToList();
         }
 
-        [Route("api/players/lastname-initials")]
+        [Route("v1/players/lastname-initials")]
         [HttpGet]
         public List<string> GetLastnameInititials()
         {

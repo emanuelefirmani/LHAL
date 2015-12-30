@@ -15,14 +15,14 @@ namespace LHAL.WebAPI.Controllers
             _dataAccess = access;
         }
 
-        [Route("api/team/{teamID:int}")]
+        [Route("v1/team/{teamID:int}")]
         [HttpGet]
         public Models.Team GetDetails(int teamID)
         {
             return _dataAccess.GetTeams().Where(x => x.ID == teamID).SelecTeams().SingleOrDefault();
         }
 
-        [Route("api/team/{teamID:int}/season/{sessionID:int}/players")]
+        [Route("v1/team/{teamID:int}/season/{sessionID:int}/players")]
         [HttpGet]
         public List<Models.TeamPlayer> GetPlayers(int teamID, int sessionID)
         {

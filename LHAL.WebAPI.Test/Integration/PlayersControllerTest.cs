@@ -13,7 +13,7 @@ namespace LHAL.WebAPI.Test.Integration
         [Test]
         public void APIPlayers_ShouldNotAcceptPOSTs()
         {
-            var request = new RestRequest("api/players", Method.POST);
+            var request = new RestRequest("v1/players", Method.POST);
 
             var response = Fixtures.Client.Execute<List<Models.Team>>(request);
 
@@ -24,7 +24,7 @@ namespace LHAL.WebAPI.Test.Integration
         [Test]
         public void APIPlayers_ShouldReturnArray()
         {
-            var request = new RestRequest("api/players", Method.GET);
+            var request = new RestRequest("v1/players", Method.GET);
 
             var response = Fixtures.Client.Execute<List<Models.Player>>(request);
 
@@ -35,7 +35,7 @@ namespace LHAL.WebAPI.Test.Integration
         [Test]
         public void APIPlayers_ShouldReturnArrayWhenQueryStringIsMalformed()
         {
-            var request = new RestRequest("api/players", Method.GET);
+            var request = new RestRequest("v1/players", Method.GET);
             request.AddQueryParameter("", "tim");
 
             var response = Fixtures.Client.Execute<List<Models.Player>>(request);
@@ -50,7 +50,7 @@ namespace LHAL.WebAPI.Test.Integration
         [TestCase("Tom", 0)]
         public void APIPlayers_ShouldReturnAnArrayFilteredByName(string name, int count)
         {
-            var request = new RestRequest("api/players", Method.GET);
+            var request = new RestRequest("v1/players", Method.GET);
             request.AddQueryParameter("name", name);
 
             var response = Fixtures.Client.Execute<List<Models.Player>>(request);
@@ -64,7 +64,7 @@ namespace LHAL.WebAPI.Test.Integration
         [TestCase("nAmE")]
         public void APIPlayers_ShouldReturnAFilteredArrayIndependentlyOfParameterCase(string parameterName)
         {
-            var request = new RestRequest("api/players", Method.GET);
+            var request = new RestRequest("v1/players", Method.GET);
             request.AddQueryParameter(parameterName, "tim");
 
             var response = Fixtures.Client.Execute<List<Models.Player>>(request);
@@ -77,7 +77,7 @@ namespace LHAL.WebAPI.Test.Integration
         [TestCase(3, "Steve")]
         public void APIPlayers_ShouldReturnAnArrayFilteredByID(int id, string name)
         {
-            var request = new RestRequest("api/players", Method.GET);
+            var request = new RestRequest("v1/players", Method.GET);
             request.AddQueryParameter("id", id.ToString());
 
             var response = Fixtures.Client.Execute<List<Models.Player>>(request);
@@ -92,7 +92,7 @@ namespace LHAL.WebAPI.Test.Integration
         [TestCase("1,0")]
         public void APIPlayers_ShouldReturnNullForNonNumericIDs(string id)
         {
-            var request = new RestRequest("api/players", Method.GET);
+            var request = new RestRequest("v1/players", Method.GET);
             request.AddQueryParameter("id", id);
 
             var response = Fixtures.Client.Execute<List<Models.Player>>(request);
@@ -106,7 +106,7 @@ namespace LHAL.WebAPI.Test.Integration
         [TestCase("Brown", 0)]
         public void APIPlayers_ShouldReturnAnArrayFilteredByLastname(string lastname, int count)
         {
-            var request = new RestRequest("api/players", Method.GET);
+            var request = new RestRequest("v1/players", Method.GET);
             request.AddQueryParameter("lastname", lastname);
 
             var response = Fixtures.Client.Execute<List<Models.Player>>(request);
@@ -122,7 +122,7 @@ namespace LHAL.WebAPI.Test.Integration
         [TestCase("x", 0)]
         public void APIPlayers_ShouldReturnAnArrayFilteredByInitialLetterOfLastname(string initialLetter, int count)
         {
-            var request = new RestRequest("api/players", Method.GET);
+            var request = new RestRequest("v1/players", Method.GET);
             request.AddQueryParameter("initialletter", initialLetter);
 
             var response = Fixtures.Client.Execute<List<Models.Player>>(request);
@@ -133,7 +133,7 @@ namespace LHAL.WebAPI.Test.Integration
         [Test]
         public void APIPlayers_ShouldReturnAnArrayFilteredByLastnameAndName()
         {
-            var request = new RestRequest("api/players", Method.GET);
+            var request = new RestRequest("v1/players", Method.GET);
             request.AddQueryParameter("name", "tim");
             request.AddQueryParameter("lastname", "white");
 
@@ -146,7 +146,7 @@ namespace LHAL.WebAPI.Test.Integration
         [Test]
         public void APIPlayers_ShouldReturnAnArrayFilteredByInitialLetterAndName()
         {
-            var request = new RestRequest("api/players", Method.GET);
+            var request = new RestRequest("v1/players", Method.GET);
             request.AddQueryParameter("name", "tim");
             request.AddQueryParameter("initialletter", "w");
 
@@ -159,7 +159,7 @@ namespace LHAL.WebAPI.Test.Integration
         [Test]
         public void APIPlayers_ShouldReturnAnOrderedArray()
         {
-            var request = new RestRequest("api/players", Method.GET);
+            var request = new RestRequest("v1/players", Method.GET);
 
             var response = Fixtures.Client.Execute<List<Models.Player>>(request);
 
@@ -186,7 +186,7 @@ namespace LHAL.WebAPI.Test.Integration
         [Test]
         public void APIPlayers_ShouldReturnTheCurrentTeam()
         {
-            var request = new RestRequest("api/players", Method.GET);
+            var request = new RestRequest("v1/players", Method.GET);
             request.AddQueryParameter("name", "tim");
             request.AddQueryParameter("initialletter", "b");// select Tim Black id: 2
 
@@ -201,7 +201,7 @@ namespace LHAL.WebAPI.Test.Integration
         [Test]
         public void APIPlayers_ShouldReturnNoTeamForNonPlayingPlayers()
         {
-            var request = new RestRequest("api/players", Method.GET);
+            var request = new RestRequest("v1/players", Method.GET);
             request.AddQueryParameter("lastname", "NoMorePlaying");
 
             var response = Fixtures.Client.Execute<List<Models.Player>>(request);
@@ -214,7 +214,7 @@ namespace LHAL.WebAPI.Test.Integration
         [Test]
         public void APIPlayers_ShouldReturnLastnameInitialLetters()
         {
-            var request = new RestRequest("api/players/lastname-initials", Method.GET);
+            var request = new RestRequest("v1/players/lastname-initials", Method.GET);
 
             var response = Fixtures.Client.Execute<List<string>>(request);
 
@@ -231,7 +231,7 @@ namespace LHAL.WebAPI.Test.Integration
         [Test]
         public void APIPlayers_LastnameInitialLettersShouldBeUppercase()
         {
-            var request = new RestRequest("api/players/lastname-initials", Method.GET);
+            var request = new RestRequest("v1/players/lastname-initials", Method.GET);
 
             var response = Fixtures.Client.Execute<List<string>>(request);
 

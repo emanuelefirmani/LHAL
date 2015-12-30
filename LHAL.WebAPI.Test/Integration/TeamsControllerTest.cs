@@ -13,7 +13,7 @@ namespace LHAL.WebAPI.Test.Integration
         [Test]
         public void APITeams_ShouldNotAcceptPOSTs()
         {
-            var request = new RestRequest("api/teams", Method.POST);
+            var request = new RestRequest("v1/teams", Method.POST);
 
             var response = Fixtures.Client.Execute<List<Models.Team>>(request);
 
@@ -23,7 +23,7 @@ namespace LHAL.WebAPI.Test.Integration
         [Test]
         public void APITeams_ShouldReturnArray()
         {
-            var request = new RestRequest("api/teams", Method.GET);
+            var request = new RestRequest("v1/teams", Method.GET);
 
             var response = Fixtures.Client.Execute<List<Models.Team>>(request);
 
@@ -38,7 +38,7 @@ namespace LHAL.WebAPI.Test.Integration
         [TestCase("SEASON")]
         public void APITeams_ShouldReturnAFilteredArrayBySeason(string parameterName)
         {
-            var request = new RestRequest("api/teams", Method.GET);
+            var request = new RestRequest("v1/teams", Method.GET);
             request.AddQueryParameter(parameterName, "1");
 
             var response = Fixtures.Client.Execute<List<Models.Team>>(request);
@@ -49,7 +49,7 @@ namespace LHAL.WebAPI.Test.Integration
         [Test]
         public void APITeams_ShouldReturnAnOrderedArray()
         {
-            var request = new RestRequest("api/teams", Method.GET);
+            var request = new RestRequest("v1/teams", Method.GET);
 
             var response = Fixtures.Client.Execute<List<Models.Team>>(request);
 
