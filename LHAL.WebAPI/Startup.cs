@@ -13,7 +13,6 @@ namespace LHAL.WebAPI
             var config = new HttpConfiguration();
             config.MapHttpAttributeRoutes();
             config.Routes.MapHttpRoute("DefaultApi", "v1/{controller}");
-            config.Routes.MapHttpRoute("ActionApi", "v1/{controller}/{action}");
 
             app.UseWebApi(config);
         }
