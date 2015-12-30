@@ -104,7 +104,6 @@
     <Compile Include="Controllers\SeasonsController.cs" />
     <Compile Include="Controllers\TeamController.cs" />
     <Compile Include="Controllers\TeamsController.cs" />
-    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="DAL\Calendario.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
@@ -190,7 +189,6 @@
     <Compile Include="Models\Season.cs" />
     <Compile Include="Models\Team.cs" />
     <Compile Include="Models\TeamPlayer.cs" />
-    <Compile Include="Models\TestEchoModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
