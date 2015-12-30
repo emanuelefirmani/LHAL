@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using FluentAssertions;
 using NUnit.Framework;
@@ -63,13 +65,42 @@ namespace LHAL.WebAPI.Test.Integration
         }
 
         [Test]
-        public void APITeamPlayers_ShouldReturnTeamPlayersForSeason()
+        public void APITeamPlayers_ShouldReturnTeamOrderedArraOfPlayersForSeason()
         {
-            var request = new RestRequest("api/team/1/1/players", Method.GET);
+            var request = new RestRequest("api/team/3/2/players", Method.GET);
 
             var response = Fixtures.Client.Execute<List<Models.TeamPlayer>>(request);
 
-            response.Data.Should().NotBeNull();
+            response.Data.Any(x => x.Lastname == "NoMorePlaying").Should().BeTrue();
+
+            Models.TeamPlayer previousPlayer = null;
+            foreach (var curr in response.Data)
+            {
+                if (previousPlayer != null)
+                {
+                    var comparison = string.Compare(previousPlayer.Lastname, curr.Lastname, StringComparison.OrdinalIgnoreCase);
+                    if (comparison == 0)
+                    {
+                        string.Compare(previousPlayer.Name, curr.Name, StringComparison.OrdinalIgnoreCase).Should().BeLessOrEqualTo(0);
+                    }
+                    else if (comparison > 0)
+                    {
+                        Assert.Fail();
+                    }
+                }
+
+                previousPlayer = curr;
+            }
+        }
+
+        [Test]
+        public void APITeamPlayers_ShouldNotReturnNoMorePlayingPlayers()
+        {
+            var request = new RestRequest("api/team/3/3/players", Method.GET);
+
+            var response = Fixtures.Client.Execute<List<Models.TeamPlayer>>(request);
+
+            response.Data.Any(x => x.Lastname == "NoMorePlaying").Should().BeFalse();
         }
 
     }

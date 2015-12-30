@@ -71,10 +71,11 @@ namespace LHAL.WebAPI.Test.Integration
                         new { teamID = 2, seasonID = 1, playerID = 2, active = 1 },
                         new { teamID = 3, seasonID = 2, playerID = 1, active = 1 },
                         new { teamID = 3, seasonID = 2, playerID = 4, active = 1 },
+                        new { teamID = 3, seasonID = 2, playerID = 5, active = 1 },
                         new { teamID = 1, seasonID = 3, playerID = 1, active = 1 },
                         new { teamID = 2, seasonID = 3, playerID = 2, active = 1 },
                         new { teamID = 3, seasonID = 3, playerID = 3, active = 1 },
-                        new { teamID = 3, seasonID = 3, playerID = 4, active = 0 },
+                        new { teamID = 3, seasonID = 3, playerID = 5, active = 0 },
                     }
                 );
             }
