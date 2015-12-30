@@ -52,7 +52,7 @@ namespace LHAL.WebAPI.Controllers
                 }
             }
 
-            return query.OrderBy(x => x.Cognome).ThenBy(x => x.Nome).SelectPlayer().ToList();
+            return query.OrderBy(x => x.Cognome).ThenBy(x => x.Nome).SelectPlayers().ToList();
         }
     }
 }

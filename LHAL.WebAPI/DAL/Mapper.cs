@@ -20,7 +20,7 @@ namespace LHAL.WebAPI.DAL
             }
         }
 
-        public static IEnumerable<Models.Player> SelectPlayer(this IQueryable<Giocatore> query)
+        public static IEnumerable<Models.Player> SelectPlayers(this IQueryable<Giocatore> query)
         {
             var list = query
                 .Select(x => new
@@ -44,18 +44,18 @@ namespace LHAL.WebAPI.DAL
                 );
         }
 
-        public static Models.Season Map(this Stagione season)
+        public static IEnumerable<Models.Season> SelectSeasons(this IQueryable<Stagione> query)
         {
-            return new Models.Season
+            return query.ToList().Select(season => new Models.Season
             {
                 ID = season.ID,
                 Description = season.Testo
-            };
+            });
         }
 
-        public static Models.Team Map(this Squadra team)
+        public static IEnumerable<Models.Team> SelecTeams(this IQueryable<Squadra> query)
         {
-            return new Models.Team
+            return query.ToList().Select(team => new Models.Team
             {
                 Name = team.Nome,
                 Guid = team.GUID,
@@ -64,7 +64,7 @@ namespace LHAL.WebAPI.DAL
                 ID = team.ID,
                 ImagePath = team.ImagePath,
                 Responsible = team.Responsabili
-            };
+            });
         }
     }
 }

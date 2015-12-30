@@ -19,12 +19,7 @@ namespace LHAL.WebAPI.Controllers
         [HttpGet]
         public Models.Team GetDetails(int teamID)
         {
-            var teamInfo = _dataAccess.GetTeams().SingleOrDefault(x => x.ID == teamID);
-
-            if (teamInfo == null)
-                return null;
-
-            return teamInfo.Map();
+            return _dataAccess.GetTeams().Where(x => x.ID == teamID).SelecTeams().SingleOrDefault();
         }
 
         [Route("api/team/{teamID:int}/{sessionID:int}/players")]

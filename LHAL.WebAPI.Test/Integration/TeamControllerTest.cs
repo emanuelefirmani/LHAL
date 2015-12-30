@@ -39,7 +39,7 @@ namespace LHAL.WebAPI.Test.Integration
 
             var response = Fixtures.Client.Execute<Models.Team>(request);
 
-            response.Data.Should().NotBeNull();
+            response.Data.Name.Should().Be("Team C");
         }
 
         [Test]

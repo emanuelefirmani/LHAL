@@ -17,7 +17,7 @@ namespace LHAL.WebAPI.Controllers
 
         public List<Models.Season> Get()
         {
-            return _dataAccess.GetSeasons().ToList().Select(x => x.Map()).ToList();
+            return _dataAccess.GetSeasons().SelectSeasons().ToList();
         }
     }
 }
