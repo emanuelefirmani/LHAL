@@ -10,6 +10,17 @@ namespace LHAL.WebAPI.Test.Integration
 {
     class TeamControllerTest
     {
+        [TestCase("api/team/1")]
+        [TestCase("api/team/3/3/players")]
+        public void APITeam_ShouldNotAcceptPOSTs(string url)
+        {
+            var request = new RestRequest(url, Method.POST);
+
+            var response = Fixtures.Client.Execute<List<Models.Team>>(request);
+
+            response.StatusCode.Should().Be(HttpStatusCode.MethodNotAllowed);
+        }
+
         [Test]
         public void APITeam_ShouldReturnNullIfTeamIDDoesntExist()
         {

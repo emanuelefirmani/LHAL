@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using FluentAssertions;
 using NUnit.Framework;
 using RestSharp;
@@ -9,6 +10,16 @@ namespace LHAL.WebAPI.Test.Integration
 {
     class TeamsControllerTest
     {
+        [Test]
+        public void APITeams_ShouldNotAcceptPOSTs()
+        {
+            var request = new RestRequest("api/teams", Method.POST);
+
+            var response = Fixtures.Client.Execute<List<Models.Team>>(request);
+
+            response.StatusCode.Should().Be(HttpStatusCode.MethodNotAllowed);
+        }
+
         [Test]
         public void APITeams_ShouldReturnArray()
         {
