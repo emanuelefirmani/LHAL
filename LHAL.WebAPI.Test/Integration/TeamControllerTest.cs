@@ -11,7 +11,7 @@ namespace LHAL.WebAPI.Test.Integration
     class TeamControllerTest
     {
         [TestCase("api/team/1")]
-        [TestCase("api/team/3/3/players")]
+        [TestCase("api/team/3/season/3/players")]
         public void APITeam_ShouldNotAcceptPOSTs(string url)
         {
             var request = new RestRequest(url, Method.POST);
@@ -67,7 +67,7 @@ namespace LHAL.WebAPI.Test.Integration
         [TestCase("")]
         public void APITeamPlayers_ShouldReturnErrorIfSeasonIDIsntValid(string seasonID)
         {
-            var request = new RestRequest("api/team/1/{seasonID}/players", Method.GET);
+            var request = new RestRequest("api/team/1/season/{seasonID}/players", Method.GET);
             request.AddUrlSegment("seasonID", seasonID);
 
             var response = Fixtures.Client.Execute<Models.Team>(request);
@@ -78,7 +78,7 @@ namespace LHAL.WebAPI.Test.Integration
         [Test]
         public void APITeamPlayers_ShouldReturnTeamOrderedArraOfPlayersForSeason()
         {
-            var request = new RestRequest("api/team/3/2/players", Method.GET);
+            var request = new RestRequest("api/team/3/season/2/players", Method.GET);
 
             var response = Fixtures.Client.Execute<List<Models.TeamPlayer>>(request);
 
@@ -107,7 +107,7 @@ namespace LHAL.WebAPI.Test.Integration
         [Test]
         public void APITeamPlayers_ShouldNotReturnNoMorePlayingPlayers()
         {
-            var request = new RestRequest("api/team/3/3/players", Method.GET);
+            var request = new RestRequest("api/team/3/season/3/players", Method.GET);
 
             var response = Fixtures.Client.Execute<List<Models.TeamPlayer>>(request);
 
