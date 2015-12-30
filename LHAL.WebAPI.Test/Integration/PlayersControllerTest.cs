@@ -211,5 +211,36 @@ namespace LHAL.WebAPI.Test.Integration
             response.Data.Single().TeamName.Should().BeNullOrEmpty();
         }
 
+        [Test]
+        public void APIPlayers_ShouldReturnLastnameInitialLetters()
+        {
+            var request = new RestRequest("api/players/lastname-initials", Method.GET);
+
+            var response = Fixtures.Client.Execute<List<string>>(request);
+
+            response.Data.Count.Should().BeGreaterThan(2);
+            response.Data.Any(x => x == "W").Should().BeTrue();
+            response.Data.Any(x => x == "B").Should().BeTrue();
+            foreach (var initial in response.Data)
+            {
+                if(initial.Length != 1)
+                    Assert.Fail();
+            }
+        }
+
+        [Test]
+        public void APIPlayers_LastnameInitialLettersShouldBeUppercase()
+        {
+            var request = new RestRequest("api/players/lastname-initials", Method.GET);
+
+            var response = Fixtures.Client.Execute<List<string>>(request);
+
+            foreach (var initial in response.Data)
+            {
+                if(initial != initial.ToUpper())
+                    Assert.Fail();
+            }
+        }
+
     }
 }

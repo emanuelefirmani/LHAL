@@ -45,7 +45,8 @@ namespace LHAL.WebAPI.Test.Integration
                         new { lastname = "Black", name = "Tim" },
                         new { lastname = "Bear", name = "Steve" },
                         new { lastname = "White", name = "Tim" },
-                        new { lastname = "NoMorePlaying", name = "Player" }
+                        new { lastname = "NoMorePlaying", name = "Player" },
+                        new { lastname = "lowerLastname", name = "Player" },
                     }
                 );
 
@@ -69,6 +70,7 @@ namespace LHAL.WebAPI.Test.Integration
                     new[] {
                         new { teamID = 1, seasonID = 1, playerID = 1, active = 1 },
                         new { teamID = 2, seasonID = 1, playerID = 2, active = 1 },
+                        new { teamID = 2, seasonID = 1, playerID = 6, active = 1 },
                         new { teamID = 3, seasonID = 2, playerID = 1, active = 1 },
                         new { teamID = 3, seasonID = 2, playerID = 4, active = 1 },
                         new { teamID = 3, seasonID = 2, playerID = 5, active = 1 },

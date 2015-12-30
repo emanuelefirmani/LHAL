@@ -11,5 +11,6 @@ namespace LHAL.WebAPI.DAL
         IQueryable<Squadra> GetTeams();
         IQueryable<Squadra> GetTeams(int seasonID);
         List<TeamPlayer> GetTeamPlayers(int teamID, int seasonID);
+        List<string> GetLastnameInititials();
     }
 }

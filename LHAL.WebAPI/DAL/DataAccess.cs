@@ -54,5 +54,10 @@ namespace LHAL.WebAPI.DAL
 
             }).ToList();
         }
+
+        public List<string> GetLastnameInititials()
+        {
+            return _context.Giocatore.Select(x => x.Cognome.Substring(0, 1).ToUpper()).ToList();
+        }
     }
 }
