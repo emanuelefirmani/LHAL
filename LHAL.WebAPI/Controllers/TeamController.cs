@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Http;
 using LHAL.WebAPI.DAL;
+using LHAL.WebAPI.Models;
 
 namespace LHAL.WebAPI.Controllers
 {
@@ -17,14 +18,14 @@ namespace LHAL.WebAPI.Controllers
 
         [Route("v1/team/{teamID:int}")]
         [HttpGet]
-        public Models.Team GetDetails(int teamID)
+        public Team GetDetails(int teamID)
         {
             return _dataAccess.GetTeams().Where(x => x.ID == teamID).SelecTeams().SingleOrDefault();
         }
 
         [Route("v1/team/{teamID:int}/season/{sessionID:int}/players")]
         [HttpGet]
-        public List<Models.TeamPlayer> GetPlayers(int teamID, int sessionID)
+        public List<TeamPlayer> GetPlayers(int teamID, int sessionID)
         {
             return _dataAccess.GetTeamPlayers(teamID, sessionID);
         }

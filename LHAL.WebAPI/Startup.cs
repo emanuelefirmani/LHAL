@@ -1,6 +1,7 @@
-﻿using Microsoft.Owin;
+﻿using System.Web.Http;
+using Microsoft.Owin;
 using Owin;
-using System.Web.Http;
+
 #pragma warning disable 657
 
 namespace LHAL.WebAPI

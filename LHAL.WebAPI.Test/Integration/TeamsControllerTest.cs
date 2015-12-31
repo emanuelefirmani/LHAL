@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using FluentAssertions;
+using LHAL.WebAPI.Models;
 using NUnit.Framework;
 using RestSharp;
 
@@ -15,7 +16,7 @@ namespace LHAL.WebAPI.Test.Integration
         {
             var request = new RestRequest("v1/teams", Method.POST);
 
-            var response = Fixtures.Client.Execute<List<Models.Team>>(request);
+            var response = Fixtures.Client.Execute<List<Team>>(request);
 
             response.StatusCode.Should().Be(HttpStatusCode.MethodNotAllowed);
         }
@@ -25,7 +26,7 @@ namespace LHAL.WebAPI.Test.Integration
         {
             var request = new RestRequest("v1/teams", Method.GET);
 
-            var response = Fixtures.Client.Execute<List<Models.Team>>(request);
+            var response = Fixtures.Client.Execute<List<Team>>(request);
 
             response.Data.Count.Should().Be(3);
             response.Data.FirstOrDefault(x => x.ID == 1).Should().NotBeNull();
@@ -41,7 +42,7 @@ namespace LHAL.WebAPI.Test.Integration
             var request = new RestRequest("v1/teams", Method.GET);
             request.AddQueryParameter(parameterName, "1");
 
-            var response = Fixtures.Client.Execute<List<Models.Team>>(request);
+            var response = Fixtures.Client.Execute<List<Team>>(request);
 
             response.Data.Count.Should().Be(2);
         }
@@ -51,9 +52,9 @@ namespace LHAL.WebAPI.Test.Integration
         {
             var request = new RestRequest("v1/teams", Method.GET);
 
-            var response = Fixtures.Client.Execute<List<Models.Team>>(request);
+            var response = Fixtures.Client.Execute<List<Team>>(request);
 
-            Models.Team previousTeam = null;
+            Team previousTeam = null;
             foreach (var curr in response.Data)
             {
                 if (previousTeam != null)

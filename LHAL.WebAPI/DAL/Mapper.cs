@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using LHAL.WebAPI.Models;
 
 namespace LHAL.WebAPI.DAL
 {
     public static class Mapper
     {
-        private static int _currentSeason = 0;
+        private static int _currentSeason;
 
         private static int CurrentSeason
         {
@@ -20,7 +21,7 @@ namespace LHAL.WebAPI.DAL
             }
         }
 
-        public static IEnumerable<Models.Player> SelectPlayers(this IQueryable<Giocatore> query)
+        public static IEnumerable<Player> SelectPlayers(this IQueryable<Giocatore> query)
         {
             var list = query
                 .Select(x => new
@@ -33,7 +34,7 @@ namespace LHAL.WebAPI.DAL
                 })
                 .ToList();
 
-            return list.Select(player => new Models.Player
+            return list.Select(player => new Player
                     {
                         ID = player.ID,
                         Name = player.Nome,
@@ -44,18 +45,18 @@ namespace LHAL.WebAPI.DAL
                 );
         }
 
-        public static IEnumerable<Models.Season> SelectSeasons(this IQueryable<Stagione> query)
+        public static IEnumerable<Season> SelectSeasons(this IQueryable<Stagione> query)
         {
-            return query.ToList().Select(season => new Models.Season
+            return query.ToList().Select(season => new Season
             {
                 ID = season.ID,
                 Description = season.Testo
             });
         }
 
-        public static IEnumerable<Models.Team> SelecTeams(this IQueryable<Squadra> query)
+        public static IEnumerable<Team> SelecTeams(this IQueryable<Squadra> query)
         {
-            return query.ToList().Select(team => new Models.Team
+            return query.ToList().Select(team => new Team
             {
                 Name = team.Nome,
                 Guid = team.GUID,

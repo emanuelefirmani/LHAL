@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Http;
 using LHAL.WebAPI.DAL;
+using LHAL.WebAPI.Models;
 
 namespace LHAL.WebAPI.Controllers
 {
@@ -16,12 +17,12 @@ namespace LHAL.WebAPI.Controllers
             _dataAccess = access;
         }
 
-        public List<Models.Player> Get()
+        public List<Player> Get()
         {
             return FilterArray(_dataAccess.GetPlayers());
         }
 
-        private List<Models.Player> FilterArray(IQueryable<Giocatore> query)
+        private List<Player> FilterArray(IQueryable<Giocatore> query)
         {
             if (!string.IsNullOrEmpty(Request.RequestUri.Query))
             {

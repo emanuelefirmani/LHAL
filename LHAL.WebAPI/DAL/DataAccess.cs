@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using LHAL.WebAPI.Models;
 
 namespace LHAL.WebAPI.DAL
 {
@@ -27,7 +28,7 @@ namespace LHAL.WebAPI.DAL
             return _context.Squadra.Where(x => x.Rosa.Any(r => r.IDStagione == seasonID));
         }
 
-        public List<Models.TeamPlayer> GetTeamPlayers(int teamID, int seasonID)
+        public List<TeamPlayer> GetTeamPlayers(int teamID, int seasonID)
         {
             var results = _context.Rosa.Where(x => x.IDSquadra == teamID && x.IDStagione == seasonID && x.Attivo).Select(x => new {
                 x.Giocatore.Nome,
@@ -41,7 +42,7 @@ namespace LHAL.WebAPI.DAL
                 PartiteGiocate = _context.Tabellino.Count(t => t.IDRosa == x.ID)
             }).OrderBy(x => x.Cognome).ThenBy(x => x.Nome).ToList();
 
-            return results.Select(x => new Models.TeamPlayer
+            return results.Select(x => new TeamPlayer
             {
                 Name = x.Nome,
                 Lastname = x.Cognome,

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using FluentAssertions;
+using LHAL.WebAPI.Models;
 using NUnit.Framework;
 using RestSharp;
 
@@ -16,7 +17,7 @@ namespace LHAL.WebAPI.Test.Integration
         {
             var request = new RestRequest(url, Method.POST);
 
-            var response = Fixtures.Client.Execute<List<Models.Team>>(request);
+            var response = Fixtures.Client.Execute<List<Team>>(request);
 
             response.StatusCode.Should().Be(HttpStatusCode.MethodNotAllowed);
         }
@@ -26,7 +27,7 @@ namespace LHAL.WebAPI.Test.Integration
         {
             var request = new RestRequest("v1/team/1000", Method.GET);
 
-            var response = Fixtures.Client.Execute<Models.Team>(request);
+            var response = Fixtures.Client.Execute<Team>(request);
 
             response.Data.Should().BeNull();
         }
@@ -38,7 +39,7 @@ namespace LHAL.WebAPI.Test.Integration
             var request = new RestRequest("v1/team/{teamID}", Method.GET);
             request.AddUrlSegment("teamID", teamID);
 
-            var response = Fixtures.Client.Execute<Models.Team>(request);
+            var response = Fixtures.Client.Execute<Team>(request);
 
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
@@ -48,7 +49,7 @@ namespace LHAL.WebAPI.Test.Integration
         {
             var request = new RestRequest("v1/team/1", Method.GET);
 
-            var response = Fixtures.Client.Execute<Models.Team>(request);
+            var response = Fixtures.Client.Execute<Team>(request);
 
             response.Data.Name.Should().Be("Team C");
         }
@@ -58,7 +59,7 @@ namespace LHAL.WebAPI.Test.Integration
         {
             var request = new RestRequest("v1/team/1/1000/players", Method.GET);
 
-            var response = Fixtures.Client.Execute<Models.Team>(request);
+            var response = Fixtures.Client.Execute<Team>(request);
 
             response.Data.Should().BeNull();
         }
@@ -70,7 +71,7 @@ namespace LHAL.WebAPI.Test.Integration
             var request = new RestRequest("v1/team/1/season/{seasonID}/players", Method.GET);
             request.AddUrlSegment("seasonID", seasonID);
 
-            var response = Fixtures.Client.Execute<Models.Team>(request);
+            var response = Fixtures.Client.Execute<Team>(request);
 
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
@@ -80,11 +81,11 @@ namespace LHAL.WebAPI.Test.Integration
         {
             var request = new RestRequest("v1/team/3/season/2/players", Method.GET);
 
-            var response = Fixtures.Client.Execute<List<Models.TeamPlayer>>(request);
+            var response = Fixtures.Client.Execute<List<TeamPlayer>>(request);
 
             response.Data.Any(x => x.Lastname == "NoMorePlaying").Should().BeTrue();
 
-            Models.TeamPlayer previousPlayer = null;
+            TeamPlayer previousPlayer = null;
             foreach (var curr in response.Data)
             {
                 if (previousPlayer != null)
@@ -109,7 +110,7 @@ namespace LHAL.WebAPI.Test.Integration
         {
             var request = new RestRequest("v1/team/3/season/3/players", Method.GET);
 
-            var response = Fixtures.Client.Execute<List<Models.TeamPlayer>>(request);
+            var response = Fixtures.Client.Execute<List<TeamPlayer>>(request);
 
             response.Data.Any(x => x.Lastname == "NoMorePlaying").Should().BeFalse();
         }

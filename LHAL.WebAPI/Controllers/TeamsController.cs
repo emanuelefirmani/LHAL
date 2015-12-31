@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Http;
 using LHAL.WebAPI.DAL;
+using LHAL.WebAPI.Models;
 
 namespace LHAL.WebAPI.Controllers
 {
@@ -16,7 +17,7 @@ namespace LHAL.WebAPI.Controllers
             _dataAccess = access;
         }
 
-        public List<Models.Team> Get()
+        public List<Team> Get()
         {
             IQueryable<Squadra> query = null;
             if (!string.IsNullOrEmpty(Request.RequestUri.Query))

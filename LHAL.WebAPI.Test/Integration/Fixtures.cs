@@ -1,10 +1,12 @@
 ﻿using System;
-using NUnit.Framework;
-using RestSharp;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Transactions;
 using Dapper;
+using LHAL.WebAPI.DAL;
+using Microsoft.Owin.Hosting;
+using NUnit.Framework;
+using RestSharp;
 
 namespace LHAL.WebAPI.Test.Integration
 {
@@ -14,30 +16,30 @@ namespace LHAL.WebAPI.Test.Integration
         private const string Address = "http://localhost:9000/";
         internal static RestClient Client { get; private set; }
 
-        [OneTimeSetUpAttribute]
+        [OneTimeSetUp]
         public void SetUp()
         {
-            Microsoft.Owin.Hosting.WebApp.Start<Startup>(Address);
+            WebApp.Start<Startup>(Address);
             Client = new RestClient(Address);
             InitDB();
         }
 
-        [OneTimeTearDownAttribute]
+        [OneTimeTearDown]
         public void TearDown()
         {
-            Database.Delete((new DAL.LHAL_AppEntities()).Database.Connection);
+            Database.Delete((new LHAL_AppEntities()).Database.Connection);
         }
 
         private void InitDB()
         {
-            Database.SetInitializer(new DropCreateDatabaseAlways<DAL.LHAL_AppEntities>());
+            Database.SetInitializer(new DropCreateDatabaseAlways<LHAL_AppEntities>());
             // Forces initialization of database on model changes. Needed in order to avoid "Login failed" error when accessing DB
-            using (var context = new DAL.LHAL_AppEntities())
+            using (var context = new LHAL_AppEntities())
             {
                 context.Database.Initialize(true);
             }
 
-            using (var conn = new SqlConnection((new DAL.LHAL_AppEntities()).Database.Connection.ConnectionString))
+            using (var conn = new SqlConnection((new LHAL_AppEntities()).Database.Connection.ConnectionString))
             {
                 conn.Execute("INSERT INTO [dbo].[Giocatore]([Nome], [Cognome], [ExTesserato]) VALUES(@name, @lastname, 0)",
                     new[] {
@@ -46,7 +48,7 @@ namespace LHAL.WebAPI.Test.Integration
                         new { lastname = "Bear", name = "Steve" },
                         new { lastname = "White", name = "Tim" },
                         new { lastname = "NoMorePlaying", name = "Player" },
-                        new { lastname = "lowerLastname", name = "Player" },
+                        new { lastname = "lowerLastname", name = "Player" }
                     }
                 );
 
@@ -77,7 +79,7 @@ namespace LHAL.WebAPI.Test.Integration
                         new { teamID = 1, seasonID = 3, playerID = 1, active = 1 },
                         new { teamID = 2, seasonID = 3, playerID = 2, active = 1 },
                         new { teamID = 3, seasonID = 3, playerID = 3, active = 1 },
-                        new { teamID = 3, seasonID = 3, playerID = 5, active = 0 },
+                        new { teamID = 3, seasonID = 3, playerID = 5, active = 0 }
                     }
                 );
             }
@@ -89,13 +91,13 @@ namespace LHAL.WebAPI.Test.Integration
     {
         private TransactionScope _transaction;
 
-        [SetUpAttribute]
+        [SetUp]
         public void TestSetUp()
         {
             _transaction = new TransactionScope();
         }
 
-        [TearDownAttribute]
+        [TearDown]
         public void TestTearDown()
         {
             _transaction.Dispose();

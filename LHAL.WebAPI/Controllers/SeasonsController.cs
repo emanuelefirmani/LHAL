@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Http;
 using LHAL.WebAPI.DAL;
+using LHAL.WebAPI.Models;
 
 namespace LHAL.WebAPI.Controllers
 {
@@ -15,7 +16,7 @@ namespace LHAL.WebAPI.Controllers
             _dataAccess = access;
         }
 
-        public List<Models.Season> Get()
+        public List<Season> Get()
         {
             return _dataAccess.GetSeasons().SelectSeasons().ToList();
         }

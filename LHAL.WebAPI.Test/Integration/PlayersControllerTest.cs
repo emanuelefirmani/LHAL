@@ -1,10 +1,11 @@
 ﻿using System;
-using RestSharp;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using FluentAssertions;
+using LHAL.WebAPI.Models;
 using NUnit.Framework;
+using RestSharp;
 
 namespace LHAL.WebAPI.Test.Integration
 {
@@ -15,7 +16,7 @@ namespace LHAL.WebAPI.Test.Integration
         {
             var request = new RestRequest("v1/players", Method.POST);
 
-            var response = Fixtures.Client.Execute<List<Models.Team>>(request);
+            var response = Fixtures.Client.Execute<List<Team>>(request);
 
             response.StatusCode.Should().Be(HttpStatusCode.MethodNotAllowed);
         }
@@ -26,7 +27,7 @@ namespace LHAL.WebAPI.Test.Integration
         {
             var request = new RestRequest("v1/players", Method.GET);
 
-            var response = Fixtures.Client.Execute<List<Models.Player>>(request);
+            var response = Fixtures.Client.Execute<List<Player>>(request);
 
             response.Data.Count.Should().BeGreaterThan(1);
             response.Data.FirstOrDefault(x => x.Name == "Tim").Should().NotBeNull();
@@ -38,7 +39,7 @@ namespace LHAL.WebAPI.Test.Integration
             var request = new RestRequest("v1/players", Method.GET);
             request.AddQueryParameter("", "tim");
 
-            var response = Fixtures.Client.Execute<List<Models.Player>>(request);
+            var response = Fixtures.Client.Execute<List<Player>>(request);
 
             response.Data.Count.Should().BeGreaterThan(1);
         }
@@ -53,7 +54,7 @@ namespace LHAL.WebAPI.Test.Integration
             var request = new RestRequest("v1/players", Method.GET);
             request.AddQueryParameter("name", name);
 
-            var response = Fixtures.Client.Execute<List<Models.Player>>(request);
+            var response = Fixtures.Client.Execute<List<Player>>(request);
 
             response.Data.Count.Should().Be(count);
         }
@@ -67,7 +68,7 @@ namespace LHAL.WebAPI.Test.Integration
             var request = new RestRequest("v1/players", Method.GET);
             request.AddQueryParameter(parameterName, "tim");
 
-            var response = Fixtures.Client.Execute<List<Models.Player>>(request);
+            var response = Fixtures.Client.Execute<List<Player>>(request);
 
             response.Data.Count.Should().Be(2);
         }
@@ -80,7 +81,7 @@ namespace LHAL.WebAPI.Test.Integration
             var request = new RestRequest("v1/players", Method.GET);
             request.AddQueryParameter("id", id.ToString());
 
-            var response = Fixtures.Client.Execute<List<Models.Player>>(request);
+            var response = Fixtures.Client.Execute<List<Player>>(request);
 
             response.Data.Single().Name.Should().Be(name);
         }
@@ -95,7 +96,7 @@ namespace LHAL.WebAPI.Test.Integration
             var request = new RestRequest("v1/players", Method.GET);
             request.AddQueryParameter("id", id);
 
-            var response = Fixtures.Client.Execute<List<Models.Player>>(request);
+            var response = Fixtures.Client.Execute<List<Player>>(request);
 
             response.Data.Should().BeNull();
         }
@@ -109,7 +110,7 @@ namespace LHAL.WebAPI.Test.Integration
             var request = new RestRequest("v1/players", Method.GET);
             request.AddQueryParameter("lastname", lastname);
 
-            var response = Fixtures.Client.Execute<List<Models.Player>>(request);
+            var response = Fixtures.Client.Execute<List<Player>>(request);
 
             response.Data.Count.Should().Be(count);
         }
@@ -125,7 +126,7 @@ namespace LHAL.WebAPI.Test.Integration
             var request = new RestRequest("v1/players", Method.GET);
             request.AddQueryParameter("initialletter", initialLetter);
 
-            var response = Fixtures.Client.Execute<List<Models.Player>>(request);
+            var response = Fixtures.Client.Execute<List<Player>>(request);
 
             response.Data.Count.Should().Be(count);
         }
@@ -137,7 +138,7 @@ namespace LHAL.WebAPI.Test.Integration
             request.AddQueryParameter("name", "tim");
             request.AddQueryParameter("lastname", "white");
 
-            var response = Fixtures.Client.Execute<List<Models.Player>>(request);
+            var response = Fixtures.Client.Execute<List<Player>>(request);
 
             response.Data.Single().Name.Should().Be("Tim");
             response.Data.Single().Lastname.Should().Be("White");
@@ -150,7 +151,7 @@ namespace LHAL.WebAPI.Test.Integration
             request.AddQueryParameter("name", "tim");
             request.AddQueryParameter("initialletter", "w");
 
-            var response = Fixtures.Client.Execute<List<Models.Player>>(request);
+            var response = Fixtures.Client.Execute<List<Player>>(request);
 
             response.Data.Single().Name.Should().Be("Tim");
             response.Data.Single().Lastname.Should().Be("White");
@@ -161,9 +162,9 @@ namespace LHAL.WebAPI.Test.Integration
         {
             var request = new RestRequest("v1/players", Method.GET);
 
-            var response = Fixtures.Client.Execute<List<Models.Player>>(request);
+            var response = Fixtures.Client.Execute<List<Player>>(request);
 
-            Models.Player previousPlayer = null;
+            Player previousPlayer = null;
             foreach (var curr in response.Data)
             {
                 if (previousPlayer != null)
@@ -190,7 +191,7 @@ namespace LHAL.WebAPI.Test.Integration
             request.AddQueryParameter("name", "tim");
             request.AddQueryParameter("initialletter", "b");// select Tim Black id: 2
 
-            var response = Fixtures.Client.Execute<List<Models.Player>>(request);
+            var response = Fixtures.Client.Execute<List<Player>>(request);
 
             response.Data.Single().Name.Should().Be("Tim");
             response.Data.Single().Lastname.Should().Be("Black");
@@ -204,7 +205,7 @@ namespace LHAL.WebAPI.Test.Integration
             var request = new RestRequest("v1/players", Method.GET);
             request.AddQueryParameter("lastname", "NoMorePlaying");
 
-            var response = Fixtures.Client.Execute<List<Models.Player>>(request);
+            var response = Fixtures.Client.Execute<List<Player>>(request);
 
             response.Data.Single().ID.Should().Be(5);
             response.Data.Single().TeamID.Should().Be(0);

@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Net;
 using FluentAssertions;
+using LHAL.WebAPI.Models;
 using NUnit.Framework;
 using RestSharp;
 
@@ -14,7 +15,7 @@ namespace LHAL.WebAPI.Test.Integration
         {
             var request = new RestRequest("v1/seasons", Method.POST);
 
-            var response = Fixtures.Client.Execute<List<Models.Team>>(request);
+            var response = Fixtures.Client.Execute<List<Team>>(request);
 
             response.StatusCode.Should().Be(HttpStatusCode.MethodNotAllowed);
         }
@@ -24,7 +25,7 @@ namespace LHAL.WebAPI.Test.Integration
         {
             var request = new RestRequest("v1/seasons", Method.GET);
 
-            var response = Fixtures.Client.Execute<List<Models.Season>>(request);
+            var response = Fixtures.Client.Execute<List<Season>>(request);
 
             response.Data.Count.Should().Be(3);
             response.Data.FirstOrDefault(x => x.ID == 1).Should().NotBeNull();
