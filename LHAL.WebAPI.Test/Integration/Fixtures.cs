@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Data.SqlClient;
-using System.Transactions;
 using Dapper;
 using LHAL.WebAPI.DAL;
 using Microsoft.Owin.Hosting;
@@ -16,7 +15,7 @@ namespace LHAL.WebAPI.Test.Integration
         private const string Address = "http://localhost:9000/";
         internal static RestClient Client { get; private set; }
 
-        [OneTimeSetUp]
+        [SetUp]
         public void SetUp()
         {
             WebApp.Start<Startup>(Address);
@@ -24,7 +23,7 @@ namespace LHAL.WebAPI.Test.Integration
             InitDB();
         }
 
-        [OneTimeTearDown]
+        [TearDown]
         public void TearDown()
         {
             Database.Delete((new LHAL_AppEntities()).Database.Connection);
@@ -83,24 +82,6 @@ namespace LHAL.WebAPI.Test.Integration
                     }
                 );
             }
-        }
-    }
-
-    [TestFixture]
-    public class TestFixtures
-    {
-        private TransactionScope _transaction;
-
-        [SetUp]
-        public void TestSetUp()
-        {
-            _transaction = new TransactionScope();
-        }
-
-        [TearDown]
-        public void TestTearDown()
-        {
-            _transaction.Dispose();
         }
     }
 }
