@@ -84,25 +84,8 @@ namespace LHAL.WebAPI.Test.Integration
             var response = Fixtures.Client.Execute<List<TeamPlayer>>(request);
 
             response.Data.Any(x => x.Lastname == "NoMorePlaying").Should().BeTrue();
-
-            TeamPlayer previousPlayer = null;
-            foreach (var curr in response.Data)
-            {
-                if (previousPlayer != null)
-                {
-                    var comparison = string.Compare(previousPlayer.Lastname, curr.Lastname, StringComparison.OrdinalIgnoreCase);
-                    if (comparison == 0)
-                    {
-                        string.Compare(previousPlayer.Name, curr.Name, StringComparison.OrdinalIgnoreCase).Should().BeLessOrEqualTo(0);
-                    }
-                    else if (comparison > 0)
-                    {
-                        Assert.Fail();
-                    }
-                }
-
-                previousPlayer = curr;
-            }
+            var orderedList = response.Data.OrderBy(x => x.Lastname).ThenBy(x => x.Name).ToList();
+            response.Data.ShouldBeEquivalentTo(orderedList, options => options.WithStrictOrdering());
         }
 
         [Test]

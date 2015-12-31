@@ -54,21 +54,8 @@ namespace LHAL.WebAPI.Test.Integration
 
             var response = Fixtures.Client.Execute<List<Team>>(request);
 
-            Team previousTeam = null;
-            foreach (var curr in response.Data)
-            {
-                if (previousTeam != null)
-                {
-                    var comparison = string.Compare(previousTeam.Name, curr.Name, StringComparison.OrdinalIgnoreCase);
-                    if (comparison >= 0)
-                    {
-                        Assert.Fail();
-                    }
-                }
-
-                previousTeam = curr;
-            }
-
+            var orderedList = response.Data.OrderBy(x => x.Name).ToList();
+            response.Data.ShouldBeEquivalentTo(orderedList, options => options.WithStrictOrdering());
         }
     }
 }

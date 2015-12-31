@@ -164,24 +164,8 @@ namespace LHAL.WebAPI.Test.Integration
 
             var response = Fixtures.Client.Execute<List<Player>>(request);
 
-            Player previousPlayer = null;
-            foreach (var curr in response.Data)
-            {
-                if (previousPlayer != null)
-                {
-                    var comparison = string.Compare(previousPlayer.Lastname, curr.Lastname, StringComparison.OrdinalIgnoreCase);
-                    if (comparison == 0)
-                    {
-                        string.Compare(previousPlayer.Name, curr.Name, StringComparison.OrdinalIgnoreCase).Should().BeLessOrEqualTo(0);
-                    }
-                    else if (comparison > 0)
-                    {
-                        Assert.Fail();
-                    }
-                }
-
-                previousPlayer = curr;
-            }
+            var orderedList = response.Data.OrderBy(x => x.Lastname).ThenBy(x => x.Name).ToList();
+            response.Data.ShouldBeEquivalentTo(orderedList, options => options.WithStrictOrdering());
         }
 
         [Test]
@@ -222,11 +206,7 @@ namespace LHAL.WebAPI.Test.Integration
             response.Data.Count.Should().BeGreaterThan(2);
             response.Data.Any(x => x == "W").Should().BeTrue();
             response.Data.Any(x => x == "B").Should().BeTrue();
-            foreach (var initial in response.Data)
-            {
-                if(initial.Length != 1)
-                    Assert.Fail();
-            }
+            response.Data.ForEach(x => x.Length.Should().Be(1));
         }
 
         [Test]
@@ -236,11 +216,7 @@ namespace LHAL.WebAPI.Test.Integration
 
             var response = Fixtures.Client.Execute<List<string>>(request);
 
-            foreach (var initial in response.Data)
-            {
-                if(initial != initial.ToUpper())
-                    Assert.Fail();
-            }
+            response.Data.ForEach(x => x.Should().Be(x.ToUpper()));
         }
 
     }
