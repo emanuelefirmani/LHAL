@@ -32,6 +32,16 @@ namespace LHAL.WebAPI.Test.Integration
             response.Data.Should().BeNull();
         }
 
+        [Test]
+        public void APISeason_ShouldReturnNullIfSeasonIDHasntRounds()
+        {
+            var request = new RestRequest("v1/season/1/rounds", Method.GET);
+
+            var response = Fixtures.Client.Execute<List<Round>>(request);
+
+            response.Data.Should().BeNull();
+        }
+
         [TestCase("abc")]
         [TestCase("")]
         public void APISeason_ShouldReturnErrorIfSeasonIDIsntValid(string seasonID)
