@@ -23,11 +23,11 @@ namespace LHAL.WebAPI.Controllers
             return _dataAccess.GetTeams().Where(x => x.ID == teamID).SelecTeams().SingleOrDefault();
         }
 
-        [Route("v1/team/{teamID:int}/season/{sessionID:int}/players")]
+        [Route("v1/team/{teamID:int}/season/{seasonID:int}/players")]
         [HttpGet]
-        public List<TeamPlayer> GetPlayers(int teamID, int sessionID)
+        public List<TeamPlayer> GetPlayers(int teamID, int seasonID)
         {
-            return _dataAccess.GetTeamPlayers(teamID, sessionID);
+            return _dataAccess.GetTeamPlayers(teamID, seasonID);
         }
     }
 }
