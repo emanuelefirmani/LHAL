@@ -28,7 +28,7 @@ namespace LHAL.WebAPI.Test.Integration
 
             var response = Fixtures.Client.Execute<List<Team>>(request);
 
-            response.Data.Count.Should().Be(3);
+            response.Data.Count.Should().BeGreaterThan(3);
             response.Data.FirstOrDefault(x => x.ID == 1).Should().NotBeNull();
             response.Data.FirstOrDefault(x => x.Name == "Team A").Should().NotBeNull();
             response.Data.FirstOrDefault(x => x.Guid == Guid.Parse("AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA")).Should().NotBeNull();

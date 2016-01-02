@@ -13,5 +13,6 @@ namespace LHAL.WebAPI.DAL
         List<TeamPlayer> GetTeamPlayers(int teamID, int seasonID);
         List<string> GetLastnameInititials();
         IQueryable<Partita> GetMatches();
+        List<Round> GetRounds(int seasonID);
     }
 }

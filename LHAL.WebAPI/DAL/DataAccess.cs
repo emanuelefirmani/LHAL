@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using LHAL.WebAPI.Models;
 
@@ -16,6 +17,16 @@ namespace LHAL.WebAPI.DAL
         public IQueryable<Partita> GetMatches()
         {
             return _context.Partita;
+        }
+
+        public List<Round> GetRounds(int seasonID)
+        {
+            var query = _context.Girone.Where(x => x.GironeStagione.Any(gr => gr.IDStagione == seasonID));
+
+            var output = query.Select(x => new Round {Name = x.Nome}).ToList();
+            if (!output.Any())
+                return null;
+            return output;
         }
 
         public IQueryable<Stagione> GetSeasons()

@@ -63,7 +63,8 @@ namespace LHAL.WebAPI.Test.Integration
                     new[] {
                         new { name = "Team C", guid = Guid.Parse("CCCCCCCC-CCCC-CCCC-CCCC-CCCCCCCCCCCC"), resp = "resp C", year = 2010, email = "emailC@nowhere.com", path = "path C" },
                         new { name = "Team A", guid = Guid.Parse("AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA"), resp = "resp A", year = 2011, email = "emailA@nowhere.com", path = "path A" },
-                        new { name = "Team B", guid = Guid.Parse("BBBBBBBB-BBBB-BBBB-BBBB-BBBBBBBBBBBB"), resp = "resp B", year = 2012, email = "emailB@nowhere.com", path = "path B" }
+                        new { name = "Team B", guid = Guid.Parse("BBBBBBBB-BBBB-BBBB-BBBB-BBBBBBBBBBBB"), resp = "resp B", year = 2012, email = "emailB@nowhere.com", path = "path B" },
+                        new { name = "Team D", guid = Guid.Parse("DDDDDDDD-DDDD-DDDD-DDDD-DDDDDDDDDDDD"), resp = "resp D", year = 2012, email = "emailD@nowhere.com", path = "path D" }
                     }
                 );
 
@@ -90,6 +91,23 @@ namespace LHAL.WebAPI.Test.Integration
                     }
                 );
 
+                conn.Execute("INSERT INTO [dbo].[Girone]([Nome]) VALUES(@name)",
+                    new[] {
+                        new { name = "Round A" },
+                        new { name = "Round B" }
+                    }
+                );
+
+                conn.Execute("INSERT INTO [dbo].[GironeStagione]([IDGirone],[IDStagione],[IDSquadra]) VALUES(@roundID, @seasonID, @teamID)",
+                    new[] {
+                        new { teamID = 1, seasonID = 2, roundID = 1 },
+                        new { teamID = 2, seasonID = 2, roundID = 2 },
+                        new { teamID = 1, seasonID = 3, roundID = 1 },
+                        new { teamID = 2, seasonID = 3, roundID = 1 },
+                        new { teamID = 3, seasonID = 3, roundID = 2 },
+                        new { teamID = 4, seasonID = 3, roundID = 2 }
+                    }
+                );
 
                 
             }
