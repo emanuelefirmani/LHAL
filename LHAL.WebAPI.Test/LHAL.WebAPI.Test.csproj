@@ -96,6 +96,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Integration\Fixtures.cs" />
+    <Compile Include="Integration\MatchesControllerTest.cs" />
     <Compile Include="Integration\PlayersControllerTest.cs" />
     <Compile Include="Integration\SeasonsControllerTest.cs" />
     <Compile Include="Integration\TeamControllerTest.cs" />

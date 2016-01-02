@@ -13,6 +13,11 @@ namespace LHAL.WebAPI.DAL
             return _context.Giocatore;
         }
 
+        public IQueryable<Partita> GetMatches()
+        {
+            return _context.Partita;
+        }
+
         public IQueryable<Stagione> GetSeasons()
         {
             return _context.Stagione;

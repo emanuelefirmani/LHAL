@@ -54,6 +54,17 @@ namespace LHAL.WebAPI.DAL
             });
         }
 
+        public static IEnumerable<Match> SelectMatches(this IQueryable<Partita> query)
+        {
+            return query.ToList().Select(match => new Match
+            {
+                ID = match.ID,
+                SeasonID = match.Stagione,
+                HomeTeamID = match.SquadraC,
+                HomeTeamName = match.Squadra.Nome
+            });
+        }
+
         public static IEnumerable<Team> SelecTeams(this IQueryable<Squadra> query)
         {
             return query.ToList().Select(team => new Team
