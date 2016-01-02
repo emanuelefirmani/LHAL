@@ -21,11 +21,21 @@ namespace LHAL.WebAPI.DAL
 
         public List<Round> GetRounds(int seasonID)
         {
-            var query = _context.Girone.Where(x => x.GironeStagione.Any(gr => gr.IDStagione == seasonID));
+            var query = _context.GironeStagione.Where(x => x.IDStagione == seasonID)
+                .Include(x => x.Girone)
+                .Include(x => x.Squadra);
 
-            var output = query.Select(x => new Round {Name = x.Nome}).ToList();
+            var output = new List<Round>();
+            foreach (var girone in query.Select(x => x.Girone).Distinct().ToList())
+            {
+                var round = new Round {Name = girone.Nome};
+                round.Teams = query.Where(x => x.IDGirone == girone.ID).Select(x => x.Squadra).SelecTeams().ToList();
+                output.Add(round);
+            }
+
             if (!output.Any())
                 return null;
+
             return output;
         }
 
