@@ -35,7 +35,7 @@ namespace LHAL.WebAPI.Controllers
                 }
             }
 
-            var output = query.SelectMatches().ToList();
+            var output = query.OrderBy(x => x.Data).SelectMatches().ToList();
             if (!output.Any())
                 return null;
             return output;

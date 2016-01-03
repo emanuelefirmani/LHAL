@@ -61,7 +61,8 @@ namespace LHAL.WebAPI.DAL
                 ID = match.ID,
                 SeasonID = match.Stagione,
                 HomeTeamID = match.SquadraC,
-                HomeTeamName = match.Squadra.Nome
+                HomeTeamName = match.Squadra.Nome,
+                Date = match.Data
             });
         }
 

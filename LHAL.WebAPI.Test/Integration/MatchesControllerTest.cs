@@ -41,5 +41,16 @@ namespace LHAL.WebAPI.Test.Integration
 
             response.Data.Should().BeNull();
         }
+
+        [Test]
+        public void APIMatches_ShouldReturnAnOrderedArrayByDate()
+        {
+            var request = new RestRequest("v1/matches", Method.GET);
+
+            var response = Fixtures.Client.Execute<List<Match>>(request);
+
+            var orderedList = response.Data.OrderBy(x => x.Date).ToList();
+            response.Data.ShouldBeEquivalentTo(orderedList, options => options.WithStrictOrdering());
+        }
     }
 }

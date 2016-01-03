@@ -85,9 +85,9 @@ namespace LHAL.WebAPI.Test.Integration
 
                 conn.Execute("INSERT INTO [dbo].[Partita]([SquadraC],[SquadraF],[Rigori],[Data],[Stagione],[SottoStagione],[PrgStagione],[UpdTMS]) VALUES(@homeTeam, @awayTeam, -1, @date, @season, 0, @number, GETDATE())",
                     new[] {
-                        new { homeTeam = 1, awayTeam = 2, date = new DateTime(2015, 11, 1, 16, 00, 00), season = 1, number = 1 },
-                        new { homeTeam = 1, awayTeam = 2, date = new DateTime(2015, 11, 1, 16, 00, 00), season = 3, number = 1 },
+                        new { homeTeam = 1, awayTeam = 2, date = new DateTime(2013, 11, 1, 16, 00, 00), season = 1, number = 1 },
                         new { homeTeam = 1, awayTeam = 3, date = new DateTime(2015, 11, 1, 17, 00, 00), season = 3, number = 2 },
+                        new { homeTeam = 1, awayTeam = 2, date = new DateTime(2015, 11, 1, 16, 00, 00), season = 3, number = 1 },
                         new { homeTeam = 2, awayTeam = 3, date = new DateTime(2015, 11, 1, 18, 00, 00), season = 3, number = 3 }
                     }
                 );
