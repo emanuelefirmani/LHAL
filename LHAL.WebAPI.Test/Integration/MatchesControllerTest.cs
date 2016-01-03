@@ -31,6 +31,7 @@ namespace LHAL.WebAPI.Test.Integration
             response.Data.Count.Should().Be(1);
         }
 
+        [Test]
         public void APIMatches_ShouldReturnNullForInvalidSeasonID()
         {
             var request = new RestRequest("v1/matches", Method.GET);
@@ -38,7 +39,7 @@ namespace LHAL.WebAPI.Test.Integration
 
             var response = Fixtures.Client.Execute<List<Match>>(request);
 
-            response.Data.Count.Should().Be(0);
+            response.Data.Should().BeNull();
         }
     }
 }

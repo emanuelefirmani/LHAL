@@ -35,7 +35,10 @@ namespace LHAL.WebAPI.Controllers
                 }
             }
 
-            return query.SelectMatches().ToList();
+            var output = query.SelectMatches().ToList();
+            if (!output.Any())
+                return null;
+            return output;
         }
     }
 }
