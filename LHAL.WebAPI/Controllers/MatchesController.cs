@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.Http;
 using LHAL.WebAPI.DAL;
 using LHAL.WebAPI.Models;
@@ -19,7 +20,22 @@ namespace LHAL.WebAPI.Controllers
 
         public List<Match> Get()
         {
-            return _dataAccess.GetMatches().SelectMatches().ToList();
+
+            var query = _dataAccess.GetMatches();
+            if (!string.IsNullOrEmpty(Request.RequestUri.Query))
+            {
+                var qs = HttpUtility.ParseQueryString(Request.RequestUri.Query);
+
+                if (qs.HasKeys())
+                {
+                    var seasonQS = qs["season"];
+                    int seasonID;
+                    if (int.TryParse(seasonQS, out seasonID))
+                        query = query.Where(x => x.Stagione == seasonID);
+                }
+            }
+
+            return query.SelectMatches().ToList();
         }
     }
 }
