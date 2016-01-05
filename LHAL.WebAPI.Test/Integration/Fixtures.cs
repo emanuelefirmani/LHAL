@@ -83,12 +83,13 @@ namespace LHAL.WebAPI.Test.Integration
                     }
                 );
 
-                conn.Execute("INSERT INTO [dbo].[Partita]([SquadraC],[SquadraF],[Rigori],[Data],[Stagione],[SottoStagione],[PrgStagione],[UpdTMS]) VALUES(@homeTeam, @awayTeam, -1, @date, @season, 0, @number, GETDATE())",
+                conn.Execute("INSERT INTO [dbo].[Partita]([SquadraC],[SquadraF],[RetiC],[RetiF],[Rigori],[Data],[Stagione],[SottoStagione],[UpdTMS],[PrgStagione],[ImgReferto])" +
+                             " VALUES(@homeTeam, @awayTeam, @homeGoals, @awayGoals, 0, @date, @season, 0, GETDATE(), @number, 'img')",
                     new[] {
-                        new { homeTeam = 1, awayTeam = 2, date = new DateTime(2013, 11, 1, 16, 00, 00), season = 1, number = 1 },
-                        new { homeTeam = 1, awayTeam = 3, date = new DateTime(2015, 11, 1, 17, 00, 00), season = 3, number = 2 },
-                        new { homeTeam = 1, awayTeam = 2, date = new DateTime(2015, 11, 1, 16, 00, 00), season = 3, number = 1 },
-                        new { homeTeam = 2, awayTeam = 3, date = new DateTime(2015, 11, 1, 18, 00, 00), season = 3, number = 3 }
+                        new { homeTeam = 1, awayTeam = 2, homeGoals = 3, awayGoals = 1, date = new DateTime(2013, 11, 1, 16, 00, 00), season = 1, number = 1 },
+                        new { homeTeam = 1, awayTeam = 3, homeGoals = 3, awayGoals = 1, date = new DateTime(2015, 11, 1, 17, 00, 00), season = 3, number = 2 },
+                        new { homeTeam = 1, awayTeam = 2, homeGoals = 3, awayGoals = 1, date = new DateTime(2015, 11, 1, 16, 00, 00), season = 3, number = 1 },
+                        new { homeTeam = 2, awayTeam = 3, homeGoals = 3, awayGoals = 1, date = new DateTime(2015, 11, 1, 18, 00, 00), season = 3, number = 3 }
                     }
                 );
 

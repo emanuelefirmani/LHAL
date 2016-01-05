@@ -62,7 +62,17 @@ namespace LHAL.WebAPI.DAL
                 SeasonID = match.Stagione,
                 HomeTeamID = match.SquadraC,
                 HomeTeamName = match.Squadra.Nome,
-                Date = match.Data
+                AwayTeamID = match.SquadraF,
+                AwayTeamName = match.Squadra1.Nome,
+                HomeGoals = match.RetiC ?? 0,
+                AwayGoals = match.RetiF ?? 0,
+                Date = match.Data,
+                ReportURL = match.ImgReferto,
+                SubSeason = match.SottoStagione == 0 ? Match.SeasonPart.Regular : Match.SeasonPart.Post,
+                Result = match.Rigori == -1 ? Match.MatchResult.NotPlayed :
+                    match.Rigori == 0 ? Match.MatchResult.Played :
+                    match.Rigori == 1 ? Match.MatchResult.HomeShootOut :
+                                        Match.MatchResult.AwayShootOut
             });
         }
 
