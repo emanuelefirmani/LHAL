@@ -17,41 +17,27 @@ namespace LHAL.WebAPI.Controllers
             _dataAccess = access;
         }
 
-        public List<Player> Get()
+        public List<Player> Get(string id = null,string name = null, string lastname = null, string initialLetter = null)
         {
-            return FilterArray(_dataAccess.GetPlayers());
-        }
+            var query = _dataAccess.GetPlayers();
 
-        private List<Player> FilterArray(IQueryable<Giocatore> query)
-        {
-            if (!string.IsNullOrEmpty(Request.RequestUri.Query))
+            if (id != null)
             {
-                var qs = HttpUtility.ParseQueryString(Request.RequestUri.Query);
-
-                foreach (var key in qs.AllKeys)
-                {
-                    var value = qs[key];
-                    switch (key.ToLower())
-                    {
-                        case "id":
-                            int id;
-                            if (!int.TryParse(value, out id))
-                                return null;
-
-                            query = query.Where(x => x.ID == id);
-                            break;
-                        case "name":
-                            query = query.Where(x => x.Nome == value);
-                            break;
-                        case "lastname":
-                            query = query.Where(x => x.Cognome == value);
-                            break;
-                        case "initialletter":
-                            query = query.Where(x => x.Cognome.StartsWith(value));
-                            break;
-                    }
-                }
+                int playerId;
+                if (int.TryParse(id, out playerId))
+                    query = query.Where(x => x.ID == playerId);
+                else
+                    return null;
             }
+
+            if (name != null)
+                query = query.Where(x => x.Nome == name);
+
+            if (lastname != null)
+                query = query.Where(x => x.Cognome == lastname);
+
+            if (initialLetter != null)
+                query = query.Where(x => x.Cognome.StartsWith(initialLetter));
 
             return query.OrderBy(x => x.Cognome).ThenBy(x => x.Nome).SelectPlayers().ToList();
         }

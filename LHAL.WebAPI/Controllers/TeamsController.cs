@@ -17,20 +17,14 @@ namespace LHAL.WebAPI.Controllers
             _dataAccess = access;
         }
 
-        public List<Team> Get()
+        public List<Team> Get(string season = null)
         {
             IQueryable<Squadra> query = null;
-            if (!string.IsNullOrEmpty(Request.RequestUri.Query))
+            if (season != null)
             {
-                var qs = HttpUtility.ParseQueryString(Request.RequestUri.Query);
-
-                if (qs.HasKeys())
-                {
-                    var seasonQS = qs["season"];
-                    int seasonID;
-                    if (int.TryParse(seasonQS, out seasonID))
-                        query = _dataAccess.GetTeams(seasonID);
-                }
+                int seasonID;
+                if (int.TryParse(season, out seasonID))
+                    query = _dataAccess.GetTeams(seasonID);
             }
             if (query == null)
                 query = _dataAccess.GetTeams();

@@ -34,14 +34,14 @@ namespace LHAL.WebAPI.Test.Integration
         }
 
         [Test]
-        public void APIPlayers_ShouldReturnArrayWhenQueryStringIsMalformed()
+        public void APIPlayers_ShouldReturnNullWhenQueryStringIsMalformed()
         {
             var request = new RestRequest("v1/players", Method.GET);
             request.AddQueryParameter("", "tim");
 
             var response = Fixtures.Client.Execute<List<Player>>(request);
 
-            response.Data.Count.Should().BeGreaterThan(1);
+            response.Data.Should().BeNull();
         }
 
         [TestCase("Tim", 2)]
@@ -86,12 +86,10 @@ namespace LHAL.WebAPI.Test.Integration
             response.Data.Single().Name.Should().Be(name);
         }
 
-        [TestCase(null)]
-        [TestCase("")]
         [TestCase("abc")]
         [TestCase("1.0")]
         [TestCase("1,0")]
-        public void APIPlayers_ShouldReturnNullForNonNumericIDs(string id)
+        public void APIPlayers_ShouldReturnNullForNonIntegerIDs(string id)
         {
             var request = new RestRequest("v1/players", Method.GET);
             request.AddQueryParameter("id", id);
