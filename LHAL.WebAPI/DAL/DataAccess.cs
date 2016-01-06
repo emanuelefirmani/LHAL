@@ -75,7 +75,7 @@ namespace LHAL.WebAPI.DAL
                 IsCaptain = x.IsCapitano,
                 IsAssistant = x.IsAssistente,
                 IsEx = x.ExTesserato,
-                Role = x.Ruolo,
+                Role = x.Ruolo == "P" ? TeamPlayer.PlayerRole.Goalie : TeamPlayer.PlayerRole.Player,
                 ShirtNumbers = ((x.NrMaglia1.HasValue ? x.NrMaglia1.Value.ToString() : "") + " " + ((x.NrMaglia2.HasValue && x.NrMaglia2 != x.NrMaglia1) ? x.NrMaglia2.Value.ToString() : "")).Trim(),
                 PlayedRSMatches = x.PartiteGiocate
 
