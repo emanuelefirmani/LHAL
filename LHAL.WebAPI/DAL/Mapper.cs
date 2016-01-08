@@ -91,5 +91,13 @@ namespace LHAL.WebAPI.DAL
                 Responsible = team.Responsabili
             });
         }
+
+        public static IEnumerable<MatchPlayerStatistics> SelecTeamsMatchPlayerStats(this IQueryable<Tabellino> query)
+        {
+            return query.Select(x => new MatchPlayerStatistics
+            {
+                ID = x.ID
+            });
+        }
     }
 }

@@ -39,6 +39,11 @@ namespace LHAL.WebAPI.DAL
             return output;
         }
 
+        public IQueryable<Tabellino> GetPlayerStats(int playerID)
+        {
+            return _context.Tabellino.Where(x => x.Rosa.IDGiocatore == playerID);
+        }
+
         public IQueryable<Stagione> GetSeasons()
         {
             return _context.Stagione;

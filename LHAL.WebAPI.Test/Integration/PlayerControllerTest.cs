@@ -1,4 +1,6 @@
-﻿using System.Net;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 using FluentAssertions;
 using LHAL.WebAPI.Models;
 using NUnit.Framework;
@@ -42,6 +44,27 @@ namespace LHAL.WebAPI.Test.Integration
             response.Data.Name.Should().Be("Tim");
             response.Data.Ex.Should().Be(true);
         }
+        
+        [Test]
+        public void APIPlayer_ShouldReturnMatchStats()
+        {
+            var request = new RestRequest("v1/player/1/matchstats", Method.GET);
 
+            var response = Fixtures.Client.Execute<List<MatchPlayerStatistics>>(request);
+
+            response.Data.First().ID.Should().Be(1);
+
+        }
+
+        [Test]
+        public void APIPlayer_ShouldReturnNullMatchStatsIfPlayerIDDoesntExist()
+        {
+            var request = new RestRequest("v1/player/1000/matchstats", Method.GET);
+
+            var response = Fixtures.Client.Execute<List<MatchPlayerStatistics>>(request);
+
+            response.Data.Should().BeNull();
+
+        }
     }
 }

@@ -111,7 +111,12 @@ namespace LHAL.WebAPI.Test.Integration
                     }
                 );
 
-                
+                conn.Execute("INSERT INTO [dbo].[Tabellino]([IDPartita],[Reti],[Assist],[Penalita],[UpdTMS],[RetiSubite],[IDRosa])" +
+                             " VALUES(@matchID, @goals, @assists, @penalties, GETDATE(), @concededGoals, @playerTeamID)",
+                    new[] {
+                        new { matchID = 1, goals = 10, assists = 20, penalties = 30, concededGoals = 40, playerTeamID = 7},
+                    }
+);
             }
         }
     }
