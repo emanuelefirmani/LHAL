@@ -14,12 +14,14 @@ namespace LHAL.WebAPI.Test.Integration
     {
         private const string Address = "http://localhost:9000/";
         internal static RestClient Client { get; private set; }
+        internal static DBWriter Writer { get; private set; }
 
         [SetUp]
         public void SetUp()
         {
             WebApp.Start<Startup>(Address);
             Client = new RestClient(Address);
+            Writer = new DBWriter();
             InitDB();
         }
 
@@ -38,6 +40,7 @@ namespace LHAL.WebAPI.Test.Integration
                 context.Database.Initialize(true);
             }
 
+            return;
             using (var conn = new SqlConnection((new LHAL_AppEntities()).Database.Connection.ConnectionString))
             {
                 conn.Execute("INSERT INTO [dbo].[Giocatore]([Nome], [Cognome], [ExTesserato]) VALUES(@name, @lastname, 0)",

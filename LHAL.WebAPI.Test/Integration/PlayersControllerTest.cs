@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using FluentAssertions;
@@ -9,14 +8,14 @@ using RestSharp;
 
 namespace LHAL.WebAPI.Test.Integration
 {
-    public class PlayersControllerTest
+    public class PlayersControllerTest : TestBase
     {
         [Test]
         public void APIPlayers_ShouldNotAcceptPOSTs()
         {
             var request = new RestRequest("v1/players", Method.POST);
 
-            var response = Fixtures.Client.Execute<List<Team>>(request);
+            var response = Fixtures.Client.Execute<List<Player>>(request);
 
             response.StatusCode.Should().Be(HttpStatusCode.MethodNotAllowed);
         }
@@ -25,17 +24,23 @@ namespace LHAL.WebAPI.Test.Integration
         [Test]
         public void APIPlayers_ShouldReturnArray()
         {
+            Fixtures.Writer
+                .WriteSeason("Foo", 0)
+                .WritePlayer("Tim", "Black").WritePlayer("John", "White");
             var request = new RestRequest("v1/players", Method.GET);
 
             var response = Fixtures.Client.Execute<List<Player>>(request);
 
-            response.Data.Count.Should().BeGreaterThan(1);
-            response.Data.FirstOrDefault(x => x.Name == "Tim").Should().NotBeNull();
+            response.Data.Count.Should().Be(2);
+            response.Data.Any(x => x.Name == "Tim").Should().BeTrue();
         }
 
         [Test]
         public void APIPlayers_ShouldReturnNullWhenQueryStringIsMalformed()
         {
+            Fixtures.Writer
+                .WriteSeason("Foo", 0)
+                .WritePlayer("Tim", "Black");
             var request = new RestRequest("v1/players", Method.GET);
             request.AddQueryParameter("", "tim");
 
@@ -51,6 +56,9 @@ namespace LHAL.WebAPI.Test.Integration
         [TestCase("Tom", 0)]
         public void APIPlayers_ShouldReturnAnArrayFilteredByName(string name, int count)
         {
+            Fixtures.Writer
+                .WriteSeason("Foo", 0)
+                .WritePlayer("Tim", "Black").WritePlayer("Tim", "White").WritePlayer("John", "Brown");
             var request = new RestRequest("v1/players", Method.GET);
             request.AddQueryParameter("name", name);
 
