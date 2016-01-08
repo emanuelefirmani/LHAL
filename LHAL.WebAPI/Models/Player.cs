@@ -8,5 +8,6 @@ namespace LHAL.WebAPI.Models
         public string Lastname { get; set; }
         public string TeamName { get; set; }
         public int TeamID { get; set; }
+        public bool Ex { get; set; }
     }
 }

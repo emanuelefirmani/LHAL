@@ -40,14 +40,14 @@ namespace LHAL.WebAPI.Test.Integration
 
             using (var conn = new SqlConnection((new LHAL_AppEntities()).Database.Connection.ConnectionString))
             {
-                conn.Execute("INSERT INTO [dbo].[Giocatore]([Nome], [Cognome], [ExTesserato]) VALUES(@name, @lastname, 0)",
+                conn.Execute("INSERT INTO [dbo].[Giocatore]([Nome], [Cognome], [ExTesserato]) VALUES(@name, @lastname, @ex)",
                     new[] {
-                        new { lastname = "Black", name = "John" },
-                        new { lastname = "Black", name = "Tim" },
-                        new { lastname = "Bear", name = "Steve" },
-                        new { lastname = "White", name = "Tim" },
-                        new { lastname = "NoMorePlaying", name = "Player" },
-                        new { lastname = "lowerLastname", name = "Player" }
+                        new { lastname = "Black", name = "John", ex = false },
+                        new { lastname = "Black", name = "Tim", ex = false },
+                        new { lastname = "Bear", name = "Steve", ex = false },
+                        new { lastname = "White", name = "Tim", ex = true },
+                        new { lastname = "NoMorePlaying", name = "Player", ex = false },
+                        new { lastname = "lowerLastname", name = "Player", ex = false }
                     }
                 );
 

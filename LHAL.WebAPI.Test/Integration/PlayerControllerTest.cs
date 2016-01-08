@@ -30,5 +30,18 @@ namespace LHAL.WebAPI.Test.Integration
 
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
+
+        [Test]
+        public void APIPlayer_ShouldReturnTim()
+        {
+            var request = new RestRequest("v1/player/4", Method.GET);
+
+            var response = Fixtures.Client.Execute<Player>(request);
+
+            response.Data.Lastname.Should().Be("White");
+            response.Data.Name.Should().Be("Tim");
+            response.Data.Ex.Should().Be(true);
+        }
+
     }
 }

@@ -29,6 +29,7 @@ namespace LHAL.WebAPI.DAL
                     x.Nome,
                     x.ID,
                     x.Cognome,
+                    x.ExTesserato,
                     CurrentTeamID = (x.Rosa.FirstOrDefault(r => r.IDStagione == CurrentSeason && r.Attivo) == null) ? 0 : x.Rosa.FirstOrDefault(r => r.IDStagione == CurrentSeason && r.Attivo).Squadra.ID,
                     CurrentTeamName = (x.Rosa.FirstOrDefault(r => r.IDStagione == CurrentSeason && r.Attivo) == null) ? null : x.Rosa.FirstOrDefault(r => r.IDStagione == CurrentSeason && r.Attivo).Squadra.Nome
                 })
@@ -40,7 +41,8 @@ namespace LHAL.WebAPI.DAL
                         Name = player.Nome,
                         Lastname = player.Cognome,
                         TeamID = player.CurrentTeamID,
-                        TeamName = player.CurrentTeamName
+                        TeamName = player.CurrentTeamName,
+                        Ex = player.ExTesserato
                     }
                 );
         }
