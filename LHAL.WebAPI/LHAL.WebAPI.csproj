@@ -183,7 +183,7 @@
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Match.cs" />
-    <Compile Include="Models\MatchPlayerStatistics.cs" />
+    <Compile Include="Models\PlayerMatchStatistics.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Models\Round.cs" />
     <Compile Include="Models\Season.cs" />

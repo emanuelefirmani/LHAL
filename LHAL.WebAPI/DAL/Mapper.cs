@@ -92,9 +92,9 @@ namespace LHAL.WebAPI.DAL
             });
         }
 
-        public static IEnumerable<MatchPlayerStatistics> SelecTeamsMatchPlayerStats(this IQueryable<Tabellino> query)
+        public static IEnumerable<PlayerMatchStatistics> SelecTeamsMatchPlayerStats(this IQueryable<Tabellino> query)
         {
-            return query.Select(x => new MatchPlayerStatistics
+            return query.Select(x => new PlayerMatchStatistics
             {
                 ID = x.ID
             });

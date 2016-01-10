@@ -1,6 +1,6 @@
 ﻿namespace LHAL.WebAPI.Models
 {
-    public class MatchPlayerStatistics
+    public class PlayerMatchStatistics
     {
         public int ID { get; set; }
     }

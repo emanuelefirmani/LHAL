@@ -46,25 +46,36 @@ namespace LHAL.WebAPI.Test.Integration
         }
         
         [Test]
-        public void APIPlayer_ShouldReturnMatchStats()
+        public void APIPlayerMatchStats_ShouldReturnArray()
         {
             var request = new RestRequest("v1/player/1/matchstats", Method.GET);
 
-            var response = Fixtures.Client.Execute<List<MatchPlayerStatistics>>(request);
+            var response = Fixtures.Client.Execute<List<PlayerMatchStatistics>>(request);
 
             response.Data.First().ID.Should().Be(1);
 
         }
 
         [Test]
-        public void APIPlayer_ShouldReturnNullMatchStatsIfPlayerIDDoesntExist()
+        public void APIPlayerMatchStats_ShouldReturnNullIfPlayerIDDoesntExist()
         {
             var request = new RestRequest("v1/player/1000/matchstats", Method.GET);
 
-            var response = Fixtures.Client.Execute<List<MatchPlayerStatistics>>(request);
+            var response = Fixtures.Client.Execute<List<PlayerMatchStatistics>>(request);
 
             response.Data.Should().BeNull();
+        }
 
+        [TestCase("abc")]
+        [TestCase("")]
+        public void APIPlayerMatchStats_ShouldReturnErrorIfPlayerIDIsntValid(string teamID)
+        {
+            var request = new RestRequest("v1/player/{playerID}/matchstats", Method.GET);
+            request.AddUrlSegment("playerID", teamID);
+
+            var response = Fixtures.Client.Execute<Player>(request);
+
+            response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
     }
 }

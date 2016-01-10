@@ -25,7 +25,7 @@ namespace LHAL.WebAPI.Controllers
 
         [Route("v1/player/{playerID:int}/matchstats")]
         [HttpGet]
-        public List<MatchPlayerStatistics> GetPlayerStats(int playerID)
+        public List<PlayerMatchStatistics> GetPlayerStats(int playerID)
         {
             var output = _dataAccess.GetPlayerStats(playerID).SelecTeamsMatchPlayerStats().ToList();
             if (!output.Any())
