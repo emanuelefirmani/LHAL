@@ -44,17 +44,6 @@ namespace LHAL.WebAPI.Test.Integration
             response.Data.Name.Should().Be("Tim");
             response.Data.Ex.Should().Be(true);
         }
-        
-        [Test]
-        public void APIPlayerMatchStats_ShouldReturnArray()
-        {
-            var request = new RestRequest("v1/player/1/matchstats", Method.GET);
-
-            var response = Fixtures.Client.Execute<List<PlayerMatchStatistics>>(request);
-
-            response.Data.First().ID.Should().Be(1);
-
-        }
 
         [Test]
         public void APIPlayerMatchStats_ShouldReturnNullIfPlayerIDDoesntExist()
@@ -76,6 +65,24 @@ namespace LHAL.WebAPI.Test.Integration
             var response = Fixtures.Client.Execute<Player>(request);
 
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
+        }
+        
+        [Test]
+        public void APIPlayerMatchStats_ShouldReturnArray()
+        {
+            var request = new RestRequest("v1/player/1/matchstats", Method.GET);
+
+            var response = Fixtures.Client.Execute<List<PlayerMatchStatistics>>(request);
+
+            var stats = response.Data.First();
+            stats.ID.Should().Be(1);
+            stats.PlayerTeamID.Should().Be(1);
+            stats.PlayerTeamName.Should().Be("Team C");
+            stats.HomeTeamID.Should().Be(1);
+            stats.HomeTeamName.Should().Be("Team C");
+            stats.AwayTeamID.Should().Be(2);
+            stats.AwayTeamName.Should().Be("Team A");
+            
         }
     }
 }

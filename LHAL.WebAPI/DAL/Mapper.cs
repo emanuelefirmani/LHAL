@@ -92,11 +92,17 @@ namespace LHAL.WebAPI.DAL
             });
         }
 
-        public static IEnumerable<PlayerMatchStatistics> SelecTeamsMatchPlayerStats(this IQueryable<Tabellino> query)
+        public static IEnumerable<PlayerMatchStatistics> SelectPlayerMatchStats(this IQueryable<Tabellino> query)
         {
             return query.Select(x => new PlayerMatchStatistics
             {
-                ID = x.ID
+                ID = x.ID,
+                AwayTeamID = x.Partita.SquadraF,
+                AwayTeamName = x.Partita.Squadra1.Nome,
+                HomeTeamID = x.Partita.SquadraC,
+                HomeTeamName = x.Partita.Squadra.Nome,
+                PlayerTeamID = x.Rosa.IDSquadra,
+                PlayerTeamName = x.Rosa.Squadra.Nome
             });
         }
     }

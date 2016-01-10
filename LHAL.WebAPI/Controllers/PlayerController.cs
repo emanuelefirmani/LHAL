@@ -27,7 +27,7 @@ namespace LHAL.WebAPI.Controllers
         [HttpGet]
         public List<PlayerMatchStatistics> GetPlayerStats(int playerID)
         {
-            var output = _dataAccess.GetPlayerStats(playerID).SelecTeamsMatchPlayerStats().ToList();
+            var output = _dataAccess.GetPlayerStats(playerID).SelectPlayerMatchStats().ToList();
             if (!output.Any())
                 return null;
             return output;
