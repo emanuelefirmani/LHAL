@@ -20,7 +20,7 @@ namespace LHAL.WebAPI.Controllers
         [HttpGet]
         public Team GetDetails(int teamID)
         {
-            return _dataAccess.GetTeams().Where(x => x.ID == teamID).SelecTeams().SingleOrDefault();
+            return _dataAccess.GetTeams().Where(x => x.ID == teamID).SelectTeams().SingleOrDefault();
         }
 
         [Route("v1/team/{teamID:int}/season/{seasonID:int}/players")]

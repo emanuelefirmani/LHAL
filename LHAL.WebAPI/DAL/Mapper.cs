@@ -78,7 +78,7 @@ namespace LHAL.WebAPI.DAL
             });
         }
 
-        public static IEnumerable<Team> SelecTeams(this IQueryable<Squadra> query)
+        public static IEnumerable<Team> SelectTeams(this IQueryable<Squadra> query)
         {
             return query.ToList().Select(team => new Team
             {

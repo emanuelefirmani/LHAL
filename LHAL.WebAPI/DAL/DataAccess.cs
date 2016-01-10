@@ -29,7 +29,7 @@ namespace LHAL.WebAPI.DAL
             foreach (var girone in query.Select(x => x.Girone).Distinct().ToList())
             {
                 var round = new Round {Name = girone.Nome};
-                round.Teams = query.Where(x => x.IDGirone == girone.ID).Select(x => x.Squadra).SelecTeams().ToList();
+                round.Teams = query.Where(x => x.IDGirone == girone.ID).Select(x => x.Squadra).SelectTeams().ToList();
                 output.Add(round);
             }
 

@@ -29,7 +29,7 @@ namespace LHAL.WebAPI.Controllers
             if (query == null)
                 query = _dataAccess.GetTeams();
 
-            return query.OrderBy(x => x.Nome).SelecTeams().ToList();
+            return query.OrderBy(x => x.Nome).SelectTeams().ToList();
         }
 
     }
