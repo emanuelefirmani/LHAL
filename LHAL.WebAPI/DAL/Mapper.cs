@@ -102,7 +102,17 @@ namespace LHAL.WebAPI.DAL
                 HomeTeamID = x.Partita.SquadraC,
                 HomeTeamName = x.Partita.Squadra.Nome,
                 PlayerTeamID = x.Rosa.IDSquadra,
-                PlayerTeamName = x.Rosa.Squadra.Nome
+                PlayerTeamName = x.Rosa.Squadra.Nome,
+                Date = x.Partita.Data,
+                SeasonID = x.Partita.Stagione,
+                SeasonDescription = x.Partita.Stagione1.Testo,
+                SubSeason = x.Partita.SottoStagione == 0 ? Match.SeasonPart.Regular : Match.SeasonPart.Post,
+                MatchResult = x.Partita.Rigori == -1 ? Match.MatchResult.NotPlayed :
+                    x.Partita.Rigori == 0 ? Match.MatchResult.Played :
+                    x.Partita.Rigori == 1 ? Match.MatchResult.HomeShootOut :
+                                            Match.MatchResult.AwayShootOut,
+                HomeGoals = x.Partita.RetiC ?? 0,
+                AwayGoals = x.Partita.RetiF ?? 0
             });
         }
     }

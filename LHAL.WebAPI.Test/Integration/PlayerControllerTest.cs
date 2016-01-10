@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using FluentAssertions;
@@ -82,7 +83,13 @@ namespace LHAL.WebAPI.Test.Integration
             stats.HomeTeamName.Should().Be("Team C");
             stats.AwayTeamID.Should().Be(2);
             stats.AwayTeamName.Should().Be("Team A");
-            
+            stats.Date.Should().Be(new DateTime(2013, 11, 1, 16, 00, 00));
+            stats.SeasonID.Should().Be(1);
+            stats.SeasonDescription.Should().Be("2013/14");
+            stats.SubSeason.Should().Be(Match.SeasonPart.Regular);
+            stats.HomeGoals.Should().Be(3);
+            stats.AwayGoals.Should().Be(1);
+            stats.MatchResult.Should().Be(Match.MatchResult.Played);
         }
     }
 }
