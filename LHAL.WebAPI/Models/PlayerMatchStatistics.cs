@@ -4,7 +4,6 @@ namespace LHAL.WebAPI.Models
 {
     public class PlayerMatchStatistics
     {
-        public int ID { get; set; }
         public int PlayerTeamID { get; set; }
         public string PlayerTeamName { get; set; }
         public int HomeTeamID { get; set; }

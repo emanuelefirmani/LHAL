@@ -76,7 +76,6 @@ namespace LHAL.WebAPI.Test.Integration
             var response = Fixtures.Client.Execute<List<PlayerMatchStatistics>>(request);
 
             var stats = response.Data.First();
-            stats.ID.Should().Be(1);
             stats.PlayerTeamID.Should().Be(1);
             stats.PlayerTeamName.Should().Be("Team C");
             stats.HomeTeamID.Should().Be(1);

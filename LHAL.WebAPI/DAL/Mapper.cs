@@ -71,10 +71,7 @@ namespace LHAL.WebAPI.DAL
                 Date = match.Data,
                 ReportURL = match.ImgReferto,
                 SubSeason = match.SottoStagione == 0 ? Match.SeasonPart.Regular : Match.SeasonPart.Post,
-                Result = match.Rigori == -1 ? Match.MatchResult.NotPlayed :
-                    match.Rigori == 0 ? Match.MatchResult.Played :
-                    match.Rigori == 1 ? Match.MatchResult.HomeShootOut :
-                                        Match.MatchResult.AwayShootOut
+                Result = GetMatchResult(match.Rigori)
             });
         }
 
@@ -94,9 +91,8 @@ namespace LHAL.WebAPI.DAL
 
         public static IEnumerable<PlayerMatchStatistics> SelectPlayerMatchStats(this IQueryable<Tabellino> query)
         {
-            return query.Select(x => new PlayerMatchStatistics
+            return query.ToList().Select(x => new PlayerMatchStatistics
             {
-                ID = x.ID,
                 AwayTeamID = x.Partita.SquadraF,
                 AwayTeamName = x.Partita.Squadra1.Nome,
                 HomeTeamID = x.Partita.SquadraC,
@@ -107,13 +103,18 @@ namespace LHAL.WebAPI.DAL
                 SeasonID = x.Partita.Stagione,
                 SeasonDescription = x.Partita.Stagione1.Testo,
                 SubSeason = x.Partita.SottoStagione == 0 ? Match.SeasonPart.Regular : Match.SeasonPart.Post,
-                MatchResult = x.Partita.Rigori == -1 ? Match.MatchResult.NotPlayed :
-                    x.Partita.Rigori == 0 ? Match.MatchResult.Played :
-                    x.Partita.Rigori == 1 ? Match.MatchResult.HomeShootOut :
-                                            Match.MatchResult.AwayShootOut,
+                MatchResult = GetMatchResult(x.Partita.Rigori),
                 HomeGoals = x.Partita.RetiC ?? 0,
                 AwayGoals = x.Partita.RetiF ?? 0
             });
+        }
+
+        private static Match.MatchResult GetMatchResult(int rigori)
+        {
+            return rigori == -1 ? Match.MatchResult.NotPlayed :
+                    rigori == 0 ? Match.MatchResult.Played :
+                    rigori == 1 ? Match.MatchResult.HomeShootOut :
+                                  Match.MatchResult.AwayShootOut;
         }
     }
 }
